@@ -1,0 +1,103 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="令和8年熊本地震 支援メンバー募集" activeKey="news">
+  <main class="py-12 md:py-20 max-w-4xl mx-auto px-4">
+    <div class="mb-8">
+      <a href="/" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150">
+        ➔ トップページに戻る
+      </a>
+    </div>
+
+    <article class="bg-white border border-slate-200 rounded-3xl p-6 md:p-12 shadow-xs space-y-8">
+      <header class="border-b border-slate-100 pb-6 space-y-4">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-md tracking-wider">
+            緊急募集
+          </span>
+          <time class="text-xs md:text-sm text-slate-500 font-bold">2026.07.28</time>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black text-slate-950 leading-tight">
+          【令和8年熊本地震 支援メンバー募集】
+        </h1>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-sm md:text-base leading-relaxed font-medium">
+        <p class="bg-slate-50 p-4 rounded-xl text-slate-600 border-l-4 border-slate-400">
+          このたびの令和8年熊本地震により被災された皆様に、心よりお見舞い申し上げます。
+        </p>
+
+        <p>
+          NSF PROJECTsでは、能登半島地震で全国の学生とともに募金活動を行った経験を活かし、令和8年熊本地震においても、学生による支援募金プロジェクトの立ち上げを進めています。
+        </p>
+
+        <p>
+          現在、全国で支援活動にご協力いただける<strong>中学生・高校生</strong>を募集しています。
+        </p>
+
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+            <span class="text-blue-600">■</span> 主な活動内容
+          </h2>
+          <ul class="list-disc list-inside space-y-2 text-slate-700">
+            <li>学校・生徒会と連携した学校募金の企画・実施</li>
+            <li>各地域での街頭募金の企画・運営</li>
+            <li>街頭募金が難しい地域での設置型募金の検討</li>
+            <li>広報・SNS・デザイン</li>
+            <li>運営・地域調整 など</li>
+          </ul>
+        </div>
+
+        <p>
+          活動はオンラインでの打ち合わせを中心に進めるため、全国どこからでも参加できます。活動経験の有無は問いません。
+        </p>
+
+        <div class="bg-blue-50/60 rounded-2xl p-6 border border-blue-100 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-blue-200/60 pb-2 flex items-center gap-2">
+            <span class="text-blue-600">■</span> 対象・参加方法
+          </h2>
+          
+          <div>
+            <span class="font-bold text-slate-900 block mb-1">【対象】</span>
+            <p>中学生・高校生</p>
+          </div>
+
+          <div>
+            <span class="font-bold text-slate-900 block mb-1">【参加方法】</span>
+            <p>
+              まずはDiscordコミュニティへご参加ください。<br />
+              最新の活動予定や説明会の日程をご案内します。
+            </p>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row gap-3">
+            <a 
+              href="mailto:jyracpr@gmail.com" 
+              class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition duration-150 shadow-xs gap-2"
+            >
+              <span>メールで問い合わせ（jyracpr@gmail.com）</span>
+            </a>
+          </div>
+        </div>
+
+        <p class="pt-2">
+          一人ではできないことも、全国の学生が力を合わせることで大きな支援につながります。
+        </p>
+        <p>
+          ご関心のある方はぜひご参加ください。<br />
+          また、学校や生徒会、ご友人への周知・ご協力もよろしくお願いいたします。
+        </p>
+      </div>
+
+      <footer class="pt-8 border-t border-slate-100 flex justify-center">
+        <a 
+          href="/" 
+          class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-8 py-3 rounded-xl transition duration-150"
+        >
+          トップページへ戻る
+        </a>
+      </footer>
+    </article>
+  </main>
+</Layout>
