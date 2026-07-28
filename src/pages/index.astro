@@ -1,5 +1,4 @@
 ---
-// src/pages/index.astro
 import Layout from "../layouts/Layout.astro";
 import NoteCard from "../components/NoteCard.astro";
 import { getLatestNoteArticles } from "../lib/notes";
@@ -9,6 +8,21 @@ const articles = await getLatestNoteArticles(3);
 ---
 
 <Layout title="ホーム" activeKey="home" showSplash>
+
+  <div class="emergency-banner">
+    <div class="emergency-inner">
+      <div class="emergency-header">
+        <span class="emergency-badge">緊急</span>
+        <span class="emergency-date">2026.07.28</span>
+      </div>
+      <div class="emergency-content">
+        <h3 class="emergency-title">【臨時】本日発生した地震への当団体の対応および活動方針について</h3>
+        <p class="emergency-text">
+          本日発生いたしました地震につきまして、当団体メンバーの安否確認および現地対応方針の協議を行っております。最新の活動情報や支援状況につきましては、順次こちらでお知らせいたします。
+        </p>
+      </div>
+    </div>
+  </div>
   <section class="relative h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
     <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-45">
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/50 to-blue-950/30"></div>
@@ -147,3 +161,72 @@ const articles = await getLatestNoteArticles(3);
     </div>
   </section>
 </Layout>
+
+<style>
+  /* ▼ 緊急お知らせ専用スタイル ▼ */
+  .emergency-banner {
+    background-color: #fff5f5;
+    border: 2px solid #e53e3e;
+    border-radius: 12px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 18px 22px;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.12);
+  }
+
+  .emergency-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .emergency-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .emergency-badge {
+    background-color: #e53e3e;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .emergency-date {
+    font-size: 13px;
+    color: #718096;
+    font-weight: 700;
+  }
+
+  .emergency-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #9b2c2c;
+    margin: 4px 0;
+    line-height: 1.4;
+  }
+
+  .emergency-text {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .emergency-banner {
+      margin: 15px;
+      padding: 14px;
+    }
+    .emergency-title {
+      font-size: 16px;
+    }
+    .emergency-text {
+      font-size: 13px;
+    }
+  }
+</style>
