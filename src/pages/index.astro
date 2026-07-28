@@ -16,10 +16,13 @@ const articles = await getLatestNoteArticles(3);
         <span class="emergency-date">2026.07.28</span>
       </div>
       <div class="emergency-content">
-        <h3 class="emergency-title">【臨時】本日発生した地震への当団体の対応および活動方針について</h3>
-        <p class="emergency-text">
-          本日発生いたしました地震につきまして、当団体メンバーの安否確認および現地対応方針の協議を行っております。最新の活動情報や支援状況につきましては、順次こちらでお知らせいたします。
-        </p>
+        <a href="/news/earthquake-notice" class="emergency-link">
+          <h3 class="emergency-title">【臨時】本日発生した地震への当団体の対応および活動方針について</h3>
+          <p class="emergency-text">
+            本日発生いたしました地震につきまして、当団体メンバーの安否確認および現地対応方針の協議を行っております。最新の活動情報や支援状況につきましては、順次こちらでお知らせいたします。
+          </p>
+          <span class="emergency-btn">詳細・最新情報を見る ➔</span>
+        </a>
       </div>
     </div>
   </div>
@@ -172,6 +175,12 @@ const articles = await getLatestNoteArticles(3);
     margin: 20px auto;
     padding: 18px 22px;
     box-shadow: 0 4px 12px rgba(229, 62, 62, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .emergency-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(229, 62, 62, 0.18);
   }
 
   .emergency-inner {
@@ -202,19 +211,36 @@ const articles = await getLatestNoteArticles(3);
     font-weight: 700;
   }
 
+  .emergency-link {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
   .emergency-title {
     font-size: 18px;
     font-weight: 800;
     color: #9b2c2c;
-    margin: 4px 0;
+    margin: 4px 0 8px 0;
     line-height: 1.4;
+  }
+
+  .emergency-link:hover .emergency-title {
+    text-decoration: underline;
   }
 
   .emergency-text {
     font-size: 14px;
     color: #4a5568;
     line-height: 1.6;
-    margin: 0;
+    margin: 0 0 10px 0;
+  }
+
+  .emergency-btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #e53e3e;
   }
 
   @media (max-width: 640px) {
