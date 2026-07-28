@@ -2,15 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="令和8年熊本地震 支援メンバー募集" activeKey="news">
+<Layout title="令和8年熊本地震 支援メンバー募集 | NSF PROJECTs" activeKey="news">
   <main class="py-12 md:py-20 max-w-4xl mx-auto px-4">
     <div class="mb-8">
-      <a href="index.astro" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150">
+      <a href="/" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150">
         ➔ トップページに戻る
       </a>
     </div>
 
-    <article class="bg-white border border-slate-200 rounded-3xl p-6 md:p-12 shadow-xs space-y-8">
+    <article class="bg-white border border-slate-200 rounded-3xl p-6 md:p-12 shadow-xs space-y-10">
       <header class="border-b border-slate-100 pb-6 space-y-4">
         <div class="flex items-center gap-3 flex-wrap">
           <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-md tracking-wider">
@@ -28,11 +28,11 @@ import Layout from "../layouts/Layout.astro";
           このたびの令和8年熊本地震により被災された皆様に、心よりお見舞い申し上げます。
         </p>
 
-        <div class="overflow-hidden rounded-2xl border border-slate-200 my-6">
+        <div class="my-6 max-w-[520px] mx-auto overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white">
           <img 
             src="/kumamoto_image.jpg" 
             alt="令和8年熊本地震 支援活動" 
-            class="w-full h-auto max-h-[400px] object-cover"
+            class="w-full h-auto object-contain block"
           />
         </div>
 
@@ -98,9 +98,44 @@ import Layout from "../layouts/Layout.astro";
         </p>
       </div>
 
+      <section class="mt-12 pt-10 border-t-2 border-slate-100 space-y-6">
+        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 space-y-6">
+          <header class="space-y-2 border-b border-slate-200 pb-4">
+            <span class="text-xs font-bold text-blue-600 tracking-wider uppercase block">STATEMENT</span>
+            <h2 class="text-lg md:text-2xl font-black text-slate-900 leading-snug">
+              令和8年熊本地震の発生を受けて
+            </h2>
+          </header>
+
+          <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal">
+            <p>
+              令和8年7月28日に発生した令和8年熊本地震により被災された皆様に対し、心よりお見舞い申し上げます。また、救助・救急・復旧活動に尽力されているすべての皆様に、深く敬意を表します。
+            </p>
+            <p>
+              NSF PROJECTsは、「まなぶ。つなぐ。そなえる。」を掲げ、全国の中高生・学生が防災や復興について学び、行動するプロジェクトです。私たちは、災害を被災地だけの出来事としてではなく、日本に暮らすすべての人が向き合うべき課題として捉えています。
+            </p>
+            <p>
+              今、私たちに求められているのは、憶測や未確認情報を拡散することなく、公的機関が発信する正確な情報に基づき、冷静に行動することです。また、この災害を契機として自身や家族の備えを見直し、防災意識を高めることは、将来の災害に備える上で重要な取組であると考えます。
+            </p>
+            <p>
+              NSF PROJECTsは被災地の状況を注視しつつ、学生だからこそできる情報発信や防災啓発、復興につながる活動を継続してまいります。さらに、必要に応じて、被災地への支援についても検討を進めてまいります。
+            </p>
+            <p>
+              被災された皆様の安全が確保され、一日も早い復旧・復興が実現することを心よりお祈り申し上げます。
+            </p>
+          </div>
+
+          <div class="pt-4 text-right border-t border-slate-200/60 text-sm md:text-base font-bold text-slate-800">
+            <p>令和8年7月29日</p>
+            <p class="mt-1 text-slate-900">NSF PROJECTs</p>
+            <p class="text-slate-900">代表 髙野 怜生</p>
+          </div>
+        </div>
+      </section>
+
       <footer class="pt-8 border-t border-slate-100 flex justify-center">
         <a 
-          href="index.astro" 
+          href="/" 
           class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-8 py-3 rounded-xl transition duration-150"
         >
           トップページへ戻る
