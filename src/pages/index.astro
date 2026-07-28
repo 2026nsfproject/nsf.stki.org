@@ -16,7 +16,7 @@ const articles = await getLatestNoteArticles(3);
         <span class="emergency-date">2026.07.28</span>
       </div>
       <div class="emergency-content">
-        <a href="/news/earthquake-notice" class="emergency-link">
+        <a href="/earthquake-notice" class="emergency-link">
           <h3 class="emergency-title">【臨時】本日発生した地震への当団体の対応および活動方針について</h3>
           <p class="emergency-text">
             本日発生いたしました地震につきまして、当団体メンバーの安否確認および現地対応方針の協議を行っております。最新の活動情報や支援状況につきましては、順次こちらでお知らせいたします。
@@ -77,7 +77,7 @@ const articles = await getLatestNoteArticles(3);
     <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
       <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">WHAT WE DO</span>
       <h2 class="text-xl md:text-3xl font-black text-slate-950 leading-tight">
-        令和６年 １月１日 １６時１０分に起こった能登半島地震。<br>
+        令和６年 １月１日 １６時１0分に起こった能登半島地震。<br>
         その被害は甚大で日本中に大きな衝撃を与えました。
       </h2>
       <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-medium text-left md:text-center">
@@ -213,46 +213,3 @@ const articles = await getLatestNoteArticles(3);
 
   .emergency-link {
     text-decoration: none;
-    display: block;
-    color: inherit;
-  }
-
-  .emergency-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: #9b2c2c;
-    margin: 4px 0 8px 0;
-    line-height: 1.4;
-  }
-
-  .emergency-link:hover .emergency-title {
-    text-decoration: underline;
-  }
-
-  .emergency-text {
-    font-size: 14px;
-    color: #4a5568;
-    line-height: 1.6;
-    margin: 0 0 10px 0;
-  }
-
-  .emergency-btn {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 800;
-    color: #e53e3e;
-  }
-
-  @media (max-width: 640px) {
-    .emergency-banner {
-      margin: 15px;
-      padding: 14px;
-    }
-    .emergency-title {
-      font-size: 16px;
-    }
-    .emergency-text {
-      font-size: 13px;
-    }
-  }
-</style>
