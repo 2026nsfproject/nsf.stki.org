@@ -5,6 +5,34 @@ import { getLatestNoteArticles } from "../lib/notes";
 
 // SSR: リクエストごとにNoteの最新記事を取得する(ビルド時固定ではない)
 const articles = await getLatestNoteArticles(3);
+
+// ▼ 追加: お知らせデータ（本来はCMSや別ファイルから取得も可能）
+const newsList = [
+  {
+    id: 1,
+    date: "2026.08.01",
+    category: "プレスリリース",
+    categoryColor: "bg-blue-100 text-blue-700",
+    title: "メディア関係者様向け「令和8年能登復興支援・学生街頭募金」の実施および取材受付について",
+    url: "/news/1",
+  },
+  {
+    id: 2,
+    date: "2026.07.25",
+    category: "活動報告",
+    categoryColor: "bg-emerald-100 text-emerald-700",
+    title: "全国の高校生メンバー100名突破！オンライン合同ミーティングを開催しました",
+    url: "/news/2",
+  },
+  {
+    id: 3,
+    date: "2026.07.15",
+    category: "お知らせ",
+    categoryColor: "bg-slate-100 text-slate-700",
+    title: "新規プロジェクト「Mamoneruプロジェクト」の特設ページを開設しました",
+    url: "/news/3",
+  },
+];
 ---
 
 <Layout title="ホーム" activeKey="home" showSplash>
@@ -126,6 +154,40 @@ const articles = await getLatestNoteArticles(3);
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news" class="py-20 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NEWS</span>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950">お知らせ</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-100 overflow-hidden mb-8">
+        {newsList.map((item) => (
+          <a href={item.url} class="p-5 md:p-6 flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 hover:bg-slate-50 transition duration-150 group">
+            <div class="flex items-center space-x-3 shrink-0">
+              <span class="text-xs md:text-sm font-semibold text-slate-400 font-mono">{item.date}</span>
+              <span class={`text-[11px] font-bold px-2.5 py-1 rounded-md ${item.categoryColor}`}>
+                {item.category}
+              </span>
+            </div>
+            <h3 class="text-sm md:text-base font-bold text-slate-800 group-hover:text-blue-600 transition duration-150 line-clamp-1 flex-grow">
+              {item.title}
+            </h3>
+            <div class="hidden md:block shrink-0 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition duration-150">
+              ➔
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/news" class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs md:text-sm px-6 py-3 rounded-xl border border-slate-200 shadow-xs transition duration-150">
+          <span>お知らせ一覧を見る ➔</span>
+        </a>
       </div>
     </div>
   </section>
