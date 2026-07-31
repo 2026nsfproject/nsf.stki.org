@@ -71,15 +71,15 @@ const newsList = [
     </div>
   </div>
 
-  <section class="relative h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+  <section class="relative h-[450px] md:h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
     <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-45">
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/50 to-blue-950/30"></div>
     <div class="relative z-10 max-w-4xl mx-auto px-4">
-      <div class="flex justify-center space-x-8 md:space-x-16 text-xl md:text-3xl font-black tracking-widest text-orange-400 mb-6 drop-shadow-md">
+      <div class="flex justify-center space-x-4 md:space-x-16 text-lg md:text-3xl font-black tracking-widest text-orange-400 mb-4 md:mb-6 drop-shadow-md">
         <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
       </div>
       
-      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg break-keep select-none">
+      <h1 class="text-2xl md:text-5xl font-black leading-tight mb-3 md:mb-4 tracking-wide drop-shadow-lg break-keep select-none">
         <span class="inline-block">能登半島の復興と学生の防災意識向上を</span>
         <br />
         <span class="inline-block">目指して</span>
@@ -91,10 +91,10 @@ const newsList = [
     </div>
   </section>
 
-  <section id="news" class="py-10 bg-slate-50 border-b border-slate-200">
+  <section id="news" class="py-8 md:py-12 bg-slate-50 border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl md:text-2xl font-black text-slate-950 flex items-center gap-2">
+      <div class="flex items-center justify-between mb-4 md:mb-6">
+        <h2 class="text-lg md:text-2xl font-black text-slate-950 flex items-center gap-2">
           <span class="text-blue-600">NEWS</span> お知らせ
         </h2>
       </div>
@@ -102,14 +102,14 @@ const newsList = [
       <div class="bg-white rounded-2xl border border-slate-200 shadow-xs divide-y divide-slate-100 overflow-hidden">
         {newsList && newsList.length > 0 ? (
           newsList.map((item) => (
-            <div class="p-4 flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 hover:bg-slate-50/80 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">
+            <div class="p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 hover:bg-slate-50/80 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">
               <div class="flex items-center space-x-3 shrink-0">
                 <span class="text-xs font-semibold text-slate-400 font-mono">{item.date}</span>
-                <span class={`text-[10px] font-bold px-2 py-0.5 rounded ${item.categoryColor}`}>
+                <span class={`text-[10px] md:text-xs font-bold px-2 py-0.5 rounded ${item.categoryColor}`}>
                   {item.category}
                 </span>
               </div>
-              <h3 class="text-sm font-bold text-slate-800 line-clamp-1 flex-grow">
+              <h3 class="text-xs md:text-sm font-bold text-slate-800 leading-snug flex-grow">
                 {item.title}
               </h3>
             </div>
@@ -121,7 +121,7 @@ const newsList = [
     </div>
   </section>
 
-  <section class="py-20 max-w-4xl mx-auto px-4 text-center">
+  <section class="py-16 md:py-20 max-w-4xl mx-auto px-4 text-center">
     <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">OUR GOAL</span>
     <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震災前の当たり前を取り戻す。</h2>
     <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
@@ -148,11 +148,11 @@ const newsList = [
     </div>
   </section>
 
-  <section class="py-20 bg-slate-100 border-t border-b border-slate-200">
+  <section class="py-16 md:py-20 bg-slate-100 border-t border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
       <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">WHAT WE DO</span>
       <h2 class="text-xl md:text-3xl font-black text-slate-950 leading-tight">
-        令和６年 １月１日 １６時１０分に起こった能登半島地震。<br>
+        令和６年 １月１日 １６時１０分に起こった能登半島地震。<br class="hidden md:inline">
         その被害は甚大で日本中に大きな衝撃を与えました。
       </h2>
       <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-medium text-left md:text-center">
@@ -161,15 +161,15 @@ const newsList = [
     </div>
   </section>
 
-  <section class="py-20 max-w-5xl mx-auto px-4 space-y-12">
+  <section class="py-16 md:py-20 max-w-5xl mx-auto px-4 space-y-12">
     <div class="text-center">
       <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">VISION</span>
       <h2 class="text-2xl md:text-3xl font-black text-slate-950">私たちの未来の展望</h2>
     </div>
 
-    <div class="space-y-12">
+    <div class="space-y-8 md:space-y-12">
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-        <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <div class="w-full md:w-72 h-64 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
           <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
@@ -186,7 +186,7 @@ const newsList = [
       </div>
 
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-        <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <div class="w-full md:w-72 h-64 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
           <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
@@ -204,7 +204,7 @@ const newsList = [
     </div>
   </section>
 
-  <section id="note" class="py-20 border-t border-slate-200 bg-white">
+  <section id="note" class="py-16 md:py-20 border-t border-slate-200 bg-white">
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
