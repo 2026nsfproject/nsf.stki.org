@@ -2,131 +2,117 @@
 // src/pages/about.astro
 import Layout from "../layouts/Layout.astro";
 
-// 幹部メンバーの定義 (画像がない状態でもアイコンで表示)
+// 幹部メンバーの定義（画像がない場合はアイコンに切り替わります）
 const executives = [
   {
     role: "副代表",
-    name: "（氏名を記入してください）",
-    message: "全国の中高生と繋がり、能登の復興を加速させます。",
-    icon: "fa-solid fa-user-group"
+    name: "氏名が入ります",
+    message: "能登の未来を拓くため、全国の仲間と全力で併走します。",
+    img: "/p_logo/exec1.png" 
   },
   {
     role: "副代表",
-    name: "（氏名を記入してください）",
-    message: "学生の視点から、新しい防災の形を提案していきます。",
-    icon: "fa-solid fa-lightbulb"
+    name: "氏名が入ります",
+    message: "学生だからこそできる、新しい支援のカタチを追求します。",
+    img: "/p_logo/exec2.png"
   },
   {
     role: "事務局長",
-    name: "（氏名を記入してください）",
-    message: "組織を支え、持続可能なボランティアの基盤を築きます。",
-    icon: "fa-solid fa-file-signature"
+    name: "氏名が入ります",
+    message: "組織の基盤を支え、メンバーが輝ける環境をつくります。",
+    img: "/p_logo/exec3.png"
   },
   {
     role: "プロジェクト統括",
-    name: "（氏名を記入してください）",
-    message: "日本各地で実施するプロジェクトを強力にサポートします。",
-    icon: "fa-solid fa-rocket"
+    name: "氏名が入ります",
+    message: "各プロジェクトの熱量を最大化し、確かな成果へ繋げます。",
+    img: "/p_logo/exec4.png"
   },
   {
     role: "広報統括",
-    name: "（氏名を記入してください）",
-    message: "能登の魅力と活動の熱量を、世界中へ発信します。",
-    icon: "fa-solid fa-bullhorn"
+    name: "氏名が入ります",
+    message: "能登の「今」と私たちの想いを、正しく、広く届けます。",
+    img: "/p_logo/exec5.png"
   },
 ];
 ---
 
-<Layout title="ABOUT - NSFについて" activeKey="about">
-  <div class="py-16 max-w-5xl mx-auto px-4 space-y-24">
+<Layout title="ABOUT - わたしたちについて" activeKey="about">
+  <div class="py-16 max-w-4xl mx-auto px-4 space-y-16">
     
-    <section class="space-y-12">
-      <div class="text-center space-y-4">
-        <span class="text-xs font-bold text-blue-600 tracking-[0.2em] block uppercase">MESSAGE FROM LEADER</span>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-950">代表あいさつ</h2>
+    <section class="text-center space-y-6">
+      <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">OUR GOAL</span>
+      <h2 class="text-2xl md:text-4xl font-black text-slate-950">震災前の当たり前を取り戻す。</h2>
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+        全国の学生で被災地を支援することで、同じ目線での支援を提供します。
+      </p>
+    </section>
+
+    <section class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm flex items-center justify-center text-slate-400 relative">
+        <img 
+          src="/p_logo/representative.png" 
+          alt="NSF 代表" 
+          class="w-full h-full object-cover absolute inset-0 z-10"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hidden flex-col items-center justify-center p-4 text-center space-y-2">
+          <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          <span class="text-xs font-bold text-slate-400">NSF 6期代表 高野 怜生</span>
+        </div>
       </div>
-
-      <div class="bg-white rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
-        <div class="flex flex-col lg:flex-row">
-          <div class="w-full lg:w-2/5 h-[400px] lg:h-auto bg-slate-100 relative flex items-center justify-center">
-            <img 
-              src="/p_logo/representative.png" 
-              alt="NSF 代表 高野 怜生" 
-              class="w-full h-full object-cover absolute inset-0 z-10"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            />
-            <div class="flex flex-col items-center justify-center p-8 text-center space-y-4">
-              <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-300">
-                <i class="fa-solid fa-user-tie text-5xl"></i>
-              </div>
-              <p class="text-xs font-bold text-slate-400">NSF 第6期代表<br>高野 怜生</p>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/60 to-transparent p-8 lg:hidden z-20">
-                <p class="text-white text-xs font-bold opacity-80 uppercase tracking-widest">Representative</p>
-                <h3 class="text-white text-2xl font-black">高野 怜生</h3>
-            </div>
-          </div>
-
-          <div class="w-full lg:w-3/5 p-8 md:p-12 space-y-8 flex flex-col justify-center">
-            <div class="space-y-4">
-              <p class="text-[10px] font-bold text-red-700 tracking-[0.2em] uppercase border-b border-red-100 w-fit pb-1">Vision</p>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-[1.4] tracking-tight break-keep">
-                <span class="inline-block">― 中高生の発想で、</span><br class="sm:hidden" />
-                <span class="inline-block">防災の『あたりまえ』を</span><br class="hidden sm:inline" />
-                <span class="inline-block">塗り替える ―</span>
-              </h3>
-            </div>
-
-            <div class="space-y-4 text-slate-600 text-sm md:text-base leading-relaxed font-medium">
-              <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
-              <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
-              <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
-            </div>
-
-            <div class="pt-8 border-t border-slate-100 flex items-center justify-between">
-              <div class="hidden lg:block">
-                <p class="text-xs font-bold text-slate-400">NSF 第6期代表</p>
-                <p class="text-2xl font-black text-slate-900 tracking-tighter mt-1">高野 怜生 <span class="text-xs font-normal text-slate-400 ml-2">Leo Takano</span></p>
-              </div>
-              <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 opacity-50">
-                <i class="fa-solid fa-landmark text-slate-300 text-xl"></i>
-              </div>
-            </div>
-          </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">代表メッセージ</h3>
+        <p class="text-xs font-bold text-slate-400 block tracking-wider uppercase">Message from the Leader</p>
+        
+        <p class="text-lg md:text-2xl font-black text-red-700 leading-tight tracking-wide border-l-4 border-red-700 pl-4 py-0.5 text-left break-keep">
+          <span class="inline-block">― 中高生の発想で、</span><br class="sm:hidden" />
+          <span class="inline-block">防災の『あたりまえ』を</span><br class="hidden sm:inline" />
+          <span class="inline-block">塗り替える ―</span>
+        </p>
+        
+        <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 font-medium tracking-wide text-left">
+          <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
+          <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
+          <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
+          <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
+        </div>
+        <div class="pt-4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+          <span class="text-sm font-bold text-slate-500 tracking-wide">NSF PROJECTs 6期代表</span>
+          <span class="text-xl md:text-2xl font-black text-slate-900 tracking-wider">高野 怜生</span>
         </div>
       </div>
     </section>
 
-    <section class="space-y-12 bg-slate-50/70 py-20 -mx-4 px-4 md:rounded-[4rem] border-y border-slate-200/50 shadow-inner">
-      <div class="text-center space-y-4">
-        <span class="text-xs font-bold text-blue-600 tracking-[0.3em] block uppercase">EXECUTIVES</span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-950 tracking-tight">NSF 幹部紹介</h2>
-        <p class="text-slate-500 text-sm font-medium">全国100名以上のメンバーを代表する5名の幹部チームです。</p>
+    <section class="space-y-8">
+      <div class="flex items-center space-x-3">
+        <span class="w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
+        <h2 class="text-2xl font-black text-slate-950">幹部メンバー紹介</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto px-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {executives.map((member) => (
-          <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center space-y-5 group">
-            <div class="w-24 h-24 rounded-3xl bg-slate-50 overflow-hidden border-2 border-slate-100 flex items-center justify-center relative shadow-inner">
-               <img 
-                src={`/p_logo/exec_${member.role}.png`} 
+          <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center space-y-4">
+            <div class="w-24 h-24 rounded-2xl bg-slate-100 overflow-hidden border-2 border-slate-200 flex-shrink-0 flex items-center justify-center text-slate-300 relative">
+              <img 
+                src={member.img} 
                 alt={member.name} 
                 class="w-full h-full object-cover absolute inset-0 z-10"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
               />
-              <div class="flex items-center justify-center text-blue-200 group-hover:text-blue-400 transition-colors">
-                <i class={`${member.icon} text-4xl`}></i>
-              </div>
+              <svg class="w-10 h-10 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
             </div>
-            
-            <div class="space-y-2">
-              <span class="text-[9px] font-black bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full uppercase tracking-[0.1em]">
+            <div class="space-y-1">
+              <span class="text-[10px] font-black bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-widest">
                 {member.role}
               </span>
-              <h4 class="text-xl font-black text-slate-900 pt-1 tracking-tight">{member.name}</h4>
+              <h4 class="text-base font-black text-slate-900 pt-1">{member.name}</h4>
             </div>
-            
-            <p class="text-xs text-slate-500 leading-relaxed font-medium italic border-t border-slate-50 pt-4 px-2">
+            <p class="text-xs text-slate-500 leading-relaxed font-medium italic">
               「{member.message}」
             </p>
           </div>
@@ -134,63 +120,52 @@ const executives = [
       </div>
     </section>
 
-    <section class="space-y-12">
-      <div class="flex items-center space-x-4">
-        <span class="w-12 h-1.5 bg-blue-600 inline-block rounded-full"></span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-950 tracking-tight">応援メッセージ</h2>
+    <section class="space-y-10">
+      <div class="flex items-center space-x-3">
+        <span class="w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
+        <h2 class="text-2xl font-black text-slate-950">応援メッセージ</h2>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex flex-col space-y-8 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50/30 rounded-full -translate-y-1/2 translate-x-1/2 -z-10"></div>
-          <div class="flex items-center space-x-5">
-            <div class="w-20 h-20 bg-slate-100 rounded-full flex-shrink-0 overflow-hidden border-2 border-white shadow-sm relative flex items-center justify-center">
-              <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover z-10" onerror="this.style.display='none';">
-              <i class="fa-solid fa-user text-slate-300 text-3xl"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="avatar-box w-24 h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+              <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
-              <p class="text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase mb-1">Supporter</p>
-              <h3 class="font-black text-slate-950 text-lg italic leading-tight">坂井 学 <span class="text-xs font-normal text-slate-500 block mt-1">氏（前 内閣府特命担当大臣）</span></h3>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">防災特命大臣<br class="sm:hidden"> 坂井学 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-sm md:text-base leading-relaxed italic relative font-medium pl-6">
-            <span class="text-6xl text-blue-100 absolute -top-4 -left-2 font-serif opacity-70">“</span>
-            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵です。自分らしいリーダーシップを育んでください。
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-4 py-1 font-medium flex-grow">
+            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex flex-col space-y-8 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-red-50/30 rounded-full -translate-y-1/2 translate-x-1/2 -z-10"></div>
-          <div class="flex items-center space-x-5">
-            <div class="w-20 h-20 bg-slate-100 rounded-full flex-shrink-0 overflow-hidden border-2 border-white shadow-sm relative flex items-center justify-center">
-              <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover z-10" onerror="this.style.display='none';">
-              <i class="fa-solid fa-user text-slate-300 text-3xl"></i>
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="avatar-box w-24 h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+              <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
-              <p class="text-[10px] font-bold text-red-600 tracking-[0.2em] uppercase mb-1">Supporter</p>
-              <h3 class="font-black text-slate-950 text-lg italic leading-tight">馳 浩 <span class="text-xs font-normal text-slate-500 block mt-1">氏（石川県知事）</span></h3>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">石川県知事<br class="sm:hidden"> 馳浩 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-sm md:text-base leading-relaxed italic relative font-medium pl-6">
-            <span class="text-6xl text-red-100 absolute -top-4 -left-2 font-serif opacity-70">“</span>
-            募金活動や能登の魅力を全国に発信する活動は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-4 py-1 font-medium flex-grow">
+            能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
           </p>
         </div>
       </div>
-      <p class="text-slate-400 text-center font-bold italic text-[10px]">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
+      <p class="text-slate-400 text-center mt-2 font-bold italic text-xs">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
     </section>
 
-    <section class="max-w-4xl mx-auto bg-gradient-to-br from-blue-50/50 to-white p-10 rounded-[3.5rem] border border-blue-100/50 shadow-sm flex flex-col md:flex-row items-center gap-12">
-      <div class="w-36 h-36 bg-white p-4 rounded-3xl shadow-sm border border-blue-50 shrink-0">
-        <img src="/IMG_1413.jpg" alt="えぬくま" class="w-full h-full object-contain">
-      </div>
-      <div class="text-center md:text-left space-y-3">
-        <div class="flex flex-col md:flex-row md:items-baseline gap-2">
-            <h4 class="font-black text-blue-600 text-xl tracking-tight">えぬくま</h4>
-            <span class="text-slate-400 font-bold text-xs uppercase tracking-widest">Enukuma / Official Mascot</span>
-        </div>
-        <p class="text-slate-600 text-sm leading-relaxed max-w-lg font-medium">
-          ヘルメットと学生服を身にまとり、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
+    <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
+      <img src="/IMG_1413.jpg" alt="えぬくま" class="w-24 h-24 object-contain">
+      <div class="text-center sm:text-left">
+        <h4 class="font-black text-blue-600 text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
+        <p class="text-slate-600 text-sm leading-relaxed max-w-md font-medium">
+          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとり、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
         </p>
       </div>
     </section>
@@ -199,12 +174,9 @@ const executives = [
 </Layout>
 
 <style>
-  /* 単語の途中で不自然に改行させない（切れ味を良くする） */
+  /* 単語の途中での不自然な改行を防ぐスタイル */
   .break-keep {
     word-break: keep-all;
     overflow-wrap: anywhere;
   }
-
-  /* フォント読み込み（FontAwesome） */
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 </style>
