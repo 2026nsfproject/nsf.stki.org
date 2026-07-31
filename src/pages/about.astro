@@ -2,7 +2,7 @@
 // src/pages/about.astro
 import Layout from "../layouts/Layout.astro";
 
-// 幹部メンバーの定義
+// 幹部メンバーの定義（「全体会議副議長」を追加）
 const executives = [
   {
     role: "副代表",
@@ -27,6 +27,12 @@ const executives = [
     name: "氏名が入ります",
     message: "各プロジェクトの熱量を最大化し、確かな成果へ繋げます。",
     img: "/p_logo/exec4.png"
+  },
+  {
+    role: "全体会議副議長",
+    name: "氏名が入ります",
+    message: "議長を支え、会議体のスムーズな運営と対話を促進します。",
+    img: "/p_logo/exec6.png"
   },
   {
     role: "PL会議議長",
@@ -180,7 +186,6 @@ const executives = [
 </Layout>
 
 <style>
-  /* どんな画面幅でも必ず1行に収まり、カードからはみ出さないフォントサイズ可変指定 */
   .text-one-line {
     font-size: clamp(0.75rem, 2.8vw, 1.35rem);
     line-height: 1.4;
