@@ -8,37 +8,44 @@ const executives = [
     role: "副代表",
     name: "陈 宥銘",
     message: "僕は大抵インスタ用の投稿画像とかこのような広報資料を作成してる人です。ヨルシカとギターが好きです。",
-    img: "/p_logo/chin.jpg" 
+    img: "/p_logo/chin.jpg",
+    imageClass: ""
   },
   {
     role: "副代表",
     name: "神田 ふう",
     message: "災害を自分事に。熊本地震が発生し、他の場所でも地震が起こっている今、防災の大切さを幅広い世代の方々に知っていただけるように頑張って活動します。少しでも防災に興味をもってもらえたら嬉しいです。",
-    img: "/p_logo/kanda.jpg"
+    img: "/p_logo/kanda.jpg",
+    imageClass: ""
   },
   {
     role: "副代表",
     name: "氏名が入ります",
     message: "組織の基盤を支え、メンバーが輝ける環境をつくります。",
-    img: "/p_logo/exec3.png"
+    img: "/p_logo/exec3.png",
+    imageClass: ""
   },
   {
     role: "全体会議議長",
     name: "高江洲 義心",
     message: "皆さんのためになる学びの場や楽しめるイベントを外部から講師を招いたりして企画していきます。よろしくお願いします！",
-    img: "/p_logo/takaesu.JPG"
+    img: "/p_logo/takaesu.JPG",
+    // 枠内で画像が小さく見えるため、scaleで拡大調整（必要に応じて scale-125 や scale-150 に調整可能）
+    imageClass: "scale-135 object-top" 
   },
   {
     role: "全体会議副議長",
     name: "氏名が入ります",
     message: "議長を支え、会議体のスムーズな運営と対話を促進します。",
-    img: "/p_logo/exec5.png"
+    img: "/p_logo/exec5.png",
+    imageClass: ""
   },
   {
     role: "PL会議議長",
     name: "金田 大和",
     message: "高校2年生です。私はメンバー全員が挑戦を続けられるように頑張ってます。話すことが好きなので話かけてください♪",
-    img: "/p_logo/kaneda.jpg"
+    img: "/p_logo/kaneda.jpg",
+    imageClass: ""
   },
 ];
 ---
@@ -114,7 +121,7 @@ const executives = [
               <img 
                 src={member.img} 
                 alt={member.name} 
-                class="w-full h-full object-cover z-10 relative"
+                class={`w-full h-full object-cover z-10 relative transition-transform duration-300 ${member.imageClass || ''}`}
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
               />
               <svg class="w-12 h-12 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
