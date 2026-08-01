@@ -30,7 +30,6 @@ const executives = [
     name: "高江洲 義心",
     message: "皆さんのためになる学びの場や楽しめるイベントを外部から講師を招いたりして企画していきます。よろしくお願いします！",
     img: "/p_logo/takaesu.JPG",
-    // 遠めの写真なので、顔周りに2倍ズームして表示位置を上に調整
     style: "object-cover scale-[1.8] origin-[50%_35%]" 
   },
   {
@@ -145,4 +144,59 @@ const executives = [
     <section class="space-y-8 md:space-y-10">
       <div class="flex items-center space-x-3">
         <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
-        <h2 class="text-xl md:text-2xl font-black text-slate-950">応援メッセージ
+        <h2 class="text-xl md:text-2xl font-black text-slate-950">応援メッセージ</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="bg-white p-5 md:p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="avatar-box w-20 h-20 md:w-24 md:h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+              <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </div>
+            <div>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">防災特命大臣<br class="sm:hidden"> 坂井学 氏</h3>
+            </div>
+          </div>
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
+            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
+          </p>
+        </div>
+
+        <div class="bg-white p-5 md:p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="avatar-box w-20 h-20 md:w-24 md:h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+              <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </div>
+            <div>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">石川県知事<br class="sm:hidden"> 馳浩 氏</h3>
+            </div>
+          </div>
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
+            能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
+          </p>
+        </div>
+      </div>
+      <p class="text-slate-400 text-center font-bold italic text-[11px] md:text-xs">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
+    </section>
+
+    <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100">
+      <img src="/IMG_1413.jpg" alt="えぬくま" class="w-20 h-20 md:w-24 md:h-24 object-contain">
+      <div class="text-center sm:text-left">
+        <h4 class="font-black text-blue-600 text-xs md:text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed max-w-md font-medium">
+          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとり、全国500名以上の中高生メンバーと一緒に、能登の未来を毎日応援しています！
+        </p>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  .text-one-line {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    line-height: 1.4;
+  }
+</style>
