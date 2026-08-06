@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import NoteCard from "../components/NoteCard.astro";
 import { getLatestNoteArticles } from "../lib/notes";
 
-// ▼ Note記事の安全な取得（通信エラー時もページが落ちないように処理）
 let articles = [];
 try {
   articles = await getLatestNoteArticles(3);
@@ -11,7 +10,6 @@ try {
   console.error("Noteの取得に失敗しました:", e);
 }
 
-// ▼ NEWS（お知らせ）のデータ定義（最新順）
 const newsList = [
   {
     id: 1,
@@ -34,169 +32,143 @@ const newsList = [
     categoryColor: "bg-blue-100 text-blue-700",
     title: "内閣府共催「全国高校生未来会議」を開催",
   },
-  {
-    id: 4,
-    date: "2025.12.21",
-    category: "実績",
-    categoryColor: "bg-emerald-100 text-emerald-700",
-    title: "メンバー400人突破",
-  },
-  {
-    id: 5,
-    date: "2025.11.02",
-    category: "実績",
-    categoryColor: "bg-emerald-100 text-emerald-700",
-    title: "メンバー300人突破",
-  },
 ];
 ---
 
 <Layout title="ホーム" activeKey="home" showSplash>
 
-  <div class="emergency-banner">
-    <div class="emergency-inner">
-      <div class="emergency-header">
-        <span class="emergency-badge">緊急</span>
-        <span class="emergency-date">2026.07.28</span>
-      </div>
-      <div class="emergency-content">
-        <a href="/earthquake-notice" class="emergency-link">
-          <h3 class="emergency-title">【臨時】本日発生した地震への当団体の対応および活動方針について</h3>
-          <p class="emergency-text">
-            本日発生いたしました地震につきまして、現地対応方針の協議を行っております。最新の活動情報や支援状況につきましては、順次こちらでお知らせいたします。
-          </p>
-          <span class="emergency-btn">詳細・最新情報を見る ➔</span>
+  <!-- ▼ 【ファーストビュー強化】ヒーローセクション内に緊急バナーとメインコピーを集約 -->
+  <section class="relative min-h-[85vh] flex flex-col justify-between bg-slate-950 text-white overflow-hidden pt-6 pb-12">
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-slate-900/60 to-blue-950/40"></div>
+
+    <!-- 上部：緊急バナーをファーストビュー内に内包して見逃し防止 -->
+    <div class="relative z-10 max-w-3xl mx-auto px-4 w-full mb-6">
+      <div class="emergency-banner-compact">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="bg-red-600 text-white text-[11px] font-extrabold px-2 py-0.5 rounded">緊急</span>
+          <span class="text-xs text-slate-300 font-mono">2026.07.28</span>
+        </div>
+        <a href="/earthquake-notice" class="group block">
+          <h3 class="text-sm md:text-base font-bold text-red-200 group-hover:underline leading-snug">
+            【臨時】本日発生した地震への当団体の対応および活動方針について ➔
+          </h3>
         </a>
       </div>
     </div>
-  </div>
 
-  <section class="relative h-[450px] md:h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
-    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-45">
-    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/50 to-blue-950/30"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4">
-      <div class="flex justify-center space-x-4 md:space-x-16 text-lg md:text-3xl font-black tracking-widest text-orange-400 mb-4 md:mb-6 drop-shadow-md">
+    <!-- 中央：メインメッセージ & アクション誘導 -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center my-auto">
+      <div class="flex justify-center space-x-3 md:space-x-8 text-base md:text-2xl font-black tracking-widest text-orange-400 mb-4 drop-shadow-md">
         <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
       </div>
       
-      <h1 class="text-2xl md:text-5xl font-black leading-tight mb-3 md:mb-4 tracking-wide drop-shadow-lg break-keep select-none">
-        <span class="inline-block">能登半島の復興と学生の防災意識向上を</span>
-        <br />
-        <span class="inline-block">目指して</span>
+      <h1 class="text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
+        <span>能登半島の復興と学生の</span><br class="hidden sm:inline">
+        <span>防災意識向上を目指して</span>
       </h1>
       
-      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90">
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90 mb-8">
         全国の中高生が手を取り合い、未来のための防災アクションを起こすプロジェクト
       </p>
+
+      <!-- ユーザーの目的に合わせたWボタン（参加したい人・詳しく知りたい人） -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="/about" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-8 py-3 rounded-xl shadow-lg transition duration-200">
+          わたしたちについて知る
+        </a>
+        <a href="/projects" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm px-8 py-3 rounded-xl backdrop-blur-sm transition duration-200">
+          プロジェクト一覧 ➔
+        </a>
+      </div>
+    </div>
+
+    <!-- 下部へのスクロール誘導などがあればここに追加可能 -->
+  </section>
+
+  <!-- ▼ NEWS（お知らせ）※最新3件に絞ってコンパクトに -->
+  <section class="py-6 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-100 px-2.5 py-1 rounded-md">NEWS</span>
+        <h2 class="text-xs font-bold text-slate-500">お知らせ・実績</h2>
+      </div>
+      <div class="w-full sm:w-auto flex-grow max-w-xl">
+        {newsList.slice(0, 2).map((item) => (
+          <div class="text-xs md:text-sm font-bold text-slate-800 truncate py-1">
+            <span class="text-slate-400 font-mono mr-2">{item.date}</span>
+            <span>{item.title}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section id="news" class="py-8 md:py-12 bg-slate-50 border-b border-slate-200">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="flex items-center justify-between mb-4 md:mb-6">
-        <h2 class="text-lg md:text-2xl font-black text-slate-950 flex items-center gap-2">
-          <span class="text-blue-600">NEWS</span> お知らせ
-        </h2>
-      </div>
-
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs divide-y divide-slate-100 overflow-hidden">
-        {newsList && newsList.length > 0 ? (
-          newsList.map((item) => (
-            <div class="p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 hover:bg-slate-50/80 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">
-              <div class="flex items-center space-x-3 shrink-0">
-                <span class="text-xs font-semibold text-slate-400 font-mono">{item.date}</span>
-                <span class={`text-[10px] md:text-xs font-bold px-2 py-0.5 rounded ${item.categoryColor}`}>
-                  {item.category}
-                </span>
-              </div>
-              <h3 class="text-xs md:text-sm font-bold text-slate-800 leading-snug flex-grow">
-                {item.title}
-              </h3>
-            </div>
-          ))
-        ) : (
-          <p class="p-4 text-xs text-slate-500 text-center">現在お知らせはありません。</p>
-        )}
-      </div>
-    </div>
-  </section>
-
+  <!-- ▼ OUR GOAL & WHAT WE DO を統合してすっきり配置 -->
   <section class="py-16 md:py-20 max-w-4xl mx-auto px-4 text-center">
-    <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">OUR GOAL</span>
-    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震災前の当たり前を取り戻す。</h2>
-    <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
-      全国の学生で被災地を支援することで、同じ目線での支援を提供します。
+    <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">WHAT WE DO</span>
+    <h2 class="text-xl md:text-3xl font-black text-slate-950 mb-6 leading-snug">
+      震災前の当たり前を取り戻す。<br>
+      全国の学生による直向きな支援。
+    </h2>
+    <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+      令和6年能登半島地震の甚大な被害を受け、全国の中高生が同じ目線での支援活動を実施。さらに、災害大国日本に生きる私たち自身の防災意識を高めるため、SNSを通じた情報発信も行っています。
     </p>
-    <div class="flex justify-center">
-      <a href="/about" class="inline-flex items-center justify-center space-x-2 bg-blue-50 hover:bg-blue-100 text-blue-600 font-black text-sm md:text-base px-6 py-3 rounded-xl transition duration-200 group border border-blue-200/60 shadow-xs">
-        <span>わたしたちについて詳しく知る</span>
-        <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-        </svg>
-      </a>
-    </div>
   </section>
 
+  <!-- ▼ 活動の様子（グリッドでスタイリッシュに） -->
   <section class="pb-16 max-w-5xl mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-video md:aspect-[4/3]">
-        <img src="/unnamed.jpg" alt="活動の様子 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
+        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
       </div>
-      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-video md:aspect-[4/3]">
-        <img src="/unnamed (1).jpg" alt="活動の様子 2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
+        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
       </div>
     </div>
   </section>
 
-  <section class="py-16 md:py-20 bg-slate-100 border-t border-b border-slate-200">
-    <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
-      <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">WHAT WE DO</span>
-      <h2 class="text-xl md:text-3xl font-black text-slate-950 leading-tight">
-        令和６年 １月１日 １６時１０分に起こった能登半島地震。<br class="hidden md:inline">
-        その被害は甚大で日本中に大きな衝撃を与えました。
-      </h2>
-      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-medium text-left md:text-center">
-        能登半島地震・学生による支援募金プロジェクトでは、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。
-      </p>
-    </div>
-  </section>
+  <!-- ▼ VISION（未来の展望） -->
+  <section class="py-16 bg-slate-100 border-t border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 space-y-10">
+      <div class="text-center">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">VISION</span>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950">私たちの未来の展望</h2>
+      </div>
 
-  <section class="py-16 md:py-20 max-w-5xl mx-auto px-4 space-y-12">
-    <div class="text-center">
-      <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">VISION</span>
-      <h2 class="text-2xl md:text-3xl font-black text-slate-950">私たちの未来の展望</h2>
-    </div>
-
-    <div class="space-y-8 md:space-y-12">
-      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-        <div class="w-full md:w-72 h-64 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
-          <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
-        </div>
-        <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-950">能登創生</h3>
-          <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
-            被災した地域を盛り上げる様々なプロジェクトを企画し、地域の伝統を広報するとともに創生を目指します。
-          </p>
-          <div class="pt-4 flex justify-center md:justify-start">
-            <a href="/projects" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
-              <span>PROJECTs一覧 ➔</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 能登創生 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
+              <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
+            </div>
+            <h3 class="text-xl font-black text-slate-950 mb-2">能登創生</h3>
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
+              被災した地域を盛り上げる様々なプロジェクトを企画し、地域の伝統を広報するとともに創生を目指します。
+            </p>
+          </div>
+          <div class="mt-6">
+            <a href="/projects" class="block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
+              PROJECTs一覧 ➔
             </a>
           </div>
         </div>
-      </div>
 
-      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-        <div class="w-full md:w-72 h-64 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
-          <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
-        </div>
-        <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-950">全国の学生が集結</h3>
-          <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
-            全国から志を持った学生が１０0人以上集まり活動しています。
-          </p>
-          <div class="pt-4 flex justify-center md:justify-start">
-            <a href="/about" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
-              <span>活動内容を見る ➔</span>
+        <!-- 全国の学生が集結 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
+              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
+            </div>
+            <h3 class="text-xl font-black text-slate-950 mb-2">全国の学生が集結</h3>
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
+              全国から志を持った学生が100人以上集まり、それぞれの強みを活かして活動しています。
+            </p>
+          </div>
+          <div class="mt-6">
+            <a href="/about" class="block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
+              活動内容を見る ➔
             </a>
           </div>
         </div>
@@ -204,14 +176,14 @@ const newsList = [
     </div>
   </section>
 
-  <section id="note" class="py-16 md:py-20 border-t border-slate-200 bg-white">
+  <!-- ▼ NOTE -->
+  <section id="note" class="py-16 border-t border-slate-200 bg-white">
     <div class="max-w-5xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">NOTE</span>
+        <h2 class="text-2xl font-black text-slate-950">公式Note・活動記事</h2>
       </div>
-      <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {articles.map((article) => (
           <NoteCard article={article} />
         ))}
@@ -219,115 +191,32 @@ const newsList = [
     </div>
   </section>
 
+  <!-- ▼ INSTAGRAM -->
   <section id="instagram" class="py-16 bg-slate-100 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-10">
-        <h2 class="text-xl font-bold text-slate-950 mb-1">最新のInstagram活動報告</h2>
-        <p class="text-xs text-slate-500 font-medium">Instagramから6件を自動で並べています</p>
+      <div class="text-center mb-8">
+        <h2 class="text-lg font-bold text-slate-950">最新のInstagram活動報告</h2>
       </div>
-      <div class="w-full">
-        <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
-        <script>
-          (() => {
-            const d = document, s = d.createElement("script");
-            s.type = "module";
-            s.src = "https://w.behold.so/widget.js";
-            d.head.append(s);
-          })();
-        </script>
-      </div>
+      <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
+      <script>
+        (() => {
+          const d = document, s = d.createElement("script");
+          s.type = "module";
+          s.src = "https://w.behold.so/widget.js";
+          d.head.append(s);
+        })();
+      </script>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* ▼ 緊急お知らせ専用スタイル ▼ */
-  .emergency-banner {
-    background-color: #fff5f5;
-    border: 2px solid #e53e3e;
-    border-radius: 12px;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 18px 22px;
-    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .emergency-banner:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(229, 62, 62, 0.18);
-  }
-
-  .emergency-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .emergency-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .emergency-badge {
-    background-color: #e53e3e;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .emergency-date {
-    font-size: 13px;
-    color: #718096;
-    font-weight: 700;
-  }
-
-  .emergency-link {
-    text-decoration: none;
-    display: block;
-    color: inherit;
-  }
-
-  .emergency-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: #9b2c2c;
-    margin: 4px 0 8px 0;
-    line-height: 1.4;
-  }
-
-  .emergency-link:hover .emergency-title {
-    text-decoration: underline;
-  }
-
-  .emergency-text {
-    font-size: 14px;
-    color: #4a5568;
-    line-height: 1.6;
-    margin: 0 0 10px 0;
-  }
-
-  .emergency-btn {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 800;
-    color: #e53e3e;
-  }
-
-  @media (max-width: 640px) {
-    .emergency-banner {
-      margin: 15px;
-      padding: 14px;
-    }
-    .emergency-title {
-      font-size: 16px;
-    }
-    .emergency-text {
-      font-size: 13px;
-    }
+  .emergency-banner-compact {
+    background-color: rgba(254, 226, 226, 0.95);
+    border: 1px solid #f87171;
+    border-radius: 10px;
+    padding: 10px 14px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 </style>
