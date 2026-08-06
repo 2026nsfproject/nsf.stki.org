@@ -37,27 +37,27 @@ const newsList = [
 
 <Layout title="ホーム" activeKey="home" showSplash>
 
-  <!-- ▼ 【ファーストビュー強化】ヒーローセクション内に緊急バナーとメインコピーを集約 -->
+  <!-- ▼ ファーストビュー（緊急バナー、キャッチコピー、CTAを集約） -->
   <section class="relative min-h-[85vh] flex flex-col justify-between bg-slate-950 text-white overflow-hidden pt-6 pb-12">
     <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-slate-900/60 to-blue-950/40"></div>
 
-    <!-- 上部：緊急バナーをファーストビュー内に内包して見逃し防止 -->
+    <!-- 緊急バナー（視認性向上版） -->
     <div class="relative z-10 max-w-3xl mx-auto px-4 w-full mb-6">
       <div class="emergency-banner-compact">
         <div class="flex items-center gap-2 mb-1">
           <span class="bg-red-600 text-white text-[11px] font-extrabold px-2 py-0.5 rounded">緊急</span>
-          <span class="text-xs text-slate-300 font-mono">2026.07.28</span>
+          <span class="text-xs text-slate-700 font-mono font-bold">2026.07.28</span>
         </div>
         <a href="/earthquake-notice" class="group block">
-          <h3 class="text-sm md:text-base font-bold text-red-200 group-hover:underline leading-snug">
+          <h3 class="emergency-title-text">
             【臨時】本日発生した地震への当団体の対応および活動方針について ➔
           </h3>
         </a>
       </div>
     </div>
 
-    <!-- 中央：メインメッセージ & アクション誘導 -->
+    <!-- メインメッセージ & アクション誘導 -->
     <div class="relative z-10 max-w-4xl mx-auto px-4 text-center my-auto">
       <div class="flex justify-center space-x-3 md:space-x-8 text-base md:text-2xl font-black tracking-widest text-orange-400 mb-4 drop-shadow-md">
         <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
@@ -72,7 +72,6 @@ const newsList = [
         全国の中高生が手を取り合い、未来のための防災アクションを起こすプロジェクト
       </p>
 
-      <!-- ユーザーの目的に合わせたWボタン（参加したい人・詳しく知りたい人） -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a href="/about" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-8 py-3 rounded-xl shadow-lg transition duration-200">
           わたしたちについて知る
@@ -82,11 +81,9 @@ const newsList = [
         </a>
       </div>
     </div>
-
-    <!-- 下部へのスクロール誘導などがあればここに追加可能 -->
   </section>
 
-  <!-- ▼ NEWS（お知らせ）※最新3件に絞ってコンパクトに -->
+  <!-- ▼ NEWS（コンパクト化） -->
   <section class="py-6 bg-slate-50 border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3 w-full sm:w-auto">
@@ -104,7 +101,7 @@ const newsList = [
     </div>
   </section>
 
-  <!-- ▼ OUR GOAL & WHAT WE DO を統合してすっきり配置 -->
+  <!-- ▼ WHAT WE DO -->
   <section class="py-16 md:py-20 max-w-4xl mx-auto px-4 text-center">
     <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">WHAT WE DO</span>
     <h2 class="text-xl md:text-3xl font-black text-slate-950 mb-6 leading-snug">
@@ -116,7 +113,7 @@ const newsList = [
     </p>
   </section>
 
-  <!-- ▼ 活動の様子（グリッドでスタイリッシュに） -->
+  <!-- ▼ 活動の様子 -->
   <section class="pb-16 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
@@ -128,7 +125,7 @@ const newsList = [
     </div>
   </section>
 
-  <!-- ▼ VISION（未来の展望） -->
+  <!-- ▼ VISION -->
   <section class="py-16 bg-slate-100 border-t border-b border-slate-200">
     <div class="max-w-5xl mx-auto px-4 space-y-10">
       <div class="text-center">
@@ -137,7 +134,6 @@ const newsList = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- 能登創生 -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
@@ -155,7 +151,6 @@ const newsList = [
           </div>
         </div>
 
-        <!-- 全国の学生が集結 -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
@@ -212,11 +207,29 @@ const newsList = [
 
 <style>
   .emergency-banner-compact {
-    background-color: rgba(254, 226, 226, 0.95);
-    border: 1px solid #f87171;
-    border-radius: 10px;
-    padding: 10px 14px;
+    background-color: #fff1f2;
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    padding: 12px 16px;
     backdrop-filter: blur(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  }
+
+  .emergency-title-text {
+    font-size: 14px;
+    font-weight: 900;
+    color: #7f1d1d;
+    margin: 4px 0 0 0;
+    line-height: 1.4;
+  }
+
+  .emergency-banner-compact a:hover .emergency-title-text {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .emergency-title-text {
+      font-size: 16px;
+    }
   }
 </style>
