@@ -60,7 +60,7 @@ const executives = [
       </p>
     </section>
 
-    <!-- ▼ 代表あいさつ（カードの最大幅を広げ、内部の余白を調整） -->
+    <!-- ▼ 代表あいさつ -->
     <section class="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 max-w-5xl mx-auto">
       <div class="w-full sm:w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden bg-slate-100 shrink-0 relative shadow-inner">
         <img 
@@ -83,7 +83,6 @@ const executives = [
           <p class="text-xs font-bold text-slate-400 block tracking-wider uppercase mt-1">Message from the Leader</p>
         </div>
         
-        <!-- ▼ キャッチコピー（1行をキープしつつ、枠内にきれいに収まるように微調整） -->
         <div class="border-l-4 border-red-700 pl-3 md:pl-4 py-0.5 w-full">
           <p class="font-black text-red-700 whitespace-nowrap text-one-line tracking-tight">
             ― 中高生の発想で、防災の『あたりまえ』を塗り替える ―
@@ -143,6 +142,7 @@ const executives = [
       </div>
     </section>
 
+    <!-- ▼ 応援メッセージ（アバター画像のサイズ感を適度に修正） -->
     <section class="space-y-8 md:space-y-10">
       <div class="flex items-center space-x-3">
         <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
@@ -150,11 +150,11 @@ const executives = [
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <div class="bg-white p-5 md:p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
-          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
-            <div class="avatar-box w-20 h-20 md:w-24 md:h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
+            <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
               <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
               <h3 class="font-black text-slate-950 text-base md:text-lg">防災特命大臣<br class="sm:hidden"> 坂井学 氏</h3>
@@ -165,11 +165,11 @@ const executives = [
           </p>
         </div>
 
-        <div class="bg-white p-5 md:p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
-          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
-            <div class="avatar-box w-20 h-20 md:w-24 md:h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner relative">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
+            <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
               <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-              <svg class="w-8 h-8 hidden mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
               <h3 class="font-black text-slate-950 text-base md:text-lg">石川県知事<br class="sm:hidden"> 馳浩 氏</h3>
@@ -198,7 +198,6 @@ const executives = [
 
 <style>
   .text-one-line {
-    /* 1行を維持し、カード内幅にぴったり収まるように微調整 */
     font-size: clamp(0.75rem, 1.8vw, 1.1rem);
     line-height: 1.4;
     white-space: nowrap;
