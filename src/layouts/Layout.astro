@@ -14,7 +14,7 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
-// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（パスをルート直下に修正）
+// src/pages 直下の各プロジェクトファイルに対応したメニュー項目
 const projectItems = [
   { label: 'すべてのプロジェクト', href: '/projects' },
   { label: 'mamoneruプロジェクト', href: '/mamoneru' },
@@ -25,7 +25,7 @@ const projectItems = [
   { label: '能登うまいもん再発見プロジェクト', href: '/umaimon' },
 ];
 
-// メニュー定義（activitiesを削除しapplyに変更）
+// メニュー定義（activitiesなし、applyあり）
 const navItems = [
   { key: 'home', label: 'HOME', href: '/' },
   { key: 'about', label: 'ABOUT', href: '/about' },
@@ -47,7 +47,8 @@ const navItems = [
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- 太字ウェイト（500, 700, 900）を確実に取得 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
   {showSplash && (
@@ -152,7 +153,7 @@ const navItems = [
     </style>
   )}
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen">
 
   {showSplash && (
     <div id="splash-screen">
@@ -172,7 +173,7 @@ const navItems = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2">
         <img src="/logo.jpg" alt="NSF ロゴ" class="h-8 w-auto" />
-        <span class="font-extrabold text-slate-900 text-lg tracking-tight">NSF PROJECTs</span>
+        <span class="font-black text-slate-900 text-lg tracking-tight">NSF PROJECTs</span>
       </a>
 
       <!-- デスクトップナビゲーション -->
@@ -183,13 +184,13 @@ const navItems = [
               <a
                 href={item.href}
                 class:list={[
-                  "text-sm font-bold transition-colors hover:text-blue-600 flex items-center gap-1.5",
-                  activeKey === item.key ? "text-blue-600 border-b-2 border-blue-600 pb-4" : "text-slate-600"
+                  "text-sm font-extrabold transition-colors hover:text-blue-600 flex items-center gap-1.5",
+                  activeKey === item.key ? "text-blue-600 border-b-2 border-blue-600 pb-4" : "text-slate-800"
                 ]}
               >
                 {item.label}
                 <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </a>
 
@@ -198,7 +199,7 @@ const navItems = [
                 {projectItems.map((sub) => (
                   <a
                     href={sub.href}
-                    class="block px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg mx-1 whitespace-nowrap overflow-hidden text-ellipsis"
+                    class="block px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg mx-1 whitespace-nowrap overflow-hidden text-ellipsis"
                   >
                     {sub.label}
                   </a>
@@ -209,8 +210,8 @@ const navItems = [
             <a
               href={item.href}
               class:list={[
-                "text-sm font-bold transition-colors hover:text-blue-600 py-5 border-b-2",
-                activeKey === item.key ? "text-blue-600 border-blue-600" : "text-slate-600 border-transparent"
+                "text-sm font-extrabold transition-colors hover:text-blue-600 py-5 border-b-2",
+                activeKey === item.key ? "text-blue-600 border-blue-600" : "text-slate-800 border-transparent"
               ]}
             >
               {item.label}
@@ -220,9 +221,9 @@ const navItems = [
       </nav>
 
       <!-- モバイル用ハンバーガーボタン -->
-      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900" aria-label="メニューを開く">
+      <button id="menu-btn" class="md:hidden p-2 text-slate-800 hover:text-slate-900" aria-label="メニューを開く">
         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
@@ -236,15 +237,15 @@ const navItems = [
               <a
                 href={item.href}
                 class:list={[
-                  "px-3 py-2 rounded-md text-base font-bold transition-colors flex justify-between items-center",
-                  activeKey === item.key ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50"
+                  "px-3 py-2 rounded-md text-base font-extrabold transition-colors flex justify-between items-center",
+                  activeKey === item.key ? "bg-blue-50 text-blue-600" : "text-slate-800 hover:bg-slate-50"
                 ]}
               >
                 {item.label}
               </a>
-              <div class="pl-4 flex flex-col gap-1 my-1 border-l-2 border-slate-100 ml-3">
+              <div class="pl-4 flex flex-col gap-1 my-1 border-l-2 border-slate-200 ml-3">
                 {projectItems.map((sub) => (
-                  <a href={sub.href} class="py-2 px-3 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors">
+                  <a href={sub.href} class="py-2 px-3 text-sm font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors">
                     ・ {sub.label}
                   </a>
                 ))}
@@ -254,8 +255,8 @@ const navItems = [
             <a
               href={item.href}
               class:list={[
-                "px-3 py-2 rounded-md text-base font-bold transition-colors",
-                activeKey === item.key ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50"
+                "px-3 py-2 rounded-md text-base font-extrabold transition-colors",
+                activeKey === item.key ? "bg-blue-50 text-blue-600" : "text-slate-800 hover:bg-slate-50"
               ]}
             >
               {item.label}
@@ -280,9 +281,9 @@ const navItems = [
     menuBtn?.addEventListener('click', () => {
       mobileMenu?.classList.toggle('hidden');
       if (mobileMenu?.classList.contains('hidden')) {
-        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>';
       } else {
-        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>';
       }
     });
   </script>
@@ -308,10 +309,11 @@ const navItems = [
 </html>
 
 <style is:global>
+  /* 基本フォントを太め（700）かつ高コントラストに設定 */
   body { 
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-weight: 500;
-    font-feature-settings: "palt" 1;
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-weight: 700;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 </style>
