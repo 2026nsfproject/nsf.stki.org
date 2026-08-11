@@ -3,7 +3,7 @@
 import "../global.css";
 import Footer from "../components/Footer.astro";
 
-export type NavKey = 'home' | 'about' | 'apply' | 'materials' | 'projects' | 'contact';
+export type NavKey = 'home' | 'about' | 'activities' | 'materials' | 'projects' | 'contact';
 
 interface Props {
   title: string;
@@ -14,22 +14,22 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
-// 画像のファイル一覧から生成したプロジェクトメニュー項目
+// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（パスをルート直下に修正）
 const projectItems = [
   { label: 'すべてのプロジェクト', href: '/projects' },
-  { label: 'mamoneruプロジェクト', href: '/projects/mamoneru' },
-  { label: 'まもみずプロジェクト', href: '/projects/mamomizu' },
-  { label: 'Bifrost', href: '/projects/bifrost' },
-  { label: '果てなき復興プロジェクト', href: '/projects/hatenaki' },
-  { label: 'survival academy', href: '/projects/survival' },
-  { label: '能登うまいもん再発見プロジェクト', href: '/projects/umaimon' },
+  { label: 'mamoneruプロジェクト', href: '/mamoneru' },
+  { label: 'まもみずプロジェクト', href: '/mamomizu' },
+  { label: 'Bifrost', href: '/bifrost' },
+  { label: '果てなき復興プロジェクト', href: '/hatenaki' },
+  { label: 'survival academy', href: '/survival' },
+  { label: '能登うまいもん再発見プロジェクト', href: '/umaimon' },
 ];
 
-// メニュー定義（activitiesをapplyに変更）
+// メニュー定義
 const navItems = [
   { key: 'home', label: 'HOME', href: '/' },
   { key: 'about', label: 'ABOUT', href: '/about' },
-  { key: 'apply', label: 'APPLY', href: '/apply' },
+  { key: 'activities', label: 'ACTIVITIES', href: '/activities' },
   { key: 'materials', label: 'MATERIALS', href: '/materials' },
   { key: 'projects', label: 'PROJECTS', href: '/projects', hasSubmenu: true },
   { key: 'contact', label: 'CONTACT', href: '/contact' },
