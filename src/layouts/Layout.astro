@@ -1,9 +1,9 @@
 ---
 // src/layouts/Layout.astro
-// 全ページ共通のhead / header / footer / スプラッシュ画面 / モバイルメニュー制御をまとめる。
 import "../global.css";
-import Header, { type NavKey } from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+export type NavKey = 'home' | 'about' | 'activities' | 'materials' | 'contact';
 
 interface Props {
   title: string;
@@ -13,6 +13,15 @@ interface Props {
 }
 
 const { title, activeKey, showSplash = false } = Astro.props;
+
+// ナビゲーションメニューの定義（「教材」を追加）
+const navItems = [
+  { key: 'home', label: 'ホーム', href: '/' },
+  { key: 'about', label: 'NSFについて', href: '/about' },
+  { key: 'activities', label: '活動内容', href: '/activities' },
+  { key: 'materials', label: '教材', href: '/materials' },
+  { key: 'contact', label: 'お問い合わせ', href: '/contact' },
+];
 ---
 
 <!DOCTYPE html>
@@ -146,7 +155,54 @@ const { title, activeKey, showSplash = false } = Astro.props;
     </div>
   )}
 
-  <Header activeKey={activeKey} />
+  <!-- ヘッダーを直接配置 -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/logo.jpg" alt="NSF ロゴ" class="h-8 w-auto" />
+        <span class="font-bold text-slate-900 text-lg">NSF PROJECTs</span>
+      </a>
+
+      <!-- デスクトップナビゲーション -->
+      <nav class="hidden md:flex items-center gap-6">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm font-bold transition-colors hover:text-blue-600 py-5 border-b-2",
+              activeKey === item.key ? "text-blue-600 border-blue-600" : "text-slate-600 border-transparent"
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- モバイル用ハンバーガーボタン -->
+      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900" aria-label="メニューを開く">
+        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- モバイル用ドロワーメニュー -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 pt-2 pb-4 shadow-lg">
+      <nav class="flex flex-col gap-2">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "px-3 py-2 rounded-md text-base font-bold transition-colors",
+              activeKey === item.key ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50"
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </header>
 
   <main class="flex-grow">
     <slot />
@@ -155,7 +211,7 @@ const { title, activeKey, showSplash = false } = Astro.props;
   <Footer />
 
   <script>
-    // ハンバーガーメニューの開閉
+    // ハンバーガーメニューの開閉制御
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
