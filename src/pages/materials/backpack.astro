@@ -1,0 +1,163 @@
+---
+// src/pages/materials/backpack.astro
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="防災リュックパケット" activeKey="materials">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <a href="/materials" class="inline-flex items-center text-sm text-slate-500 hover:text-blue-600 mb-6 font-bold">
+      ← 教材一覧へ戻る
+    </a>
+
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+      <h1 class="text-2xl font-bold text-slate-900 mb-2">🎒 タップで備える「防災リュックパケット」</h1>
+      <p class="text-slate-600 text-sm mb-6">容量 <strong class="text-blue-600">10.0 kg</strong> 以内で持ち出しリュックを作りましょう！</p>
+
+      <!-- ステータスバー -->
+      <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6">
+        <div>
+          <span class="text-xs text-slate-500 font-bold block mb-1">持ち出し重量</span>
+          <div class="text-xl font-bold text-slate-800"><span id="weight">0.0</span> / 10.0 kg</div>
+          <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mt-2">
+            <div id="weight-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+          </div>
+        </div>
+        <div>
+          <span class="text-xs text-slate-500 font-bold block mb-1">生存力スコア</span>
+          <div class="text-xl font-bold text-blue-600"><span id="score">0</span> pt</div>
+        </div>
+      </div>
+
+      <p class="text-sm font-bold text-slate-700 mb-3">アイテムをタップして追加 / 解除:</p>
+      <div id="items-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6"></div>
+
+      <div class="text-center">
+        <button id="finish-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md active:scale-95">
+          このリュックで避難判定！
+        </button>
+      </div>
+
+      <!-- 結果画面 -->
+      <div id="result-screen" class="hidden mt-8 pt-6 border-t border-dashed border-slate-200 text-center">
+        <h3 class="text-lg font-bold text-slate-800">リュック診断結果</h3>
+        <div id="final-score" class="text-4xl font-extrabold text-blue-600 my-3">0 pt</div>
+        <p id="advice" class="text-sm text-slate-600 mb-6 max-w-md mx-auto"></p>
+        <button id="share-btn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl transition-all inline-flex items-center gap-2">
+          X (Twitter) でシェア
+        </button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const itemsList = [
+    { id: 'water_2l', name: '飲料水 (2L)', icon: '💧', weight: 2.0, score: 35 },
+    { id: 'water_500ml', name: '水 (500ml)', icon: '🍼', weight: 0.5, score: 10 },
+    { id: 'food_3d', name: '非常食 (3日分)', icon: '🍞', weight: 1.2, score: 30 },
+    { id: 'jelly', name: '栄養ゼリー', icon: '🧃', weight: 0.6, score: 15 },
+    { id: 'toilet', name: '簡易トイレ', icon: '🚽', weight: 0.5, score: 30 },
+    { id: 'firstaid', name: '救急セット', icon: '🩹', weight: 0.3, score: 20 },
+    { id: 'mask', name: '不織布マスク', icon: '😷', weight: 0.1, score: 15 },
+    { id: 'wipes', name: '除菌シート', icon: '🧻', weight: 0.3, score: 15 },
+    { id: 'light', name: 'LED懐中電灯', icon: '🔦', weight: 0.4, score: 20 },
+    { id: 'battery', name: 'モバイルバッテリー', icon: '🔋', weight: 0.4, score: 25 },
+    { id: 'radio', name: '防災ラジオ', icon: '📻', weight: 0.7, score: 20 },
+    { id: 'whistle', name: 'ホイッスル', icon: '🔊', weight: 0.05, score: 15 },
+    { id: 'blanket', name: 'アルミシート', icon: '🧗', weight: 0.2, score: 15 },
+    { id: 'game', name: 'ゲーム機', icon: '🎮', weight: 3.5, score: -20 },
+    { id: 'dumbbell', name: '鉄アレイ (5kg)', icon: '🏋️', weight: 5.0, score: -40 }
+  ];
+
+  let selectedIds = new Set<string>();
+
+  const container = document.getElementById('items-container')!;
+  const weightEl = document.getElementById('weight')!;
+  const scoreEl = document.getElementById('score')!;
+  const weightBar = document.getElementById('weight-bar')!;
+  const finishBtn = document.getElementById('finish-btn')!;
+  const resultScreen = document.getElementById('result-screen')!;
+  const finalScoreEl = document.getElementById('final-score')!;
+  const adviceEl = document.getElementById('advice')!;
+  const shareBtn = document.getElementById('share-btn')!;
+
+  function renderItems() {
+    container.innerHTML = '';
+    let totalWeight = 0;
+    let totalScore = 0;
+
+    itemsList.forEach(item => {
+      const isSelected = selectedIds.has(item.id);
+      if (isSelected) {
+        totalWeight += item.weight;
+        totalScore += item.score;
+      }
+
+      const card = document.createElement('div');
+      card.className = `p-3 rounded-xl border-2 text-center cursor-pointer transition-all select-none ${
+        isSelected
+          ? 'border-emerald-500 bg-emerald-50 text-slate-900 shadow-sm'
+          : 'border-slate-200 bg-white hover:border-slate-300 text-slate-700'
+      }`;
+      card.innerHTML = `
+        <div class="text-2xl mb-1">${item.icon}</div>
+        <div class="text-xs font-bold">${item.name}</div>
+        <div class="text-[10px] text-slate-400 mt-1">${item.weight}kg / +${item.score}pt</div>
+      `;
+      card.onclick = () => {
+        if (selectedIds.has(item.id)) {
+          selectedIds.delete(item.id);
+        } else {
+          selectedIds.add(item.id);
+        }
+        renderItems();
+      };
+      container.appendChild(card);
+    });
+
+    weightEl.innerText = totalWeight.toFixed(1);
+    scoreEl.innerText = totalScore.toString();
+
+    const pct = Math.min(100, (totalWeight / 10.0) * 100);
+    weightBar.style.width = pct + '%';
+    weightBar.className = `h-full transition-all duration-300 ${totalWeight > 10.0 ? 'bg-rose-500' : 'bg-emerald-500'}`;
+  }
+
+  finishBtn.onclick = () => {
+    let totalWeight = 0;
+    let totalScore = 0;
+    let hasWater = selectedIds.has('water_2l') || selectedIds.has('water_500ml');
+    let hasFood = selectedIds.has('food_3d');
+    let hasToilet = selectedIds.has('toilet');
+
+    itemsList.forEach(item => {
+      if (selectedIds.has(item.id)) {
+        totalWeight += item.weight;
+        totalScore += item.score;
+      }
+    });
+
+    resultScreen.classList.remove('hidden');
+
+    let advice = "";
+    if (totalWeight > 10.0) {
+      totalScore = Math.max(0, totalScore - 30);
+      advice = "⚠️ 重量オーバー（10kg超）です！重すぎて避難時に素早く動けません。不要なものを減らしましょう。";
+    } else if (!hasWater || !hasFood || !hasToilet) {
+      advice = "💡 命を守る『3大必須アイテム（水・食料・簡易トイレ）』のいずれかが欠けています！優先的に入れましょう。";
+    } else {
+      advice = "🎉 非常にバランスの良い防災リュックです！命を守りつつスムーズな避難が可能です。";
+    }
+
+    finalScoreEl.innerText = totalScore + " pt";
+    adviceEl.innerText = advice;
+  };
+
+  shareBtn.onclick = () => {
+    const score = finalScoreEl.innerText;
+    const txt = encodeURIComponent(`「リアルタイム防災リュックパケット」でスコア ${score} を達成！\n自分に合った避難セットを準備しよう！\n#NSF #防災準備`);
+    window.open(`https://x.com/intent/tweet?text=${txt}`, '_blank');
+  };
+
+  renderItems();
+</script>
