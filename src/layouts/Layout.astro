@@ -3,7 +3,7 @@
 import "../global.css";
 import Footer from "../components/Footer.astro";
 
-export type NavKey = 'home' | 'about' | 'activities' | 'materials' | 'projects' | 'contact';
+export type NavKey = 'home' | 'about' | 'apply' | 'activities' | 'materials' | 'projects' | 'contact';
 
 interface Props {
   title: string;
@@ -14,7 +14,7 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
-// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（パスをルート直下に修正）
+// src/pages 直下の各プロジェクトファイルに対応したメニュー項目
 const projectItems = [
   { label: 'すべてのプロジェクト', href: '/projects' },
   { label: 'mamoneruプロジェクト', href: '/mamoneru' },
@@ -29,7 +29,7 @@ const projectItems = [
 const navItems = [
   { key: 'home', label: 'HOME', href: '/' },
   { key: 'about', label: 'ABOUT', href: '/about' },
-  { key: 'activities', label: 'ACTIVITIES', href: '/activities' },
+  { key: 'apply', label: 'APPLY', href: '/apply' },
   { key: 'materials', label: 'MATERIALS', href: '/materials' },
   { key: 'projects', label: 'PROJECTS', href: '/projects', hasSubmenu: true },
   { key: 'contact', label: 'CONTACT', href: '/contact' },
