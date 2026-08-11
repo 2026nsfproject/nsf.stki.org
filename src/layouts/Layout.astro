@@ -14,14 +14,18 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
-// ドロップダウン内の各プロジェクト一覧
+// 画像のファイル一覧から生成したプロジェクトメニュー項目
 const projectItems = [
-  { label: 'プロジェクト一覧', href: '/projects' },
-  { label: '能登半島地震支援', href: '/projects/noto' },
-  { label: '防災啓発・イベント', href: '/projects/event' },
+  { label: 'すべてのプロジェクト', href: '/projects' },
+  { label: 'まもねる (mamoneru)', href: '/projects/mamoneru' },
+  { label: 'まもみず (mamomizu)', href: '/projects/mamomizu' },
+  { label: 'Bifrost (bifrost)', href: '/projects/bifrost' },
+  { label: '果てなき (hatenaki)', href: '/projects/hatenaki' },
+  { label: 'サバイバル (survival)', href: '/projects/survival' },
+  { label: 'うまいもん (umaimon)', href: '/projects/umaimon' },
 ];
 
-// メニュー定義（PROJECTSはCONTACTの直前）
+// メニュー定義
 const navItems = [
   { key: 'home', label: 'HOME', href: '/' },
   { key: 'about', label: 'ABOUT', href: '/about' },
@@ -175,7 +179,6 @@ const navItems = [
       <nav class="hidden md:flex items-center gap-6">
         {navItems.map((item) => (
           item.hasSubmenu ? (
-            /* PROJECTSドロップダウン（右寄せ配置制御） */
             <div class="relative group py-5">
               <a
                 href={item.href}
@@ -190,12 +193,12 @@ const navItems = [
                 </svg>
               </a>
 
-              <!-- サブメニュー領域（表示位置を左側に合わせ白背景で配置） -->
-              <div class="absolute left-0 top-full hidden group-hover:block w-52 bg-white border border-slate-200 rounded-2xl shadow-xl py-3 z-50">
+              <!-- PROJECTS サブメニュー -->
+              <div class="absolute left-0 top-full hidden group-hover:block w-64 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
                 {projectItems.map((sub) => (
                   <a
                     href={sub.href}
-                    class="block px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                    class="block px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                   >
                     {sub.label}
                   </a>
@@ -239,9 +242,9 @@ const navItems = [
               >
                 {item.label}
               </a>
-              <div class="pl-6 flex flex-col gap-1 my-1">
+              <div class="pl-4 flex flex-col gap-1 my-1 border-l-2 border-slate-100 ml-3">
                 {projectItems.map((sub) => (
-                  <a href={sub.href} class="py-1.5 px-3 text-sm font-bold text-slate-500 hover:text-blue-600">
+                  <a href={sub.href} class="py-2 px-3 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors">
                     ・ {sub.label}
                   </a>
                 ))}
@@ -270,7 +273,6 @@ const navItems = [
   <Footer />
 
   <script>
-    // ハンバーガーメニューの開閉制御
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -287,7 +289,6 @@ const navItems = [
 
   {showSplash && (
     <script>
-      // スプラッシュ画面を滑らかに消し、メイン表示を確定させる
       const splash = document.getElementById('splash-screen');
 
       const hideSplashScreen = () => {
@@ -299,7 +300,6 @@ const navItems = [
         }
       };
 
-      // 0.8秒だけアニメーションを見せてから消去する
       setTimeout(hideSplashScreen, 800);
     </script>
   )}
