@@ -1,0 +1,197 @@
+---
+// src/pages/materials/3second-quiz.astro
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="3秒決断ゲーム" activeKey="materials">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <a href="/materials" class="inline-flex items-center text-sm text-slate-500 hover:text-blue-600 mb-6 font-bold">
+      ← 教材一覧へ戻る
+    </a>
+
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center">
+      <h1 class="text-2xl font-bold text-slate-900 mb-2">⚡ 「もしも今地震が来たら？」3秒決断ゲーム</h1>
+      <p class="text-slate-600 text-sm mb-6">直感で判断！3秒以内に正しい防災行動を選択してください。</p>
+
+      <!-- スタート画面 -->
+      <div id="start-screen" class="py-8">
+        <p class="text-slate-500 mb-6">全3問 / 各問制限時間 3秒</p>
+        <button id="start-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-md active:scale-95">
+          ゲームスタート
+        </button>
+      </div>
+
+      <!-- プレイ画面 -->
+      <div id="play-screen" class="hidden">
+        <div class="flex justify-between text-xs text-slate-400 font-bold mb-2">
+          <span id="q-num">第 1 問</span>
+          <span id="score-live">スコア: 0</span>
+        </div>
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+          <div id="timer-bar" class="bg-rose-500 h-full w-full"></div>
+        </div>
+        <div id="question" class="text-lg font-bold text-slate-800 min-h-[70px] flex items-center justify-center mb-6">
+          問題読み込み中...
+        </div>
+        <div id="choices" class="flex flex-col gap-3"></div>
+      </div>
+
+      <!-- 結果画面 -->
+      <div id="result-screen" class="hidden py-6 text-center">
+        <h3 class="text-sm font-bold text-slate-500">生存率判定結果</h3>
+        <div id="final-rate" class="text-5xl font-extrabold text-blue-600 my-3">0%</div>
+        <p id="title-text" class="text-base font-bold text-slate-800 mb-2"></p>
+        <p id="comment" class="text-sm text-slate-600 mb-6 max-w-md mx-auto"></p>
+
+        <div class="flex justify-center gap-3">
+          <button id="share-btn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl transition-all">
+            X (Twitter) でシェア
+          </button>
+          <button id="restart-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl transition-all">
+            もう一度挑戦
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const questions = [
+    {
+      q: "授業中に激しい揺れが発生！まず行うべき行動は？",
+      choices: [
+        { text: "すぐに廊下へ飛び出して外へ避難する", correct: false },
+        { text: "机の下に入り、脚をしっかり握って身を守る", correct: true },
+        { text: "窓を開けて避難経路を確保する", correct: false }
+      ]
+    },
+    {
+      q: "通学電車内で緊急地震速報！揺れに備えてどうする？",
+      choices: [
+        { text: "つり革や手すりに両手でしっかり掴まる", correct: true },
+        { text: "すぐに非常通報ボタンを押して電車を止める", correct: false },
+        { text: "ドアの前に立ち、開く準備をする", correct: false }
+      ]
+    },
+    {
+      q: "街を歩いている時に大地震！倒壊や落下物から身を守るには？",
+      choices: [
+        { text: "ビル壁面に近づき雨よけの下に隠れる", correct: false },
+        { text: "カバン等で頭を保護し、空き地や広い場所へ移動", correct: true },
+        { text: "自動販売機の横にしゃがみこむ", correct: false }
+      ]
+    }
+  ];
+
+  let idx = 0;
+  let score = 0;
+  let timer: any = null;
+  const TIME_LIMIT = 3000;
+
+  const startScreen = document.getElementById('start-screen')!;
+  const playScreen = document.getElementById('play-screen')!;
+  const resultScreen = document.getElementById('result-screen')!;
+  const startBtn = document.getElementById('start-btn')!;
+  const qNum = document.getElementById('q-num')!;
+  const scoreLive = document.getElementById('score-live')!;
+  const timerBar = document.getElementById('timer-bar')!;
+  const questionEl = document.getElementById('question')!;
+  const choicesDiv = document.getElementById('choices')!;
+  const finalRate = document.getElementById('final-rate')!;
+  const titleText = document.getElementById('title-text')!;
+  const commentEl = document.getElementById('comment')!;
+  const shareBtn = document.getElementById('share-btn')!;
+  const restartBtn = document.getElementById('restart-btn')!;
+
+  function startQuiz() {
+    idx = 0;
+    score = 0;
+    startScreen.classList.add('hidden');
+    resultScreen.classList.add('hidden');
+    playScreen.classList.remove('hidden');
+    loadQuestion();
+  }
+
+  function loadQuestion() {
+    if (idx >= questions.length) {
+      showResult();
+      return;
+    }
+    const cur = questions[idx];
+    qNum.innerText = `第 ${idx + 1} / ${questions.length} 問`;
+    scoreLive.innerText = `スコア: ${score}`;
+    questionEl.innerText = cur.q;
+
+    choicesDiv.innerHTML = '';
+    cur.choices.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = "w-full p-4 text-left font-bold text-sm bg-slate-50 border border-slate-200 hover:border-blue-500 hover:bg-blue-50 text-slate-800 rounded-xl transition-all";
+      btn.innerText = c.text;
+      btn.onclick = () => answer(c.correct);
+      choicesDiv.appendChild(btn);
+    });
+
+    startTimer();
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timerBar.style.width = '100%';
+    let start = Date.now();
+
+    timer = setInterval(() => {
+      let elapsed = Date.now() - start;
+      let pct = Math.max(0, 100 - (elapsed / TIME_LIMIT) * 100);
+      timerBar.style.width = pct + '%';
+
+      if (elapsed >= TIME_LIMIT) {
+        clearInterval(timer);
+        answer(false);
+      }
+    }, 40);
+  }
+
+  function answer(isCorrect: boolean) {
+    clearInterval(timer);
+    if (isCorrect) score++;
+    idx++;
+    loadQuestion();
+  }
+
+  function showResult() {
+    playScreen.classList.add('hidden');
+    resultScreen.classList.remove('hidden');
+
+    const rate = Math.round((score / questions.length) * 100);
+    finalRate.innerText = rate + '%';
+
+    let title = "";
+    let comment = "";
+    if (rate === 100) {
+      title = "【称号】瞬発系防災マスター 🛡️";
+      comment = "素晴らしい判断力！とっさの時も安全かつ的確に行動できる完璧なレベルです。";
+    } else if (rate >= 50) {
+      title = "【称号】標準防災バイター 🏃";
+      comment = "基本行動はできていますが、瞬間の判断で迷うと危険な場合があります。復習してみましょう！";
+    } else {
+      title = "【称号】うっかり避難訓練生 🔰";
+      comment = "焦ると危険な選択肢を選びがちです。避難行動の基本を再確認しておきましょう！";
+    }
+
+    titleText.innerText = title;
+    commentEl.innerText = comment;
+  }
+
+  startBtn.onclick = startQuiz;
+  restartBtn.onclick = () => {
+    resultScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+  };
+
+  shareBtn.onclick = () => {
+    const rate = finalRate.innerText;
+    const txt = encodeURIComponent(`「地震直後3秒決断ゲーム」で生存判定 ${rate} を獲得！\nみんなも日頃の避難行動をチェックしてみよう！\n#NSF #若者防災`);
+    window.open(`https://x.com/intent/tweet?text=${txt}`, '_blank');
+  };
+</script>
