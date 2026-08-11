@@ -1,7 +1,6 @@
 ---
 // src/layouts/Layout.astro
 import "../global.css";
-import Footer from "../components/Footer.astro";
 
 export type NavKey = 'home' | 'about' | 'apply' | 'materials' | 'projects' | 'contact';
 
@@ -25,7 +24,7 @@ const projectItems = [
   { label: '能登うまいもん再発見プロジェクト', href: '/umaimon' },
 ];
 
-// メニュー定義（activitiesなし、applyあり）
+// メニュー定義
 const navItems = [
   { key: 'home', label: 'HOME', href: '/' },
   { key: 'about', label: 'ABOUT', href: '/about' },
@@ -47,7 +46,6 @@ const navItems = [
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- 太字ウェイト（500, 700, 900）を確実に取得 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
@@ -271,7 +269,21 @@ const navItems = [
     <slot />
   </main>
 
-  <Footer />
+  <!-- フッターエリア（Layoutに直接配置） -->
+  <footer class="bg-slate-900 text-white py-12 mt-auto border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="font-black text-xl mb-4 tracking-tight">NSF PROJECTs</p>
+      <div class="flex justify-center flex-wrap gap-6 text-sm font-extrabold mb-6 text-slate-300">
+        <a href="/" class="hover:text-white transition-colors">HOME</a>
+        <a href="/about" class="hover:text-white transition-colors">ABOUT</a>
+        <a href="/apply" class="hover:text-white transition-colors">APPLY</a>
+        <a href="/materials" class="hover:text-white transition-colors">MATERIALS</a>
+        <a href="/projects" class="hover:text-white transition-colors">PROJECTS</a>
+        <a href="/contact" class="hover:text-white transition-colors">CONTACT</a>
+      </div>
+      <p class="text-xs text-slate-400 font-bold">© NSF PROJECTs. All rights reserved.</p>
+    </div>
+  </footer>
 
   <script>
     const menuBtn = document.getElementById('menu-btn');
@@ -309,7 +321,7 @@ const navItems = [
 </html>
 
 <style is:global>
-  /* 基本フォントを太め（700）かつ高コントラストに設定 */
+  /* 全体のフォント指定（太くしっかり見える設定） */
   body { 
     font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
     font-weight: 700;
