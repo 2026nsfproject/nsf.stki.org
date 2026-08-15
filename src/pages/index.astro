@@ -12,6 +12,14 @@ try {
 
 const newsList = [
   {
+    id: 0,
+    date: "2026.08.01",
+    category: "企画",
+    categoryColor: "bg-orange-100 text-orange-700 font-bold",
+    title: "【YouTube連動】全国からの応援メッセージ（絵馬）を募集中！",
+    link: "/ema",
+  },
+  {
     id: 1,
     date: "2026.07.30",
     category: "実績",
@@ -65,7 +73,7 @@ const newsList = [
       
       <h1 class="text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
         <span>能登の震災を原点に</span><br class="hidden sm:inline">
-        <span>社会課題に挑むNSF PRJECTsへ</span>
+        <span>社会課題に挑むNSF PROJECTsへ</span>
       </h1>
       
       <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90 mb-8">
@@ -73,20 +81,23 @@ const newsList = [
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="/about" class="btn-hover-effect w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-8 py-3 rounded-xl shadow-lg transition duration-200">
+        <a href="/about" class="btn-hover-effect w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200">
           わたしたちについて知る
         </a>
-        <a href="/projects" class="btn-hover-effect w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm px-8 py-3 rounded-xl backdrop-blur-sm transition duration-200">
+        <a href="/ema" class="btn-hover-effect w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200">
+          ⛩️ 応援絵馬を投稿する
+        </a>
+        <a href="/projects" class="btn-hover-effect w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm px-6 py-3 rounded-xl backdrop-blur-sm transition duration-200">
           プロジェクト一覧 ➔
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ▼ NEWS（コンパクト化） -->
+  <!-- ▼ NEWS（絵馬掲示板へのリンクに対応） -->
   <section class="py-6 bg-slate-50 border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3 w-full sm:w-auto">
+      <div class="flex items-center gap-3 w-full sm:w-auto shrink-0">
         <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-100 px-2.5 py-1 rounded-md">NEWS</span>
         <h2 class="text-xs font-bold text-slate-500">お知らせ・実績</h2>
       </div>
@@ -94,7 +105,13 @@ const newsList = [
         {newsList.slice(0, 2).map((item) => (
           <div class="text-xs md:text-sm font-bold text-slate-800 truncate py-1">
             <span class="text-slate-400 font-mono mr-2">{item.date}</span>
-            <span>{item.title}</span>
+            {item.link ? (
+              <a href={item.link} class="hover:text-orange-600 hover:underline transition">
+                {item.title} ➔
+              </a>
+            ) : (
+              <span>{item.title}</span>
+            )}
           </div>
         ))}
       </div>
