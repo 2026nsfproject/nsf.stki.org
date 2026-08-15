@@ -166,7 +166,9 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
       const response = await fetch(apiUrl);
       const data = await response.json();
       
-      allMessages = filterValidMessages(data);
+      // フィルタリング処理を通した後に .reverse() で最新順（新しい投稿が先頭）に並び替え
+      const filtered = filterValidMessages(data);
+      allMessages = filtered.reverse();
       currentPage = 1;
       
       renderPage();
@@ -280,13 +282,11 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
         const id = Number(idStr);
         if (getLikedIds().includes(id)) return;
 
-        // 連打防止のための仮無効化
         targetBtn.disabled = true;
 
         const countEl = targetBtn.querySelector(".like-count");
         const currentCount = Number(countEl?.textContent || 0);
 
-        // UIを即時更新（楽観的UI更新）
         if (countEl) countEl.textContent = String(currentCount + 1);
         targetBtn.classList.remove("bg-amber-100/80", "text-amber-900/80");
         targetBtn.classList.add("bg-rose-100", "text-rose-600", "font-extrabold");
@@ -296,10 +296,8 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
           svg.classList.add("fill-rose-500", "stroke-rose-500");
         }
 
-        // ローカルに保存
         saveLikedId(id);
 
-        // GASへPOSTリクエスト送信
         try {
           const res = await fetch(apiUrl, {
             method: "POST",
@@ -309,7 +307,6 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
           const result = await res.json();
           if (result.success && countEl) {
             countEl.textContent = String(result.likes);
-            // オンメモリデータも同期
             const targetItem = allMessages.find((m) => m.id === id);
             if (targetItem) targetItem.likes = result.likes;
           }
