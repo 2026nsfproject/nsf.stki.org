@@ -96,6 +96,38 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
   let currentPage = 1;
   const ITEMS_PER_PAGE = 6;
 
+  // 非表示対象となる単語リスト
+  const NG_WORDS = [
+    "http://", "https://", "死ね", "殺す", "バカ", "馬鹿", "アホ", "タコ"
+  ];
+
+  // 荒らしフィルター関数
+  function filterValidMessages(data: any[]) {
+    if (!Array.isArray(data)) return [];
+
+    const seenMessages = new Set<string>();
+
+    return data.filter((item) => {
+      const msg = (item.message || "").trim();
+      const name = (item.name || "").trim();
+
+      // 1. 空文字・極端な文字数オーバー（200文字超）の除外
+      if (!msg || msg.length > 200) return false;
+
+      // 2. NGワード（URLスパム・暴言など）の検知
+      const isInvalid = NG_WORDS.some(
+        (word) => msg.includes(word) || name.includes(word)
+      );
+      if (isInvalid) return false;
+
+      // 3. 全く同じメッセージの連続投稿（連投荒らし）を除外
+      if (seenMessages.has(msg)) return false;
+      seenMessages.add(msg);
+
+      return true;
+    });
+  }
+
   async function loadEmaMessages() {
     const container = document.getElementById("ema-container");
     if (!container) return;
@@ -112,8 +144,8 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
       const response = await fetch(apiUrl);
       const data = await response.json();
       
-      // reverse() を使わず、取得した並び（最新順）をそのまま使用
-      allMessages = Array.isArray(data) ? data : [];
+      // フィルタリングを通して安全なデータのみ保持
+      allMessages = filterValidMessages(data);
       currentPage = 1;
       
       renderPage();
