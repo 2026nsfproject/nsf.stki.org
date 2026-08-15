@@ -44,28 +44,47 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
     </div>
 
     <!-- 右側：絵馬掲示板表示エリア -->
-    <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
-        <div>
-          <h2 class="text-lg font-black text-slate-900">みんなの応援絵馬</h2>
-          <p class="text-xs text-slate-500 font-bold mt-0.5">全国から寄せられたメッセージ</p>
+    <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+          <div>
+            <h2 class="text-lg font-black text-slate-900">みんなの応援絵馬</h2>
+            <p class="text-xs text-slate-500 font-bold mt-0.5">全国から寄せられたメッセージ</p>
+          </div>
+          <button 
+            id="refresh-btn" 
+            class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-black px-4 py-2 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            更新する
+          </button>
         </div>
-        <button 
-          id="refresh-btn" 
-          class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-black px-4 py-2 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
-        >
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-          </svg>
-          更新する
-        </button>
+
+        <!-- 絵馬カードグリッド -->
+        <div id="ema-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-api={GAS_API_URL}>
+          <p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold animate-pulse">
+            絵馬を読み込み中…
+          </p>
+        </div>
       </div>
 
-      <!-- 絵馬カードグリッド（items-start でカード同士の高さ引き伸ばしを防止） -->
-      <div id="ema-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start" data-api={GAS_API_URL}>
-        <p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold animate-pulse">
-          絵馬を読み込み中…
-        </p>
+      <!-- ページ切り替えコントロール -->
+      <div id="pagination-controls" class="flex items-center justify-between pt-6 mt-6 border-t border-slate-100 hidden">
+        <button 
+          id="prev-page-btn" 
+          class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2 rounded-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          ← 前の6件
+        </button>
+        <span id="page-info" class="text-xs font-bold text-slate-500"></span>
+        <button 
+          id="next-page-btn" 
+          class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2 rounded-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          次の6件 →
+        </button>
       </div>
     </div>
 
@@ -73,6 +92,10 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
 </div>
 
 <script>
+  let allMessages: Array<{ name?: string; message?: string; prefecture?: string }> = [];
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 6; // 1ページに表示する絵馬を6件に固定
+
   async function loadEmaMessages() {
     const container = document.getElementById("ema-container");
     if (!container) return;
@@ -87,44 +110,76 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
 
     try {
       const response = await fetch(apiUrl);
-      const messages = await response.json();
+      const data = await response.json();
       
-      container.innerHTML = "";
-
-      if (!messages || messages.length === 0) {
-        container.innerHTML = '<p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold">まだ絵馬がありません。最初の投稿をお願いします！</p>';
-        return;
-      }
-
-      messages.forEach((item: { name?: string; message?: string; prefecture?: string }) => {
-        const emaCard = document.createElement("div");
-        // 固定高さを解除し、min-h-[220px] でコンテンツ量に合わせて自動調整
-        emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema min-h-[220px] w-full";
-        
-        emaCard.innerHTML = `
-          <!-- 奉納ヘッダー -->
-          <div class="text-center text-[10px] font-black text-amber-800/60 tracking-widest pb-2 border-b border-amber-800/20 shrink-0">
-            奉 納
-          </div>
-          
-          <!-- 完全上下左右中央配置エリア -->
-          <div class="flex-1 flex flex-col justify-center items-center py-6 px-2 text-center w-full">
-            <p class="text-slate-800 text-sm sm:text-base font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-words [text-wrap:balance]">
-              ${escapeHtml(item.message || "")}
-            </p>
-          </div>
-
-          <!-- フッター -->
-          <div class="pt-2 border-t border-dashed border-amber-800/20 flex justify-between items-center text-xs text-amber-900/70 font-bold shrink-0">
-            <span class="truncate max-w-[120px]">${escapeHtml(item.name || "匿名")}</span>
-            ${item.prefecture ? `<span class="text-[11px] bg-amber-200/60 px-2 py-0.5 rounded-md shrink-0">${escapeHtml(item.prefecture)}</span>` : ''}
-          </div>
-        `;
-        container.appendChild(emaCard);
-      });
+      // 最新の投稿が一番上に来るよう逆順にし、ページ1にリセット
+      allMessages = Array.isArray(data) ? [...data].reverse() : [];
+      currentPage = 1;
+      
+      renderPage();
     } catch (error) {
       console.error("エラー:", error);
       container.innerHTML = '<p class="col-span-full text-center py-8 text-red-500 text-sm font-bold">絵馬の読み込みに失敗しました。</p>';
+    }
+  }
+
+  function renderPage() {
+    const container = document.getElementById("ema-container");
+    const controls = document.getElementById("pagination-controls");
+    const prevBtn = document.getElementById("prev-page-btn") as HTMLButtonElement | null;
+    const nextBtn = document.getElementById("next-page-btn") as HTMLButtonElement | null;
+    pageInfo = document.getElementById("page-info");
+
+    if (!container) return;
+    container.innerHTML = "";
+
+    if (!allMessages || allMessages.length === 0) {
+      container.innerHTML = '<p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold">まだ絵馬がありません。最初の投稿をお願いします！</p>';
+      if (controls) controls.classList.add("hidden");
+      return;
+    }
+
+    const totalPages = Math.ceil(allMessages.length / ITEMS_PER_PAGE);
+    const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+    const currentMessages = allMessages.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
+    currentMessages.forEach((item) => {
+      const emaCard = document.createElement("div");
+      // カード高さを h-[250px] で統一し、美しい格子状グリッドにする
+      emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema h-[250px] w-full";
+      
+      emaCard.innerHTML = `
+        <!-- 奉納ヘッダー -->
+        <div class="text-center text-[10px] font-black text-amber-800/60 tracking-widest pb-1.5 border-b border-amber-800/20 shrink-0">
+          奉 納
+        </div>
+        
+        <!-- 上下左右 完全中央配置エリア（文字数に合わせてフォントサイズを自動変化） -->
+        <div class="flex-1 flex items-center justify-center py-2 px-1 text-center w-full overflow-hidden">
+          <p class="text-slate-800 text-xs sm:text-sm font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-words [text-wrap:balance]">
+            ${escapeHtml(item.message || "")}
+          </p>
+        </div>
+
+        <!-- フッター -->
+        <div class="pt-2 border-t border-dashed border-amber-800/20 flex justify-between items-center text-xs text-amber-900/70 font-bold shrink-0">
+          <span class="truncate max-w-[120px]">${escapeHtml(item.name || "匿名")}</span>
+          ${item.prefecture ? `<span class="text-[11px] bg-amber-200/60 px-2 py-0.5 rounded-md shrink-0">${escapeHtml(item.prefecture)}</span>` : ''}
+        </div>
+      `;
+      container.appendChild(emaCard);
+    });
+
+    // ページネーションボタンの表示設定
+    if (controls) {
+      if (totalPages > 1) {
+        controls.classList.remove("hidden");
+        if (prevBtn) prevBtn.disabled = currentPage === 1;
+        if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+        if (pageInfo) pageInfo.textContent = `${currentPage} / ${totalPages} ページ (${allMessages.length}件)`;
+      } else {
+        controls.classList.add("hidden");
+      }
     }
   }
 
@@ -137,13 +192,32 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
     });
   }
 
-  // 初期化ロジック
+  // 初期化＆イベントバインド
+  let pageInfo: HTMLElement | null = null;
   const initEmaBoard = () => {
     loadEmaMessages();
+
     const refreshBtn = document.getElementById("refresh-btn");
-    if (refreshBtn) {
-      refreshBtn.removeEventListener("click", loadEmaMessages);
-      refreshBtn.addEventListener("click", loadEmaMessages);
+    const prevBtn = document.getElementById("prev-page-btn");
+    const nextBtn = document.getElementById("next-page-btn");
+
+    if (refreshBtn) refreshBtn.onclick = () => loadEmaMessages();
+    if (prevBtn) {
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage();
+        }
+      };
+    }
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        const totalPages = Math.ceil(allMessages.length / ITEMS_PER_PAGE);
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPage();
+        }
+      };
     }
   };
 
