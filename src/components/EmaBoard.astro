@@ -106,7 +106,7 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
           </div>
           
           <div class="flex-1 my-auto py-3 px-1 flex items-center justify-center">
-            <p class="text-slate-800 text-sm sm:text-base font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-words">
+            <p class="text-slate-800 text-sm sm:text-base font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-normal [word-break:keep-all] [overflow-wrap:anywhere]">
               ${escapeHtml(item.message || "")}
             </p>
           </div>
