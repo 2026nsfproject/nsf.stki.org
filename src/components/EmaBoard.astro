@@ -1,0 +1,155 @@
+---
+const GAS_API_URL = import.meta.env.PUBLIC_GAS_API_URL || "";
+const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
+---
+
+<div class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+  <!-- YouTube連動企画バナー -->
+  <section class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-orange-200 rounded-2xl p-6 sm:p-8 mb-10 text-center shadow-sm">
+    <span class="inline-block bg-orange-600 text-white text-xs font-black px-3 py-1 rounded-full mb-3 tracking-wider">
+      YouTube連動企画
+    </span>
+    <h2 class="text-xl sm:text-2xl font-black text-orange-950 mb-3">
+      あなたの言葉が、動画になります。
+    </h2>
+    <p class="text-sm sm:text-base text-slate-700 leading-relaxed max-w-2xl mx-auto mb-2 font-medium">
+      名曲<strong class="text-orange-700">『愛は勝つ』（Piano Cover）</strong>に乗せて、全国から届いた応援メッセージ（絵馬）をYouTube動画として公開予定です。
+    </p>
+    <p class="text-xs text-slate-500 font-bold">
+      ※投稿されたメッセージは、当掲示板に掲載されると同時に動画内でも大切に紹介させていただきます。
+    </p>
+  </section>
+
+  <!-- 2カラムレイアウト（PC時）：フォーム ＆ 掲示板 -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- 左側：Googleフォーム埋め込みエリア -->
+    <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm h-fit">
+      <h2 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+        <span class="w-2.5 h-2.5 bg-red-600 rounded-full inline-block"></span>
+        絵馬を投稿する
+      </h2>
+      <p class="text-xs text-slate-500 mb-4 font-bold">※投稿されたメッセージは右側の掲示板へ即時反映されます。</p>
+      
+      {GOOGLE_FORM_URL ? (
+        <iframe 
+          src={GOOGLE_FORM_URL} 
+          class="w-full h-[550px] border-0 rounded-xl bg-slate-50"
+          loading="lazy">読み込んでいます…</iframe>
+      ) : (
+        <div class="p-8 text-center text-sm text-slate-400 bg-slate-50 rounded-xl">
+          .envファイルに PUBLIC_GOOGLE_FORM_URL を設定してください。
+        </div>
+      )}
+    </div>
+
+    <!-- 右側：絵馬掲示板表示エリア -->
+    <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+        <div>
+          <h2 class="text-lg font-black text-slate-900">みんなの応援絵馬</h2>
+          <p class="text-xs text-slate-500 font-bold mt-0.5">全国から寄せられたメッセージ</p>
+        </div>
+        <button 
+          id="refresh-btn" 
+          class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-black px-4 py-2 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          更新する
+        </button>
+      </div>
+
+      <!-- 絵馬カードグリッド -->
+      <div id="ema-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-api={GAS_API_URL}>
+        <p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold animate-pulse">
+          絵馬を読み込み中…
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  async function loadEmaMessages() {
+    const container = document.getElementById("ema-container");
+    if (!container) return;
+
+    const apiUrl = container.getAttribute("data-api");
+    if (!apiUrl) {
+      container.innerHTML = '<p class="col-span-full text-center py-8 text-amber-600 text-sm font-bold bg-amber-50 rounded-xl">.env に PUBLIC_GAS_API_URL を設定してください。</p>';
+      return;
+    }
+
+    container.innerHTML = '<p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold animate-pulse">最新の絵馬を読み込み中…</p>';
+
+    try {
+      const response = await fetch(apiUrl);
+      const messages = await response.json();
+      
+      container.innerHTML = "";
+
+      if (!messages || messages.length === 0) {
+        container.innerHTML = '<p class="col-span-full text-center py-12 text-slate-400 text-sm font-bold">まだ絵馬がありません。最初の投稿をお願いします！</p>';
+        return;
+      }
+
+      messages.forEach((item: { name?: string; message?: string; prefecture?: string }) => {
+        const emaCard = document.createElement("div");
+        emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema";
+        emaCard.innerHTML = `
+          <div class="text-center text-[10px] font-black text-amber-800/60 tracking-widest mb-2 border-b border-amber-800/20 pb-1">
+            奉 納
+          </div>
+          <p class="text-slate-800 text-sm font-bold leading-relaxed mb-4 whitespace-pre-wrap break-words">
+            ${escapeHtml(item.message || "")}
+          </p>
+          <div class="pt-2 border-t border-dashed border-amber-800/20 flex justify-between items-center text-xs text-amber-900/70 font-bold">
+            <span>${escapeHtml(item.name || "匿名")}</span>
+            <span class="text-[11px] bg-amber-200/60 px-2 py-0.5 rounded-md">${escapeHtml(item.prefecture || "")}</span>
+          </div>
+        `;
+        container.appendChild(emaCard);
+      });
+    } catch (error) {
+      console.error("エラー:", error);
+      container.innerHTML = '<p class="col-span-full text-center py-8 text-red-500 text-sm font-bold">絵馬の読み込みに失敗しました。</p>';
+    }
+  }
+
+  function escapeHtml(str: string): string {
+    return str.replace(/[&<>"']/g, (m) => {
+      const map: Record<string, string> = {
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      };
+      return map[m] || m;
+    });
+  }
+
+  // 初期化ロジックの修正：即時実行＆イベントバインド
+  const initEmaBoard = () => {
+    loadEmaMessages();
+    const refreshBtn = document.getElementById("refresh-btn");
+    if (refreshBtn) {
+      // 二重バインド防止
+      refreshBtn.removeEventListener("click", loadEmaMessages);
+      refreshBtn.addEventListener("click", loadEmaMessages);
+    }
+  };
+
+  // 即時呼び出し
+  initEmaBoard();
+
+  // View Transitionsを使用している場合のケア
+  document.addEventListener("astro:page-load", initEmaBoard);
+</script>
+
+<style>
+  /* 絵馬の五角形カットアウト */
+  .clip-ema {
+    clip-path: polygon(12% 0%, 88% 0%, 100% 15%, 100% 100%, 0% 100%, 0% 15%);
+    padding-top: 1.5rem;
+  }
+</style>
