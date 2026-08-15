@@ -98,15 +98,18 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
 
       messages.forEach((item: { name?: string; message?: string; prefecture?: string }) => {
         const emaCard = document.createElement("div");
-        emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema";
+        // カード全体の高さを固定(min-h-[260px])し、Flexboxで上下に均等配置
+        emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema min-h-[260px]";
         emaCard.innerHTML = `
-          <div class="text-center text-[10px] font-black text-amber-800/60 tracking-widest mb-2 border-b border-amber-800/20 pb-1">
+          <div class="text-center text-[10px] font-black text-amber-800/60 tracking-widest pb-1 border-b border-amber-800/20 shrink-0">
             奉 納
           </div>
-          <p class="text-slate-800 text-sm font-bold leading-relaxed mb-4 whitespace-pre-wrap break-words">
-            ${escapeHtml(item.message || "")}
-          </p>
-          <div class="pt-2 border-t border-dashed border-amber-800/20 flex justify-between items-center text-xs text-amber-900/70 font-bold">
+          <div class="flex-1 flex items-center justify-center my-3 px-1">
+            <p class="text-slate-800 text-sm font-bold leading-relaxed whitespace-pre-wrap break-words text-center w-full">
+              ${escapeHtml(item.message || "")}
+            </p>
+          </div>
+          <div class="pt-2 border-t border-dashed border-amber-800/20 flex justify-between items-center text-xs text-amber-900/70 font-bold shrink-0">
             <span>${escapeHtml(item.name || "匿名")}</span>
             <span class="text-[11px] bg-amber-200/60 px-2 py-0.5 rounded-md">${escapeHtml(item.prefecture || "")}</span>
           </div>
@@ -128,12 +131,11 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
     });
   }
 
-  // 初期化ロジックの修正：即時実行＆イベントバインド
+  // 初期化ロジック：即時実行＆イベントバインド
   const initEmaBoard = () => {
     loadEmaMessages();
     const refreshBtn = document.getElementById("refresh-btn");
     if (refreshBtn) {
-      // 二重バインド防止
       refreshBtn.removeEventListener("click", loadEmaMessages);
       refreshBtn.addEventListener("click", loadEmaMessages);
     }
