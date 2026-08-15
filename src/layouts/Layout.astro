@@ -13,9 +13,10 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
-// src/pages 直下の各プロジェクトファイルに対応したメニュー項目
+// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（絵馬掲示板を追加）
 const projectItems = [
   { label: 'すべてのプロジェクト', href: '/projects' },
+  { label: '応援絵馬掲示板', href: '/ema' },
   { label: 'mamoneruプロジェクト', href: '/mamoneru' },
   { label: 'まもみずプロジェクト', href: '/mamomizu' },
   { label: 'Bifrost', href: '/bifrost' },
