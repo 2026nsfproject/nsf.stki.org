@@ -94,7 +94,7 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
 <script>
   let allMessages: Array<{ name?: string; message?: string; prefecture?: string }> = [];
   let currentPage = 1;
-  const ITEMS_PER_PAGE = 6; // 1ページに表示する絵馬を6件に固定
+  const ITEMS_PER_PAGE = 6;
 
   async function loadEmaMessages() {
     const container = document.getElementById("ema-container");
@@ -112,7 +112,6 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
       const response = await fetch(apiUrl);
       const data = await response.json();
       
-      // 最新の投稿が一番上に来るよう逆順にし、ページ1にリセット
       allMessages = Array.isArray(data) ? [...data].reverse() : [];
       currentPage = 1;
       
@@ -145,8 +144,8 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
 
     currentMessages.forEach((item) => {
       const emaCard = document.createElement("div");
-      // カード高さを h-[250px] で統一し、美しい格子状グリッドにする
-      emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema h-[250px] w-full";
+      // h-[280px] に拡大し、[text-wrap:balance] を撤去。長文は内部スクロールで安全にカバー
+      emaCard.className = "bg-amber-50/80 border-2 border-amber-800/40 rounded-2xl p-5 relative shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between clip-ema h-[280px] w-full";
       
       emaCard.innerHTML = `
         <!-- 奉納ヘッダー -->
@@ -154,9 +153,9 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
           奉 納
         </div>
         
-        <!-- 上下左右 完全中央配置エリア（文字数に合わせてフォントサイズを自動変化） -->
-        <div class="flex-1 flex items-center justify-center py-2 px-1 text-center w-full overflow-hidden">
-          <p class="text-slate-800 text-xs sm:text-sm font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-words [text-wrap:balance]">
+        <!-- メッセージ中央配置エリア -->
+        <div class="flex-1 flex items-center justify-center my-2 px-1 w-full overflow-y-auto">
+          <p class="text-slate-800 text-xs sm:text-sm font-bold leading-relaxed text-center w-full whitespace-pre-wrap break-words">
             ${escapeHtml(item.message || "")}
           </p>
         </div>
@@ -170,7 +169,6 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
       container.appendChild(emaCard);
     });
 
-    // ページネーションボタンの表示設定
     if (controls) {
       if (totalPages > 1) {
         controls.classList.remove("hidden");
@@ -192,7 +190,6 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
     });
   }
 
-  // 初期化＆イベントバインド
   let pageInfo: HTMLElement | null = null;
   const initEmaBoard = () => {
     loadEmaMessages();
