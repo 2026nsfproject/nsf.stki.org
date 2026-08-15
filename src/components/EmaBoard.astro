@@ -112,8 +112,8 @@ const GOOGLE_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
       const response = await fetch(apiUrl);
       const data = await response.json();
       
-      // データが最新順でない場合に備えて reverse() し、1ページ目にリセット
-      allMessages = Array.isArray(data) ? [...data].reverse() : [];
+      // reverse() を使わず、取得した並び（最新順）をそのまま使用
+      allMessages = Array.isArray(data) ? data : [];
       currentPage = 1;
       
       renderPage();
