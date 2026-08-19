@@ -2,6 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import NoteCard from "../components/NoteCard.astro";
 import { getLatestNoteArticles } from "../lib/notes";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメーターを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 
 let articles = [];
 try {
@@ -10,56 +16,67 @@ try {
   console.error("Noteの取得に失敗しました:", e);
 }
 
+// 言語に応じたNEWSデータ
 const newsList = [
   {
     id: 0,
     date: "2026.08.01",
-    category: "企画",
+    category: currentLang === 'en' ? 'Event' : '企画',
     categoryColor: "bg-orange-100 text-orange-700 font-bold",
-    title: "【YouTube連動】全国からの応援メッセージ（絵馬）を募集中！",
+    title: currentLang === 'en' 
+      ? '[YouTube Collaboration] Support messages (Ema) wanted from across Japan!' 
+      : '【YouTube連動】全国からの応援メッセージ（絵馬）を募集中！',
     link: "/ema",
   },
   {
     id: 1,
     date: "2026.07.30",
-    category: "実績",
+    category: currentLang === 'en' ? 'News' : '実績',
     categoryColor: "bg-orange-100 text-orange-700 font-bold",
-    title: "メンバー500人達成!!",
+    title: currentLang === 'en' ? 'Reached 500 Members!!' : 'メンバー500人達成!!',
   },
   {
     id: 2,
     date: "2026.03.23",
-    category: "イベント",
+    category: currentLang === 'en' ? 'Event' : 'イベント',
     categoryColor: "bg-blue-100 text-blue-700",
-    title: "内閣府共催「全国生徒会防災サミット」を開催（衆議院会館／東京都）",
+    title: currentLang === 'en' 
+      ? 'Hosted "National Student Council Disaster Prevention Summit" co-sponsored by Cabinet Office' 
+      : '内閣府共催「全国生徒会防災サミット」を開催（衆議院会館／東京都）',
   },
   {
     id: 3,
     date: "2025.12.23",
-    category: "イベント",
+    category: currentLang === 'en' ? 'Event' : 'イベント',
     categoryColor: "bg-blue-100 text-blue-700",
-    title: "内閣府共催「全国高校生未来会議」を開催",
+    title: currentLang === 'en' 
+      ? 'Hosted "National High School Future Conference" co-sponsored by Cabinet Office' 
+      : '内閣府共催「全国高校生未来会議」を開催',
   },
 ];
 ---
 
-<Layout title="ホーム" activeKey="home" showSplash>
+<Layout title={t.home} activeKey="home" showSplash>
 
-  <!-- ▼ ファーストビュー（緊急バナー、キャッチコピー、CTAを集約） -->
+  <!-- ▼ ファーストビュー -->
   <section class="relative min-h-[85vh] flex flex-col justify-between bg-slate-950 text-white overflow-hidden pt-6 pb-12">
     <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-slate-900/60 to-blue-950/40"></div>
 
-    <!-- 緊急バナー（視認性向上版） -->
+    <!-- 緊急バナー -->
     <div class="relative z-10 max-w-3xl mx-auto px-4 w-full mb-6">
       <div class="emergency-banner-compact">
         <div class="flex items-center gap-2 mb-1">
-          <span class="bg-red-600 text-white text-[11px] font-extrabold px-2 py-0.5 rounded">緊急</span>
+          <span class="bg-red-600 text-white text-[11px] font-extrabold px-2 py-0.5 rounded">
+            {currentLang === 'en' ? 'URGENT' : '緊急'}
+          </span>
           <span class="text-xs text-slate-700 font-mono font-bold">2026.07.28</span>
         </div>
         <a href="/earthquake-notice" class="group block">
           <h3 class="emergency-title-text">
-            【臨時】本日発生した地震への当団体の対応および活動方針について ➔
+            {currentLang === 'en' 
+              ? '[Notice] Policy and Response Regarding Today’s Earthquake ➔' 
+              : '【臨時】本日発生した地震への当団体の対応および活動方針について ➔'}
           </h3>
         </a>
       </div>
@@ -68,38 +85,38 @@ const newsList = [
     <!-- メインメッセージ & アクション誘導 -->
     <div class="relative z-10 max-w-4xl mx-auto px-4 text-center my-auto">
       <div class="flex justify-center space-x-3 md:space-x-8 text-base md:text-2xl font-black tracking-widest text-orange-400 mb-4 drop-shadow-md">
-        <span>まなぶ</span><span>つなぐ</span><span>そなえる</span>
+        <span>{t.heroCatch}</span>
       </div>
       
       <h1 class="text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
-        <span>能登の震災を原点に</span><br class="hidden sm:inline">
-        <span>社会課題に挑むNSF PROJECTsへ</span>
+        <span>{t.heroTitleLine1}</span><br class="hidden sm:inline">
+        <span>{t.heroTitleLine2}</span>
       </h1>
       
       <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90 mb-8">
-        学生募金の枠組みを超え、全国の学生が主体的に未来のアクションを起こす学生団体へ
+        {t.heroSub}
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a href="/about" class="btn-hover-effect w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200">
-          わたしたちについて知る
+          {t.about}
         </a>
         <a href="/ema" class="btn-hover-effect w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200">
-          ⛩️ 応援絵馬を投稿する
+          {t.emaSubmit}
         </a>
         <a href="/projects" class="btn-hover-effect w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm px-6 py-3 rounded-xl backdrop-blur-sm transition duration-200">
-          プロジェクト一覧 ➔
+          {t.projects} ➔
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ▼ NEWS（絵馬掲示板へのリンクに対応） -->
+  <!-- ▼ NEWS -->
   <section class="py-6 bg-slate-50 border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3 w-full sm:w-auto shrink-0">
         <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-100 px-2.5 py-1 rounded-md">NEWS</span>
-        <h2 class="text-xs font-bold text-slate-500">お知らせ・実績</h2>
+        <h2 class="text-xs font-bold text-slate-500">{t.news}</h2>
       </div>
       <div class="w-full sm:w-auto flex-grow max-w-xl">
         {newsList.slice(0, 2).map((item) => (
@@ -122,11 +139,16 @@ const newsList = [
   <section class="py-16 md:py-20 max-w-4xl mx-auto px-4 text-center">
     <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">WHAT WE DO</span>
     <h2 class="text-xl md:text-3xl font-black text-slate-950 mb-6 leading-snug">
-      名称の由来を超えて<br>
-      私たちが目指す未来への挑戦
+      {currentLang === 'en' ? (
+        <>Moving Beyond Our Name:<br />Our Challenge for the Future</>
+      ) : (
+        <>名称の由来を超えて<br />私たちが目指す未来への挑戦</>
+      )}
     </h2>
     <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
-      NSF PROJECTsは「Noto Student Fund」という名称の時点に留まる組織ではありません。能登半島地震をきっかけに始まった活動をすべての原点としつつ、現在は全国の学生が社会課題に対して主体的に挑戦するプロジェクト型組織へと発展を遂げています。
+      {currentLang === 'en' 
+        ? "NSF PROJECTs is more than just 'Noto Student Fund.' While our roots stem from disaster relief for the Noto Peninsula Earthquake, we have evolved into a project-driven organization where students nationwide actively tackle various social issues."
+        : "NSF PROJECTsは「Noto Student Fund」という名称の時点に留まる組織ではありません。能登半島地震をきっかけに始まった活動をすべての原点としつつ、現在は全国の学生が社会課題に対して主体的に挑戦するプロジェクト型組織へと発展を遂げています。"}
     </p>
   </section>
 
@@ -147,7 +169,9 @@ const newsList = [
     <div class="max-w-5xl mx-auto px-4 space-y-10">
       <div class="text-center">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">VISION</span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-950">私たちが生み出す価値</h2>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950">
+          {currentLang === 'en' ? 'The Value We Create' : '私たちが生み出す価値'}
+        </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -156,14 +180,18 @@ const newsList = [
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
               <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
             </div>
-            <h3 class="text-xl font-black text-slate-950 mb-2">能登創生とプロジェクト展開</h3>
+            <h3 class="text-xl font-black text-slate-950 mb-2">
+              {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。
+              {currentLang === 'en'
+                ? "In addition to supporting recovery in Noto, we leverage the unique flexibility and mobility of students to solve diverse societal challenges."
+                : "原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。"}
             </p>
           </div>
           <div class="mt-6">
             <a href="/projects" class="btn-hover-effect block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
-              PROJECTs一覧 ➔
+              {t.projects} ➔
             </a>
           </div>
         </div>
@@ -173,14 +201,18 @@ const newsList = [
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
               <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
             </div>
-            <h3 class="text-xl font-black text-slate-950 mb-2">全国の学生による挑戦</h3>
+            <h3 class="text-xl font-black text-slate-950 mb-2">
+              {currentLang === 'en' ? 'Action by Students Nationwide' : '全国の学生による挑戦'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              全国から500人を超えるメンバーが集結。存在意義の否定や既存の枠組みにとらわれず、絶えず改善を重ねながら未来を切り拓くアクションを起こします。
+              {currentLang === 'en'
+                ? "Over 500 members gathered from across Japan. Unbound by existing frameworks, we continuously improve and take steps to open up the future."
+                : "全国から500人を超えるメンバーが集結。存在意義の否定や既存の枠組みにとらわれず、絶えず改善を重ねながら未来を切り拓くアクションを起こします。"}
             </p>
           </div>
           <div class="mt-6">
             <a href="/about" class="btn-hover-effect block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
-              わたしたちについて ➔
+              {t.about} ➔
             </a>
           </div>
         </div>
@@ -193,7 +225,9 @@ const newsList = [
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-10">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">NOTE</span>
-        <h2 class="text-2xl font-black text-slate-950">公式Note・活動記事</h2>
+        <h2 class="text-2xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Official Note Articles' : '公式Note・活動記事'}
+        </h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {articles.map((article) => (
@@ -207,7 +241,9 @@ const newsList = [
   <section id="instagram" class="py-16 bg-slate-100 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-8">
-        <h2 class="text-lg font-bold text-slate-950">最新のInstagram活動報告</h2>
+        <h2 class="text-lg font-bold text-slate-950">
+          {currentLang === 'en' ? 'Latest Instagram Updates' : '最新のInstagram活動報告'}
+        </h2>
       </div>
       <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
       <script>
@@ -250,7 +286,6 @@ const newsList = [
     }
   }
 
-  /* 軽快なホバーアニメーション（ふわっと浮き上がり、クリック時に沈む演出） */
   .btn-hover-effect {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
