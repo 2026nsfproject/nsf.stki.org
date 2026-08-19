@@ -13,24 +13,24 @@ const t = translations[currentLang];
   title={currentLang === 'en' ? "PROJECTs List | NSF PROJECTs" : "PROJECTs - プロジェクト一覧"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-12">
+  <div class="max-w-5xl mx-auto px-4 py-16 space-y-12 w-full max-w-full box-border overflow-hidden">
     
     <!-- 果てなき復興プロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/hatenaki.png" alt="果てなき復興プロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Endless Reconstruction Project' : '果てなき復興プロジェクト'}
         </h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'A student-led initiative toward Noto’s recovery, going beyond temporary assistance to create sustainable support mechanisms.' 
             : '能登の復興に向けて、一時的な支援で終わらせず「果てなき」持続可能なサポートの仕組みを学生たちの手で創り出していくプロジェクトです。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/hatenaki?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/hatenaki?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -38,26 +38,26 @@ const t = translations[currentLang];
     </div>
 
     <!-- Mamoneruプロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/mamoneru.png" alt="Mamoneruプロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <div class="flex flex-col md:flex-row md:items-center space-y-1 md:space-y-0 md:space-x-3 justify-center md:justify-start">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <div class="flex flex-col md:flex-row md:items-center space-y-1 md:space-y-0 md:space-x-3 justify-center md:justify-start flex-wrap gap-y-1">
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
             {currentLang === 'en' ? 'Mamoneru Project' : 'Mamoneruプロジェクト'}
           </h3>
-          <span class="bg-red-50 text-red-600 font-bold text-xs px-2.5 py-1 rounded-full border border-red-200/60 w-fit mx-auto md:mx-0">
+          <span class="bg-red-50 text-red-600 font-bold text-xs px-2.5 py-1 rounded-full border border-red-200/60 w-fit mx-auto md:mx-0 shrink-0 break-words">
             {currentLang === 'en' ? 'Shelter QOL Improvement' : '避難所のQOL向上'}
           </span>
         </div>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Aiming to improve shelter QOL and eliminate disaster-related deaths, students nationwide investigate and advocate local government "Cardboard Bed Agreements" to strengthen societal safety nets.' 
             : '避難所のQOL向上と災害関連死の撲滅を目指し、全国の中高生が自治体の「段ボールベッド協定」の締結状況を調査・提言していく、社会のセーフティネットを強固にする挑戦です。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/mamoneru?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/mamoneru?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -65,21 +65,21 @@ const t = translations[currentLang];
     </div>
 
     <!-- Mamomizuプロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/Mamomizu.jpg" alt="Mamomizuプロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Mamomizu Project' : 'Mamomizuプロジェクト'}
         </h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Focusing on "water" infrastructure and stockpiling—the most critical disaster issue—we conduct research and educational campaigns to protect vital life infrastructure.' 
             : '災害時に最も深刻な課題となる「水」のインフラや備蓄に焦点を当て、大切な命と生活のインフラを守るための調査や啓発活動を行います。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/mamomizu?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/mamomizu?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -87,21 +87,21 @@ const t = translations[currentLang];
     </div>
 
     <!-- 能登うまいもん再発見プロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/umaimon.png" alt="能登うまいもん再発見プロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Noto Umaimon Rediscovery Project' : '能登うまいもん再発見プロジェクト'}
         </h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Building recovery support through local cuisine, ingredients, and event planning to connect people and shine a light on Noto from scratch.' 
             : '「“能登”を通して人が繋がり、能登を輝かせられる復興支援」を、郷土料理や地元の食材の手配・イベント企画を通して1からメンバー全員で形にしていきます。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/umaimon?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/umaimon?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -109,21 +109,21 @@ const t = translations[currentLang];
     </div>
 
     <!-- survival Academyプロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/survival.jpg" alt="survival Academyプロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Survival Academy Project' : 'survival Academyプロジェクト'}
         </h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'An academy to learn wisdom and techniques for survival in emergencies. We conduct workshops and information sharing to enhance practical disaster response for youth.' 
             : 'いざという時に「生き残る知恵と技術」を学び、身につけるためのアカデミー。中高生世代のリアルな防災力とサバイバルスキルを向上させるためのワークショップや情報発信を行います。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/survival?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/survival?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -131,19 +131,19 @@ const t = translations[currentLang];
     </div>
 
     <!-- NSF Bifröst -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/bifrost.jpg" alt="NSF Bifröst" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">NSF Bifröst</h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">NSF Bifröst</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'A "rainbow bridge" connecting Noto’s memories and culture to the metaverse via cluster, featuring photo galleries by Iida High School Art Club and digital community centers.' 
             : '能登の記憶と文化をメタバースに架ける「虹の橋」。クラスター（cluster）空間を活用し、飯田高校芸術部の写真ギャラリーやデジタル交流館を展開、世界と能登をオンラインで繋ぎます。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/bifrost?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/bifrost?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
@@ -151,21 +151,21 @@ const t = translations[currentLang];
     </div>
 
     <!-- 熊本うまかもんプロジェクト -->
-    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 w-full box-border overflow-hidden">
       <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
         <img src="/p_logo/KumamotoUmakamonPLogo.JPG" alt="熊本うまかもんプロジェクト" class="w-full h-full object-cover">
       </div>
-      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-        <h3 class="text-2xl md:text-3xl font-black text-slate-950">
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left min-w-0 w-full">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Kumamoto Umakamon Project' : '熊本うまかもんプロジェクト'}
         </h3>
-        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'A project supporting Kumamoto’s economy through food consumption, such as tourism and purchasing local goods. Sharing culinary appeal via social media and holding nationwide events.' 
             : '観光や熊本県産の食材の購買など、消費活動を促進することで、食を通じて熊本の経済を支える復興支援プロジェクト。SNSでの郷土料理・食材・店舗の発信と、日本各地でのイベント開催を通じて、熊本の食の魅力を全国へ直接届けます。'}
         </p>
         <div class="pt-2 flex justify-center md:justify-start">
-          <a href={`/kumamotoumakamon?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+          <a href={`/kumamotoumakamon?lang=${currentLang}`} class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider text-center break-words">
             <span>{currentLang === 'en' ? 'View Details ➔' : '詳細を見る ➔'}</span>
           </a>
         </div>
