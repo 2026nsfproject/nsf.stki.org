@@ -12,36 +12,36 @@ const t = translations[currentLang];
   title={currentLang === 'en' ? "Kumamoto Earthquake Support Members Wanted | NSF PROJECTs" : "令和8年熊本地震 支援メンバー募集 | NSF PROJECTs"} 
   activeKey="news"
 >
-  <main class="py-12 md:py-20 max-w-4xl mx-auto px-4">
-    <div class="mb-8">
-      <a href="/" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150">
+  <main class="py-12 md:py-20 max-w-4xl mx-auto px-4 w-full max-w-full box-border overflow-hidden">
+    <div class="mb-8 w-full">
+      <a href="/" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150 break-words">
         {currentLang === 'en' ? '➔ Back to Top Page' : '➔ トップページに戻る'}
       </a>
     </div>
 
-    <article class="bg-white border border-slate-200 rounded-3xl p-6 md:p-12 shadow-xs space-y-10">
-      <header class="border-b border-slate-100 pb-6 space-y-4">
+    <article class="bg-white border border-slate-200 rounded-3xl p-6 md:p-12 shadow-xs space-y-10 w-full box-border overflow-hidden">
+      <header class="border-b border-slate-100 pb-6 space-y-4 w-full">
         <div class="flex items-center gap-3 flex-wrap">
-          <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-md tracking-wider">
+          <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-md tracking-wider shrink-0">
             {currentLang === 'en' ? 'URGENT RECRUITMENT' : '緊急募集'}
           </span>
-          <time class="text-xs md:text-sm text-slate-500 font-bold">2026.07.28</time>
+          <time class="text-xs md:text-sm text-slate-500 font-bold shrink-0">2026.07.28</time>
         </div>
-        <h1 class="text-2xl md:text-4xl font-black text-slate-950 leading-tight">
+        <h1 class="text-2xl md:text-4xl font-black text-slate-950 leading-tight break-words">
           {currentLang === 'en' 
             ? '[Kumamoto Earthquake 2026 Support Members Recruitment]' 
             : '【令和8年熊本地震 支援メンバー募集】'}
         </h1>
       </header>
 
-      <div class="space-y-6 text-slate-700 text-sm md:text-base leading-relaxed font-medium">
-        <p class="bg-slate-50 p-4 rounded-xl text-slate-600 border-l-4 border-slate-400">
+      <div class="space-y-6 text-slate-700 text-sm md:text-base leading-relaxed font-medium w-full">
+        <p class="bg-slate-50 p-4 rounded-xl text-slate-600 border-l-4 border-slate-400 break-words">
           {currentLang === 'en' 
             ? 'We express our deepest sympathies to all those affected by the 2026 Kumamoto Earthquake.' 
             : 'このたびの令和8年熊本地震により被災された皆様に、心よりお見舞い申し上げます。'}
         </p>
 
-        <div class="my-6 max-w-[520px] mx-auto overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white">
+        <div class="my-6 max-w-[520px] mx-auto overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white w-full box-border">
           <img 
             src="/kumamoto_image.jpg" 
             alt={currentLang === 'en' ? "2026 Kumamoto Earthquake Support Activities" : "令和8年熊本地震 支援活動"} 
@@ -49,25 +49,25 @@ const t = translations[currentLang];
           />
         </div>
 
-        <p>
+        <p class="break-words">
           {currentLang === 'en'
             ? 'Building on our experience conducting fundraising activities with students across Japan during the Noto Peninsula Earthquake, NSF PROJECTs is launching a student-led fundraising support project for the 2026 Kumamoto Earthquake.'
             : 'NSF PROJECTsでは、能登半島地震で全国の学生とともに募金活動を行った経験を活かし、令和8年熊本地震においても、学生による支援募金プロジェクトの立ち上げを進めています。'}
         </p>
 
-        <p>
+        <p class="break-words">
           {currentLang === 'en'
             ? 'We are currently seeking middle and high school students across the country to cooperate in these support activities.'
             : '現在、全国で支援活動にご協力いただける中学生・高校生を募集しています。'}
         </p>
 
         <!-- 主な活動内容 -->
-        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-4">
-          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
-            <span class="text-blue-600">■</span> 
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-4 w-full box-border overflow-hidden">
+          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2 break-words">
+            <span class="text-blue-600 shrink-0">■</span> 
             {currentLang === 'en' ? 'Main Activities' : '主な活動内容'}
           </h2>
-          <ul class="list-disc list-inside space-y-2 text-slate-700">
+          <ul class="list-disc list-inside space-y-2 text-slate-700 break-words">
             {currentLang === 'en' ? (
               <>
                 <li>Planning and implementing school fundraising in collaboration with schools and student councils</li>
@@ -88,35 +88,35 @@ const t = translations[currentLang];
           </ul>
         </div>
 
-        <p>
+        <p class="break-words">
           {currentLang === 'en'
             ? 'Since activities are primarily conducted through online meetings, anyone can participate from anywhere in Japan. Prior experience is not required.'
             : '活動はオンラインでの打ち合わせを中心に進めるため、全国どこからでも参加できます。活動経験の有無は問いません。'}
         </p>
 
         <!-- 対象・参加方法 -->
-        <div class="bg-blue-50/60 rounded-2xl p-6 border border-blue-100 space-y-4">
-          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-blue-200/60 pb-2 flex items-center gap-2">
-            <span class="text-blue-600">■</span> 
+        <div class="bg-blue-50/60 rounded-2xl p-6 border border-blue-100 space-y-4 w-full box-border overflow-hidden">
+          <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-blue-200/60 pb-2 flex items-center gap-2 break-words">
+            <span class="text-blue-600 shrink-0">■</span> 
             {currentLang === 'en' ? 'Target & How to Participate' : '対象・参加方法'}
           </h2>
           
-          <div>
-            <span class="font-bold text-slate-900 block mb-1">
+          <div class="w-full">
+            <span class="font-bold text-slate-900 block mb-1 break-words">
               {currentLang === 'en' ? '【Eligibility】' : '【対象】'}
             </span>
-            <p>
+            <p class="break-words">
               {currentLang === 'en' 
                 ? 'Middle school, high school, vocational school, university, and graduate students' 
                 : '中学生・高校生・大学生・専門学校生・大学院生'}
             </p>
           </div>
 
-          <div>
-            <span class="font-bold text-slate-900 block mb-1">
+          <div class="w-full">
+            <span class="font-bold text-slate-900 block mb-1 break-words">
               {currentLang === 'en' ? '【How to Join】' : '【参加方法】'}
             </span>
-            <p>
+            <p class="break-words">
               {currentLang === 'en' ? (
                 <>
                   First, please join our Discord community.<br />
@@ -131,22 +131,22 @@ const t = translations[currentLang];
             </p>
           </div>
 
-          <div class="pt-4 flex flex-col sm:flex-row gap-3">
+          <div class="pt-4 flex flex-col sm:flex-row gap-3 w-full">
             <a 
               href="mailto:jyrac.pr@gmail.com" 
-              class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition duration-150 shadow-xs gap-2"
+              class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition duration-150 shadow-xs gap-2 text-center break-all w-full sm:w-auto"
             >
               <span>{currentLang === 'en' ? 'Inquire via Email (jyrac.pr@gmail.com)' : 'メールで問い合わせ（jyrac.pr@gmail.com）'}</span>
             </a>
           </div>
         </div>
 
-        <p class="pt-2">
+        <p class="pt-2 break-words">
           {currentLang === 'en'
             ? 'What one person cannot do alone becomes a powerful support when students across the country join forces.'
             : '一人ではできないことも、全国の学生が力を合わせることで大きな支援につながります。'}
         </p>
-        <p>
+        <p class="break-words">
           {currentLang === 'en' ? (
             <>
               If you are interested, please consider participating.<br />
@@ -162,18 +162,18 @@ const t = translations[currentLang];
       </div>
 
       <!-- STATEMENT セクション -->
-      <section class="mt-12 pt-10 border-t-2 border-slate-100 space-y-6">
-        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 space-y-6">
-          <header class="space-y-2 border-b border-slate-200 pb-4">
+      <section class="mt-12 pt-10 border-t-2 border-slate-100 space-y-6 w-full box-border">
+        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 space-y-6 w-full box-border overflow-hidden">
+          <header class="space-y-2 border-b border-slate-200 pb-4 w-full">
             <span class="text-xs font-bold text-blue-600 tracking-wider uppercase block">STATEMENT</span>
-            <h2 class="text-lg md:text-2xl font-black text-slate-900 leading-snug">
+            <h2 class="text-lg md:text-2xl font-black text-slate-900 leading-snug break-words">
               {currentLang === 'en' 
                 ? 'Statement Regarding the 2026 Kumamoto Earthquake' 
                 : '令和8年熊本地震の発生を受けて'}
             </h2>
           </header>
 
-          <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal">
+          <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal w-full break-words">
             {currentLang === 'en' ? (
               <>
                 <p>
@@ -213,7 +213,7 @@ const t = translations[currentLang];
             )}
           </div>
 
-          <div class="pt-4 text-right border-t border-slate-200/60 text-sm md:text-base font-bold text-slate-800">
+          <div class="pt-4 text-right border-t border-slate-200/60 text-sm md:text-base font-bold text-slate-800 break-words">
             <p>{currentLang === 'en' ? 'July 29, 2026' : '令和8年7月29日'}</p>
             <p class="mt-1 text-slate-900">NSF PROJECTs</p>
             <p class="text-slate-900">
@@ -223,10 +223,10 @@ const t = translations[currentLang];
         </div>
       </section>
 
-      <footer class="pt-8 border-t border-slate-100 flex justify-center">
+      <footer class="pt-8 border-t border-slate-100 flex justify-center w-full">
         <a 
           href="/" 
-          class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-8 py-3 rounded-xl transition duration-150"
+          class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-8 py-3 rounded-xl transition duration-150 text-center break-words"
         >
           {currentLang === 'en' ? 'Back to Top Page' : 'トップページへ戻る'}
         </a>
