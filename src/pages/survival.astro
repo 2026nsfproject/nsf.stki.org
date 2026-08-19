@@ -13,10 +13,10 @@ const t = translations[currentLang];
   title={currentLang === 'en' ? "NSF Survival Academy | NSF PROJECTs" : "NSFサバイバルアカデミー"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
     <!-- コンセプト -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-green-600 pl-4 py-1">
+    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 w-full box-border overflow-hidden">
+      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-green-600 pl-4 py-1 break-words">
         {currentLang === 'en' ? (
           <>
             Not just a disaster prevention lecture or learning knowledge, but moving "from knowing to acting" and "from being taught to training."<br class="hidden md:block">
@@ -32,21 +32,21 @@ const t = translations[currentLang];
     </section>
 
     <!-- プロジェクト概要 & コンセプト -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full box-border">
       
-      <div class="lg:col-span-1 space-y-6">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
+      <div class="lg:col-span-1 space-y-6 w-full box-border">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5 box-border overflow-hidden">
           <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
             <img src="/p_logo/survival.jpg" alt="NSFサバイバルアカデミー ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
           </div>
 
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
-          <div class="space-y-3">
+          <div class="space-y-3 w-full">
             <div>
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? 'Gishin Takaesu' : '高江洲 義心'}
               </p>
             </div>
@@ -54,7 +54,7 @@ const t = translations[currentLang];
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Start Date' : '開始時期'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? 'December 2025' : '2025年12月'}
               </p>
             </div>
@@ -62,16 +62,16 @@ const t = translations[currentLang];
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Target Members' : '対象メンバー'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? 'Middle, High School & College Students' : '中高生・大学生'}
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-green-800 to-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
+        <div class="bg-gradient-to-br from-green-800 to-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-4 box-border overflow-hidden">
           <h4 class="font-black text-xs text-green-300 uppercase tracking-widest">Concept</h4>
-          <p class="text-xs text-slate-200 leading-relaxed font-medium">
+          <p class="text-xs text-slate-200 leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'The themes are "Disaster Prevention, Survival, Outdoor." We aim to build knowledge, decision-making skills, and adaptability required during disasters through hands-on workshops, training, and field activities.' 
               : 'テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。'}
@@ -80,47 +80,47 @@ const t = translations[currentLang];
       </div>
 
       <!-- 具体的な活動内容 -->
-      <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
-        <div class="space-y-6">
+      <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6 w-full box-border overflow-hidden">
+        <div class="space-y-6 w-full">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-green-600 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">
+            <span class="w-2 h-6 bg-green-600 rounded-full shrink-0"></span>
+            <h3 class="text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
             </h3>
           </div>
           
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Rather than just studying disaster prevention as knowledge, we plan and implement hands-on workshops, training, and field activities to foster the ability to "experience, judge, and act independently."' 
               : '防災を単なる知識として学ぶだけでなく、「実際に体験し、自ら判断し、行動する力」を養うため、体験型ワークショップ・訓練・フィールド活動を企画・実施しています。'}
           </p>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2.5 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2.5 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Practical Training' : '実践訓練'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Experiencing Disaster Response Skills' : '災害対応スキルの体験'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Developing practical disaster response skills through command simulations during disaster dispatch, ropework, ranger training basics, and decision-making drills at disaster sites.' 
                 : '災害派遣時の指揮シミュレーション、ロープワーク、レンジャー訓練の基礎体験、災害現場での判断訓練などを通じて、実践的な災害対応力を養います。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-emerald-100 text-emerald-700 font-black text-[10px] px-2.5 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-emerald-100 text-emerald-700 font-black text-[10px] px-2.5 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Future Vision' : '将来構想'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Toward a Continuous Educational Brand' : '継続的な教育ブランドへ'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'We envision evolving from single events into an educational brand that continuously conducts camping, mountain climbing, field training, disaster drills, simulations, and collaboration with JSDF, fire departments, and local governments.' 
                 : '単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。'}
@@ -131,78 +131,78 @@ const t = translations[currentLang];
     </section>
 
     <!-- 開催実績 -->
-    <section class="max-w-4xl mx-auto space-y-8">
+    <section class="max-w-4xl mx-auto space-y-8 w-full box-border">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">
+        <h3 class="text-xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Event History' : '開催実績'}
         </h3>
         <div class="w-12 h-1 bg-green-500 mx-auto mt-3 rounded-full"></div>
       </div>
 
       <!-- 第1回 -->
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+      <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4 box-border overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shrink-0">
             {currentLang === 'en' ? '1st Event' : '第1回'}
           </span>
-          <span class="text-[11px] font-bold text-slate-400">
+          <span class="text-[11px] font-bold text-slate-400 shrink-0">
             {currentLang === 'en' ? 'February 8, 2026' : '2026年2月8日'}
           </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">
+        <h4 class="font-black text-slate-950 text-base break-words">
           {currentLang === 'en' ? '1st Survival Academy' : '第1回 サバイバルアカデミー'}
         </h4>
-        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Held as an after-event of NSF PROJECTs and the National High School Future Conference. Co-hosted by JSDF Tokyo Provincial Cooperation Office, held at Shibuya Recruiting Information Center.' 
             : 'NSF PROJECTs・全国高校生未来会議のアフターイベントとして実施。共催は防衛省自衛隊東京地方協力本部、会場は渋谷募集案内所でした。'}
         </p>
         <div class="flex flex-wrap gap-2 pt-1">
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded break-words">
             {currentLang === 'en' ? 'Disaster Dispatch Command Simulation' : '災害派遣時の指揮シミュレーション'}
           </span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded break-words">
             {currentLang === 'en' ? 'Ropework' : 'ロープワーク'}
           </span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded break-words">
             {currentLang === 'en' ? 'Ranger Training Basics' : 'レンジャー訓練の基礎体験'}
           </span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded break-words">
             {currentLang === 'en' ? 'Disaster Site Decision Drill' : '災害現場での判断訓練'}
           </span>
         </div>
       </div>
 
       <!-- 第2回 -->
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+      <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4 box-border overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shrink-0">
             {currentLang === 'en' ? '2nd Event' : '第2回'}
           </span>
-          <span class="text-[11px] font-bold text-slate-400">
+          <span class="text-[11px] font-bold text-slate-400 shrink-0">
             {currentLang === 'en' ? 'April 25 (Sat) – 26 (Sun), 2026' : '2026年4月25日（土）〜26日（日）'}
           </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">
+        <h4 class="font-black text-slate-950 text-base break-words">
           {currentLang === 'en' ? 'NSF Survival Academy 2026 Spring' : 'NSFサバイバルアカデミー2026春'}
           <br class="sm:hidden">
           <span class="text-slate-500 text-sm font-bold">
             {currentLang === 'en' ? ' ~ Survival Skills at Asaka Camp ~' : ' 〜朝霞駐屯地で学ぶ、災害時に生き抜く力〜'}
           </span>
         </h4>
-        <p class="text-[11px] font-bold text-slate-400">
+        <p class="text-[11px] font-bold text-slate-400 break-words">
           {currentLang === 'en' ? '(2nd Cardboard Bed Camp)' : '（NSFサバイバルアカデミー 第2回 段ボールベッドキャンプ）'}
         </p>
-        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Learned disaster prevention, first aid, and survival techniques during a 2-day 1-night camp around JSDF Asaka Camp in Saitama. Under the theme "From knowing to doing," students acquired essential skills through experience. It also served as a venue for students nationwide to connect.' 
             : '埼玉県の朝霞駐屯地周辺において、1泊2日の共同生活で防災・救命・サバイバル技術を学びました。「知る防災から、できる防災へ」をテーマに、講義ではなく実際の体験を通して災害時に必要な知識や技術を習得。全国から集まった中高生・大学生の交流の場にもなりました。'}
         </p>
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-3">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-3 box-border overflow-hidden">
           <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">
             {currentLang === 'en' ? 'PROGRAM DETAILS' : '実施プログラム'}
           </p>
-          <ol class="space-y-1.5 text-slate-600 text-xs md:text-sm font-medium list-decimal list-inside marker:text-green-600 marker:font-black">
+          <ol class="space-y-1.5 text-slate-600 text-xs md:text-sm font-medium list-decimal list-inside marker:text-green-600 marker:font-black break-words">
             {currentLang === 'en' ? (
               <>
                 <li>Tent pitching practice</li>
@@ -229,32 +229,32 @@ const t = translations[currentLang];
       </div>
 
       <!-- 第3回 -->
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+      <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4 box-border overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shrink-0">
             {currentLang === 'en' ? '3rd Event' : '第3回'}
           </span>
-          <span class="text-[11px] font-bold text-slate-400">
+          <span class="text-[11px] font-bold text-slate-400 shrink-0">
             {currentLang === 'en' ? 'June 14, 2026 (Sun)' : '2026年6月14日（日）'}
           </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">
+        <h4 class="font-black text-slate-950 text-base break-words">
           {currentLang === 'en' ? 'Disaster Prevention Lecture × Idea Contest' : '防災講話 × アイデアコンテスト'}
           <br class="sm:hidden">
           <span class="text-slate-500 text-sm font-bold">
             {currentLang === 'en' ? ' ~ What if a disaster strikes this town? Can you act? ~' : ' 〜もしもこの町で災害が起きたら？あなたは動けるか。〜'}
           </span>
         </h4>
-        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
           {currentLang === 'en' 
             ? 'Held at JSDF Shibuya Recruiting Information Center (offline) and Zoom (online). Hosted an idea contest under the theme "How to raise awareness of JSDF through disaster support and prevention." The lecture featured a disaster prevention manager who served in key positions such as the 1st Airborne Brigade.' 
             : '防衛省自衛隊渋谷募集案内所（オフライン）およびZoom（オンライン）にて開催。「災害支援や防災を通じて、自衛隊のことを知ってもらうには」をテーマとしたアイデアコンテストを実施しました。また防災講話では、第一空挺団や帯広地方協力本部本部長などの著名な役職を務められた現・防災推進担当課長の方に、実践的なお話を登壇いただきました。'}
         </p>
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
           <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">
             {currentLang === 'en' ? 'MAIN HIGHLIGHTS' : '主な内容・特徴'}
           </p>
-          <ul class="space-y-1 text-slate-600 text-xs md:text-sm font-medium list-inside list-disc marker:text-green-600">
+          <ul class="space-y-1 text-slate-600 text-xs md:text-sm font-medium list-inside list-disc marker:text-green-600 break-words">
             {currentLang === 'en' ? (
               <>
                 <li>Idea contest to deepen awareness and understanding of the JSDF</li>
