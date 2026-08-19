@@ -68,14 +68,14 @@ const executives = [
 ---
 
 <Layout title={currentLang === 'en' ? "ABOUT - About Us" : "ABOUT - わたしたちについて"} activeKey="about">
-  <div class="py-10 md:py-16 max-w-5xl mx-auto px-4 space-y-12 md:space-y-16">
+  <div class="py-10 md:py-16 max-w-5xl mx-auto px-4 space-y-12 md:space-y-16 w-full max-w-full box-border overflow-hidden">
     
-    <section class="text-center space-y-4 md:space-y-6">
+    <section class="text-center space-y-4 md:space-y-6 w-full">
       <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">OUR GOAL</span>
-      <h2 class="text-2xl md:text-4xl font-black text-slate-950">
+      <h2 class="text-2xl md:text-4xl font-black text-slate-950 break-words">
         {currentLang === 'en' ? 'Restoring Pre-Disaster Normalcy.' : '震災前の当たり前を取り戻す。'}
       </h2>
-      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium break-words">
         {currentLang === 'en' 
           ? 'Over 500 middle and high school students nationwide join hands to deliver support from the perspective of disaster-affected areas and promote disaster prevention actions.' 
           : '全国500名以上の中高生が手を取り合い、被災地と同じ目線に立った支援と防災アクションを展開しています。'}
@@ -83,7 +83,7 @@ const executives = [
     </section>
 
     <!-- ▼ 代表あいさつ -->
-    <section class="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 max-w-5xl mx-auto">
+    <section class="bg-white p-6 md:p-12 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 max-w-5xl mx-auto w-full box-border overflow-hidden">
       <div class="w-full sm:w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden bg-slate-100 shrink-0 relative shadow-inner">
         <img 
           src="/p_logo/representative.png" 
@@ -101,21 +101,21 @@ const executives = [
       
       <div class="flex flex-col justify-start space-y-6 w-full min-w-0">
         <div>
-          <h3 class="text-2xl md:text-4xl font-black text-slate-950">
+          <h3 class="text-2xl md:text-4xl font-black text-slate-950 break-words">
             {currentLang === 'en' ? 'Leader Message' : '代表メッセージ'}
           </h3>
           <p class="text-xs font-bold text-slate-400 block tracking-wider uppercase mt-1">Message from the Leader</p>
         </div>
         
-        <div class="border-l-4 border-red-700 pl-3 md:pl-4 py-0.5 w-full">
-          <p class="font-black text-red-700 whitespace-nowrap text-one-line tracking-tight">
+        <div class="border-l-4 border-red-700 pl-3 md:pl-4 py-0.5 w-full box-border">
+          <p class="font-black text-red-700 leading-snug tracking-tight text-xs sm:text-sm md:text-base break-words">
             {currentLang === 'en' 
               ? '― Redefining Disaster Prevention Through Youth Ideas ―' 
               : '― 中高生の発想で、防災の『あたりまえ』を塗り替える ―'}
           </p>
         </div>
         
-        <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-3 font-medium tracking-wide">
+        <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-3 font-medium tracking-wide break-words">
           {currentLang === 'en' ? (
             <>
               <p>NSF has faced the future of disaster prevention and recovery through the creativity and action of middle and high school students.</p>
@@ -145,7 +145,7 @@ const executives = [
     </section>
 
     <!-- ▼ 幹部メンバー紹介 -->
-    <section class="space-y-6 md:space-y-8">
+    <section class="space-y-6 md:space-y-8 w-full box-border">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div class="flex items-center space-x-3">
           <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
@@ -158,9 +158,9 @@ const executives = [
         </span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
         {executives.map((member) => (
-          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center space-y-4">
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center space-y-4 box-border overflow-hidden">
             
             <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl bg-slate-100 overflow-hidden border border-slate-200 shrink-0 relative shadow-xs">
               <img 
@@ -174,13 +174,13 @@ const executives = [
               </svg>
             </div>
             
-            <div class="space-y-1.5">
+            <div class="space-y-1.5 w-full">
               <span class="text-[11px] font-black bg-blue-50 text-blue-600 px-3 py-0.5 rounded-full uppercase tracking-widest inline-block">
                 {member.role}
               </span>
-              <h4 class="text-base md:text-lg font-black text-slate-900 pt-1">{member.name}</h4>
+              <h4 class="text-base md:text-lg font-black text-slate-900 pt-1 break-words">{member.name}</h4>
             </div>
-            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium italic">
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium italic break-words">
               「{member.message}」
             </p>
           </div>
@@ -189,7 +189,7 @@ const executives = [
     </section>
 
     <!-- ▼ 応援メッセージ -->
-    <section class="space-y-8 md:space-y-10">
+    <section class="space-y-8 md:space-y-10 w-full box-border">
       <div class="flex items-center space-x-3">
         <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
         <h2 class="text-xl md:text-2xl font-black text-slate-950">
@@ -197,23 +197,23 @@ const executives = [
         </h2>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
         <!-- 坂井学氏 -->
-        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4 box-border overflow-hidden">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
             <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
               <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
               <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
-            <div>
-              <h3 class="font-black text-slate-950 text-base md:text-lg">
+            <div class="min-w-0 flex-1">
+              <h3 class="font-black text-slate-950 text-base md:text-lg break-words">
                 {currentLang === 'en' ? 'Minister of State for Disaster Management' : '防災特命大臣'}
                 <br class="sm:hidden"> 
                 {currentLang === 'en' ? 'Manabu Sakai' : '坂井学 氏'}
               </h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow break-words">
             {currentLang === 'en' 
               ? 'I pay my respects to your dedication to learning, thinking, and discussing disaster prevention with an eye toward the future. Disaster preparedness is vital wisdom to protect lives and livelihoods. Cultivate your own leadership while looking one step ahead with wisdom and courage. I have high expectations for your endeavors.' 
               : '未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。'}
@@ -221,28 +221,28 @@ const executives = [
         </div>
 
         <!-- 馳浩氏 -->
-        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4 box-border overflow-hidden">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
             <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
               <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
               <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
-            <div>
-              <h3 class="font-black text-slate-950 text-base md:text-lg">
+            <div class="min-w-0 flex-1">
+              <h3 class="font-black text-slate-950 text-base md:text-lg break-words">
                 {currentLang === 'en' ? 'Governor of Ishikawa Prefecture' : '石川県知事'}
                 <br class="sm:hidden"> 
                 {currentLang === 'en' ? 'Hiroshi Hase' : '馳浩 氏'}
               </h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow break-words">
             {currentLang === 'en'
               ? 'Noto suffered significant damage from the Noto Peninsula Earthquake on New Year’s Day 2024, and we are currently working full force on recovery. I understand that you have engaged in fundraising and are now working to share Noto’s charm nationwide. Such efforts encourage the people of Noto and provide strong momentum for recovery. As Governor of Ishikawa Prefecture, I deeply appreciate your work.'
               : '能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。'}
           </p>
         </div>
       </div>
-      <p class="text-slate-400 text-center font-bold italic text-[11px] md:text-xs">
+      <p class="text-slate-400 text-center font-bold italic text-[11px] md:text-xs break-words">
         {currentLang === 'en' 
           ? '* Titles are based on the position at the time the message was provided.' 
           : '※各氏の肩書はメッセージ提供当時の役職に基づいています。'}
@@ -250,11 +250,11 @@ const executives = [
     </section>
 
     <!-- ▼ 公式マスコットキャラ -->
-    <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100">
+    <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100 w-full box-border overflow-hidden">
       <img src="/IMG_1413.jpg" alt="えぬくま" class="w-20 h-20 md:w-24 md:h-24 object-contain">
-      <div class="text-center sm:text-left">
+      <div class="text-center sm:text-left min-w-0">
         <h4 class="font-black text-blue-600 text-xs md:text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
-        <p class="text-slate-600 text-xs md:text-sm leading-relaxed max-w-md font-medium">
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed max-w-md font-medium break-words">
           {currentLang === 'en' 
             ? 'Meet "Enukuma", our official mascot! Dressed in a helmet and school uniform, Enukuma cheers for the future of Noto every day alongside over 500 middle and high school members nationwide!' 
             : '公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとり、全国500名以上の中高生メンバーと一緒に、能登の未来を毎日応援しています！'}
@@ -264,11 +264,3 @@ const executives = [
 
   </div>
 </Layout>
-
-<style>
-  .text-one-line {
-    font-size: clamp(0.75rem, 1.8vw, 1.1rem);
-    line-height: 1.4;
-    white-space: nowrap;
-  }
-</style>
