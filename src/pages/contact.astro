@@ -10,13 +10,13 @@ const t = translations[currentLang];
 ---
 
 <Layout title={currentLang === 'en' ? "CONTACT - Contact Us" : "CONTACT - お問い合わせ"} activeKey="contact">
-  <div class="max-w-4xl mx-auto px-4 py-16">
+  <div class="max-w-4xl mx-auto px-4 py-16 w-full max-w-full box-border overflow-hidden">
     
-    <div class="text-center mb-12 space-y-4">
-      <h2 class="text-2xl md:text-3xl font-black text-slate-950">
+    <div class="text-center mb-12 space-y-4 w-full">
+      <h2 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
         {currentLang === 'en' ? 'Contact Us' : 'お問い合わせ'}
       </h2>
-      <p class="text-slate-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-medium">
+      <p class="text-slate-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-medium break-words">
         {currentLang === 'en' ? (
           <>
             Inquiries regarding NSF and requests for materials are accepted here.<br class="hidden sm:block">
@@ -31,17 +31,17 @@ const t = translations[currentLang];
       </p>
     </div>
 
-    <div class="mb-12 space-y-8 max-w-3xl mx-auto">
+    <div class="mb-12 space-y-8 max-w-3xl mx-auto w-full box-border">
       
       <!-- 主要対応項目 -->
-      <div class="bg-slate-100 rounded-3xl p-6 md:p-8 border border-slate-200">
-        <h3 class="font-black text-slate-950 text-center mb-6 border-b border-slate-200 pb-3 text-base">
+      <div class="bg-slate-100 rounded-3xl p-6 md:p-8 border border-slate-200 w-full box-border overflow-hidden">
+        <h3 class="font-black text-slate-950 text-center mb-6 border-b border-slate-200 pb-3 text-base break-words">
           {currentLang === 'en' ? 'Main Inquiry Types' : '主に対応している項目'}
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8 px-2 md:px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8 px-2 md:px-4 w-full">
           <div class="flex items-start space-x-2.5">
-            <span class="text-blue-600 font-bold">●</span>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <span class="text-blue-600 font-bold shrink-0">●</span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">
               <span class="font-black text-slate-950">
                 {currentLang === 'en' ? 'Document Requests' : '資料のご請求'}
               </span><br>
@@ -49,8 +49,8 @@ const t = translations[currentLang];
             </p>
           </div>
           <div class="flex items-start space-x-2.5">
-            <span class="text-blue-600 font-bold">●</span>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <span class="text-blue-600 font-bold shrink-0">●</span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">
               <span class="font-black text-slate-950">
                 {currentLang === 'en' ? 'Media & Interview Requests' : '取材依頼・メディア掲載'}
               </span><br>
@@ -58,8 +58,8 @@ const t = translations[currentLang];
             </p>
           </div>
           <div class="flex items-start space-x-2.5">
-            <span class="text-blue-600 font-bold">●</span>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <span class="text-blue-600 font-bold shrink-0">●</span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">
               <span class="font-black text-slate-950">
                 {currentLang === 'en' ? 'Feedback & Opinions' : 'ご意見・ご感想'}
               </span><br>
@@ -67,8 +67,8 @@ const t = translations[currentLang];
             </p>
           </div>
           <div class="flex items-start space-x-2.5">
-            <span class="text-blue-600 font-bold">●</span>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <span class="text-blue-600 font-bold shrink-0">●</span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">
               <span class="font-black text-slate-950">
                 {currentLang === 'en' ? 'Partnerships & Proposals' : '共同連携・イベントのご提案'}
               </span><br>
@@ -79,14 +79,14 @@ const t = translations[currentLang];
       </div>
 
       <!-- フォームご利用注意事項 -->
-      <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 space-y-6 shadow-xs">
+      <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 space-y-6 shadow-xs w-full box-border overflow-hidden">
         
-        <div class="space-y-3">
-          <h3 class="font-black text-slate-950 text-base border-b border-slate-100 pb-2 flex items-center">
-            <span class="w-2 h-4 bg-blue-600 rounded-xs mr-2"></span>
+        <div class="space-y-3 w-full">
+          <h3 class="font-black text-slate-950 text-base border-b border-slate-100 pb-2 flex items-center break-words">
+            <span class="w-2 h-4 bg-blue-600 rounded-xs mr-2 shrink-0"></span>
             {currentLang === 'en' ? 'Important Notes' : 'フォームご利用にあたって'}
           </h3>
-          <ul class="text-sm text-slate-600 space-y-2.5 leading-relaxed list-disc pl-5">
+          <ul class="text-sm text-slate-600 space-y-2.5 leading-relaxed list-disc pl-5 break-words">
             {currentLang === 'en' ? (
               <>
                 <li>An <strong>automated confirmation email</strong> will be sent to your email address upon submission.</li>
@@ -104,60 +104,60 @@ const t = translations[currentLang];
         </div>
 
         <!-- プライバシーポリシー (アコーディオン) -->
-        <details class="group border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
+        <details class="group border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300 w-full box-border">
           <summary class="flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 font-black text-slate-950 text-sm cursor-pointer list-none select-none">
-            <div class="flex items-center">
-              <span class="w-2 h-4 bg-blue-600 rounded-xs mr-2"></span>
-              {currentLang === 'en' ? 'Check Privacy Policy' : '個人情報の取扱い（プライバシーポリシー）を確認する'}
+            <div class="flex items-center min-w-0 pr-2">
+              <span class="w-2 h-4 bg-blue-600 rounded-xs mr-2 shrink-0"></span>
+              <span class="break-words">{currentLang === 'en' ? 'Check Privacy Policy' : '個人情報の取扱い（プライバシーポリシー）を確認する'}</span>
             </div>
-            <svg class="w-4 h-4 text-slate-500 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-slate-500 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
             </svg>
           </summary>
           
-          <div class="p-4 md:p-6 border-t border-slate-200 space-y-4 bg-white">
-            <p class="text-xs text-slate-500 leading-relaxed">
+          <div class="p-4 md:p-6 border-t border-slate-200 space-y-4 bg-white w-full box-border">
+            <p class="text-xs text-slate-500 leading-relaxed break-words">
               {currentLang === 'en'
                 ? 'NSF PROJECTs recognizes the importance of personal information provided through inquiries, complies with laws regarding the protection of personal information, and strives for proper management under the following policy.'
                 : 'NSF PROJECTsは、お問い合わせいただいた皆様の個人情報の重要性を認識し、個人情報の保護に関する法律を遵守するとともに、以下のポリシーに従って適切な管理に努めます。'}
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs w-full">
               <div class="space-y-1">
-                <h4 class="font-bold text-slate-900">
+                <h4 class="font-bold text-slate-900 break-words">
                   {currentLang === 'en' ? '1. Purpose of Use' : '1. 利用目的'}
                 </h4>
-                <p class="text-slate-500 leading-relaxed">
+                <p class="text-slate-500 leading-relaxed break-words">
                   {currentLang === 'en' 
                     ? 'Personal info (name, email, etc.) is used solely for responding to inquiries, contacting you, and analyzing for activity improvement.' 
                     : '取得した氏名やメールアドレス等の個人情報は、お問い合わせへの回答・連絡、および活動改善のための分析にのみ利用いたします。'}
                 </p>
               </div>
               <div class="space-y-1">
-                <h4 class="font-bold text-slate-900">
+                <h4 class="font-bold text-slate-900 break-words">
                   {currentLang === 'en' ? '2. Prohibition of Third-Party Disclosure' : '2. 第三者提供の禁止'}
                 </h4>
-                <p class="text-slate-500 leading-relaxed">
+                <p class="text-slate-500 leading-relaxed break-words">
                   {currentLang === 'en' 
                     ? 'We will not disclose or provide personal information to third parties without consent, except when required by law.' 
                     : '法令に基づく場合を除き、利用者の同意を得ることなく、取得した個人情報を第三者に提供または開示することはありません。'}
                 </p>
               </div>
               <div class="space-y-1">
-                <h4 class="font-bold text-slate-900">
+                <h4 class="font-bold text-slate-900 break-words">
                   {currentLang === 'en' ? '3. Safety Management Measures' : '3. 安全管理措置'}
                 </h4>
-                <p class="text-slate-500 leading-relaxed">
+                <p class="text-slate-500 leading-relaxed break-words">
                   {currentLang === 'en' 
                     ? 'We implement appropriate security measures to prevent unauthorized access, loss, alteration, or leakage of personal data.' 
                     : 'お預かりした個人情報への不正アクセス、紛失、改ざん、および漏洩を防止するため、適切な安全管理措置を講じます。'}
                 </p>
               </div>
               <div class="space-y-1">
-                <h4 class="font-bold text-slate-900">
+                <h4 class="font-bold text-slate-900 break-words">
                   {currentLang === 'en' ? '4. Contact Window' : '4. お問い合わせ窓口'}
                 </h4>
-                <p class="text-slate-500 leading-relaxed">
+                <p class="text-slate-500 leading-relaxed break-words">
                   {currentLang === 'en' 
                     ? 'We promptly respond to requests for disclosure, correction, or deletion of personal info. Contact: jyrac.pr@gmail.com' 
                     : 'ご本人からの個人情報の開示・訂正・削除のご請求には速やかに対応いたします。窓口（jyrac.pr@gmail.com）までご連絡ください。'}
@@ -167,7 +167,7 @@ const t = translations[currentLang];
           </div>
         </details>
 
-        <p class="text-center text-xs text-slate-400 font-medium pt-2 break-keep">
+        <p class="text-center text-xs text-slate-400 font-medium pt-2 break-words">
           {currentLang === 'en' 
             ? '* Please agree to the guidelines, notes, and privacy policy above before contacting us through any of the channels below.' 
             : '※上記の対応項目、注意事項、および個人情報の取扱いに同意の上、以下のいずれかの窓口よりお問い合わせください。'}
@@ -177,18 +177,18 @@ const t = translations[currentLang];
     </div>
 
     <!-- お問い合わせ窓口カード 3つ -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto w-full box-border">
       
       <!-- メール -->
-      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center justify-between space-y-4">
-        <div class="flex flex-col items-center space-y-4">
-          <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center justify-between space-y-4 box-border overflow-hidden">
+        <div class="flex flex-col items-center space-y-4 w-full">
+          <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
           </div>
-          <h3 class="text-base font-black text-slate-950 tracking-wide">
+          <h3 class="text-base font-black text-slate-950 tracking-wide break-words">
             {currentLang === 'en' ? 'Email Inquiry' : 'メールでのお問い合わせ'}
           </h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
+          <p class="text-xs text-slate-500 leading-relaxed break-words">
             {currentLang === 'en' 
               ? 'Please email us directly for general consultations, document requests, media inquiries, or interview requests.' 
               : '各種ご相談、資料請求、広報・取材のご依頼などはこちらのアドレスへ直接ご連絡ください。'}
@@ -200,41 +200,41 @@ const t = translations[currentLang];
       </div>
 
       <!-- Googleフォーム -->
-      <div class="bg-blue-600 p-6 rounded-3xl shadow-sm flex flex-col items-center text-center justify-between space-y-4 text-white">
+      <div class="bg-blue-600 p-6 rounded-3xl shadow-sm flex flex-col items-center text-center justify-between space-y-4 text-white box-border overflow-hidden">
         <div class="flex flex-col items-center space-y-4 w-full">
-          <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center">
+          <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center shrink-0">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
           </div>
-          <h3 class="text-base font-black tracking-wide">
+          <h3 class="text-base font-black tracking-wide break-words">
             {currentLang === 'en' ? 'Inquiry Form' : 'お問い合わせフォーム'}
           </h3>
-          <p class="text-xs text-blue-100 leading-relaxed">
+          <p class="text-xs text-blue-100 leading-relaxed break-words">
             {currentLang === 'en' 
               ? 'Available 24/7 via Google Forms. Please fill out the required items and submit.' 
               : 'Googleフォームを使用して24時間受け付けております。必要事項をご記入の上、送信してください。'}
           </p>
         </div>
-        <a href="https://forms.gle/DxoWvqMbyahnsHig7" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-slate-100 text-blue-600 font-black text-xs py-3.5 rounded-full shadow-sm transition inline-block">
+        <a href="https://forms.gle/DxoWvqMbyahnsHig7" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-slate-100 text-blue-600 font-black text-xs py-3.5 rounded-full shadow-sm transition inline-block text-center break-words">
           {currentLang === 'en' ? 'Open Inquiry Form ➔' : 'お問い合わせフォームを開く ➔'}
         </a>
       </div>
 
       <!-- 公式Instagram -->
-      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center justify-between space-y-4">
-        <div class="flex flex-col items-center space-y-4">
-          <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center justify-between space-y-4 box-border overflow-hidden">
+        <div class="flex flex-col items-center space-y-4 w-full">
+          <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center shrink-0">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </div>
-          <h3 class="text-base font-black text-slate-950 tracking-wide">
+          <h3 class="text-base font-black text-slate-950 tracking-wide break-words">
             {currentLang === 'en' ? 'Official Instagram (DM)' : '公式Instagram (DM)'}
           </h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
+          <p class="text-xs text-slate-500 leading-relaxed break-words">
             {currentLang === 'en' 
               ? 'Feel free to contact us via Instagram DM for quick questions or to follow our daily activities.' 
               : '日々の活動の様子や速報の確認、SNS経由での簡単なご相談・ご質問はこちらからお気軽にどうぞ。'}
           </p>
         </div>
-        <a href="https://instagram.com/2024nsfproject" target="_blank" rel="noopener noreferrer" class="text-orange-500 font-black text-sm md:text-base hover:underline pt-2">
+        <a href="https://instagram.com/2024nsfproject" target="_blank" rel="noopener noreferrer" class="text-orange-500 font-black text-sm md:text-base hover:underline pt-2 break-all">
           @2024nsfproject
         </a>
       </div>
