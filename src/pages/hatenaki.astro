@@ -1,24 +1,45 @@
 ---
 // src/pages/hatenaki.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="果てなき復興プロジェクト" activeKey="projects">
+<Layout 
+  title={currentLang === 'en' ? "Endless Reconstruction Project | NSF PROJECTs" : "果てなき復興プロジェクト"} 
+  activeKey="projects"
+>
   <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+    <!-- コンセプト -->
     <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
       <div class="text-center md:text-left space-y-2">
         <div class="inline-block bg-blue-50 text-blue-700 font-black text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
           Project Concept
         </div>
         <h2 class="text-2xl md:text-4xl font-black text-slate-950 leading-snug">
-          被災地の現状を自らの視点で捉え直し、復興を“終わらせない”ために。
+          {currentLang === 'en' 
+            ? 'Reframing the Current Reality of Disaster-Affected Areas to Never Let Reconstruction "End"' 
+            : '被災地の現状を自らの視点で捉え直し、復興を“終わらせない”ために。'}
         </h2>
       </div>
       <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-blue-600 pl-4 py-1">
-        東日本大震災、そして時が流れる令和6年能登半島地震。時間の経過とともにメディアからの報道が減っていくなか、被災地のリアルな課題や教訓は埋もれがちになります。私たちは、若者自身の手による徹底的な「学び・発信・提言」を通して、災害の記憶を風化させず未来へと繋ぎ続ける取り組みを展開しています。
+        {currentLang === 'en' ? (
+          <>
+            The Great East Japan Earthquake, and as time passed, the 2024 Noto Peninsula Earthquake. As media coverage decreases over time, real challenges and lessons in disaster-affected areas tend to be buried. Through thorough "learning, dissemination, and proposals" by youth, we take initiative to prevent disaster memories from fading and continue passing them to the future.
+          </>
+        ) : (
+          <>
+            東日本大震災、そして時が流れる令和6年能登半島地震。時間の経過とともにメディアからの報道が減っていくなか、被災地のリアルな課題や教訓は埋もれがちになります。私たちは、若者自身の手による徹底的な「学び・発信・提言」を通して、災害の記憶を風化させず未来へと繋ぎ続ける取り組みを展開しています。
+          </>
+        )}
       </p>
     </section>
 
+    <!-- プロジェクト概要 & ミッション -->
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
       <div class="lg:col-span-1 space-y-6">
@@ -29,16 +50,28 @@ import Layout from "../layouts/Layout.astro";
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
           <div class="space-y-3">
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">プロジェクトリーダー</p>
-              <p class="text-sm font-black text-slate-100">高江洲 義心</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'Gishin Takaesu' : '高江洲 義心'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">開始時期</p>
-              <p class="text-sm font-black text-slate-100">2025年5月</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Start Date' : '開始時期'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'May 2025' : '2025年5月'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">現在の参加人数</p>
-              <p class="text-sm font-black text-slate-100">計 5 名</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Members' : '現在の参加人数'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? '5 Members' : '計 5 名'}
+              </p>
             </div>
           </div>
         </div>
@@ -46,37 +79,54 @@ import Layout from "../layouts/Layout.astro";
         <div class="bg-gradient-to-br from-blue-900 to-slate-950 text-white p-6 rounded-2xl shadow-sm space-y-3">
           <h4 class="font-black text-xs text-blue-400 uppercase tracking-widest">Our Mission</h4>
           <p class="text-xs text-slate-300 leading-relaxed font-medium">
-            震災や復興、現地で懸命に活動する方々の存在を、日本全国へ、そして未来へ「知ってもらう」ためのアクションを最優先に展開しています。
+            {currentLang === 'en' 
+              ? 'We prioritize action to let people across Japan and future generations "know" about earthquakes, reconstruction, and the people working dedicatedly in local areas.' 
+              : '震災や復興、現地で懸命に活動する方々の存在を、日本全国へ、そして未来へ「知ってもらう」ためのアクションを最優先に展開しています。'}
           </p>
         </div>
       </div>
 
+      <!-- 活動の3本柱 -->
       <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
         <div class="space-y-6">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
             <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">活動の3本柱</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Three Pillars of Activity' : '活動の3本柱'}
+            </h3>
           </div>
 
           <div class="space-y-4">
             <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-1">
-              <h4 class="font-black text-slate-950 text-sm">1. 多角的な現地調査</h4>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? '1. Multifaceted Field Research' : '1. 多角的な現地調査'}
+              </h4>
               <p class="text-slate-500 text-xs leading-relaxed font-medium">
-                行政、支援団体、教育機関、そして住民の方々へ直接アプローチ。多角的な目線から復興の進捗と潜在する課題を浮き彫りにします。
+                {currentLang === 'en' 
+                  ? 'Directly approaching local governments, support groups, educational institutions, and residents. Highlighting recovery progress and latent issues from multiple perspectives.' 
+                  : '行政、支援団体、教育機関、そして住民の方々へ直接アプローチ。多角的な目線から復興の進捗と潜在する課題を浮き彫りにします。'}
               </p>
             </div>
 
             <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-1">
-              <h4 class="font-black text-slate-950 text-sm">2. 若者目線のデジタル発信</h4>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? '2. Digital Communication from Youth Perspectives' : '2. 若者目線のデジタル発信'}
+              </h4>
               <p class="text-slate-500 text-xs leading-relaxed font-medium">
-                調査結果や現地の声をSNSやWEBを用いて発信。同世代の学生に向けて、遠く離れた被災地の痛みを「自分ごと」として感じるきっかけを作ります。
+                {currentLang === 'en' 
+                  ? 'Publishing research results and local voices via social media and the web. Creating opportunities for students of the same generation to feel distant disaster areas as a personal matter.' 
+                  : '調査結果や現地の声をSNSやWEBを用いて発信。同世代の学生に向けて、遠く離れた被災地の痛みを「自分ごと」として感じるきっかけを作ります。'}
               </p>
             </div>
 
             <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-1">
-              <h4 class="font-black text-slate-950 text-sm">3. 未来への持続的な提言</h4>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? '3. Sustainable Proposals for the Future' : '3. 未来への持続的な提言'}
+              </h4>
               <p class="text-slate-500 text-xs leading-relaxed font-medium">
-                単なる記録に留まらず、次の震災に備えるための知恵として仕組みを再構築。防災意識向上のための社会的な提言をカタチにします。
+                {currentLang === 'en' 
+                  ? 'Going beyond mere records to restructure mechanisms as wisdom for future disasters. Shaping social proposals to enhance disaster awareness.' 
+                  : '単なる記録に留まらず、次の震災に備えるための知恵として仕組みを再構築。防災意識向上のための社会的な提言をカタチにします。'}
               </p>
             </div>
           </div>
@@ -84,15 +134,20 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </section>
 
+    <!-- 福島プロジェクトへの展開 -->
     <section class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row items-stretch max-w-4xl mx-auto">
       <div class="w-full md:w-[40%] relative bg-slate-950 text-white p-8 flex flex-col justify-center overflow-hidden min-h-[220px]">
         <div class="absolute inset-0 opacity-40 bg-[url('/NSF_.JPG')] bg-cover bg-center"></div>
         <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-slate-950/95"></div>
         <div class="relative z-10 space-y-3">
           <span class="text-[10px] bg-orange-500/20 text-orange-400 font-bold px-3 py-1 rounded-full border border-orange-500/30 tracking-widest uppercase">Next Stage</span>
-          <h3 class="text-2xl font-black tracking-wide">能登から、<br>そして福島へ。</h3>
+          <h3 class="text-2xl font-black tracking-wide">
+            {currentLang === 'en' ? <>From Noto,<br>and to Fukushima.</> : <>能登から、<br>そして福島へ。</>}
+          </h3>
           <p class="text-xs text-slate-300 leading-relaxed font-medium">
-            能登での活動で得た経験値を携え、プロジェクトは次なる復興の地へ繋がります。
+            {currentLang === 'en' 
+              ? 'Carrying the experience gained from Noto, the project expands to the next land of recovery.' 
+              : '能登での活動で得た経験値を携え、プロジェクトは次なる復興の地へ繋がります。'}
           </p>
         </div>
       </div>
@@ -102,14 +157,18 @@ import Layout from "../layouts/Layout.astro";
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>FUKUSHIMA 2026 — ACTIVE</span>
           </div>
-          <h4 class="text-lg font-black text-slate-950">福島プロジェクトが始動中</h4>
+          <h4 class="text-lg font-black text-slate-950">
+            {currentLang === 'en' ? 'Fukushima Project Underway' : '福島プロジェクトが始動中'}
+          </h4>
           <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-            東日本大震災から歳月が経過しようとする今、現地の「現在地」を見つめ直し、次世代として描くべき新しい福島の地図と復興ストーリーを構想しています。
+            {currentLang === 'en' 
+              ? 'As time passes since the Great East Japan Earthquake, we re-examine the current reality of the area and envision a new map and recovery story for Fukushima from the next generation’s perspective.' 
+              : '東日本大震災から歳月が経過しようとする今、現地の「現在地」を見つめ直し、次世代として描くべき新しい福島の地図と復興ストーリーを構想しています。'}
           </p>
         </div>
         <div>
           <a href="/fukushima" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-black text-xs px-5 py-3 rounded-xl shadow-xs transition group">
-            <span>福島の新テーマ企画を見る</span>
+            <span>{currentLang === 'en' ? 'View Fukushima Theme Project' : '福島の新テーマ企画を見る'}</span>
             <svg class="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
@@ -118,12 +177,17 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </section>
 
+    <!-- お問い合わせ & コミュニティ -->
     <section class="max-w-4xl mx-auto bg-slate-100 rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-xs space-y-8">
       <div class="text-center space-y-2">
         <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">CONTACT & COMMUNITY</span>
-        <h3 class="text-xl md:text-2xl font-black text-slate-950">プロジェクトへの参加・お問い合わせ</h3>
+        <h3 class="text-xl md:text-2xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Join or Inquire About the Project' : 'プロジェクトへの参加・お問い合わせ'}
+        </h3>
         <p class="text-slate-500 text-xs md:text-sm font-medium max-w-xl mx-auto leading-relaxed">
-          果てなき復興プロジェクトへの質問、福島プロジェクトへの応募・参加の相談など、どうぞお気軽にご連絡ください。
+          {currentLang === 'en' 
+            ? 'Feel free to contact us with questions regarding the Endless Reconstruction Project or consultations on joining the Fukushima project.' 
+            : '果てなき復興プロジェクトへの質問、福島プロジェクトへの応募・参加の相談など、どうぞお気軽にご連絡ください。'}
         </p>
       </div>
 
@@ -132,20 +196,24 @@ import Layout from "../layouts/Layout.astro";
           <div class="space-y-2">
             <h4 class="font-black text-base flex items-center space-x-2">
               <span>✉️</span>
-              <span>果てなき専用フォーム</span>
+              <span>{currentLang === 'en' ? 'Dedicated Inquiry Form' : '果てなき専用フォーム'}</span>
             </h4>
             <p class="text-xs text-blue-100 leading-relaxed font-medium">
-              質問、詳細の問い合わせ、参加に対する小さなお悩み相談など、フォームから直接送信いただけます。3日以内に丁寧にご返信いたします。
+              {currentLang === 'en' 
+                ? 'Send questions, detailed inquiries, or consultations on joining directly through the form. We will respond within 3 days.' 
+                : '質問、詳細の問い合わせ、参加に対する小さなお悩み相談など、フォームから直接送信いただけます。3日以内に丁寧にご返信いたします。'}
             </p>
           </div>
           <a href="https://forms.gle/dBG9sow35PhfiR2aA" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white hover:bg-slate-50 text-blue-600 font-black text-xs py-3 rounded-xl shadow-xs transition duration-200">
-            専用フォームを開く ➔
+            {currentLang === 'en' ? 'Open Dedicated Form ➔' : '専用フォームを開く ➔'}
           </a>
         </div>
 
         <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-xs">
           <div class="space-y-3">
-            <h4 class="font-black text-slate-950 text-sm tracking-wide">その他の窓口</h4>
+            <h4 class="font-black text-slate-950 text-sm tracking-wide">
+              {currentLang === 'en' ? 'Other Contacts' : 'その他の窓口'}
+            </h4>
             <div class="space-y-2">
               <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Direct Email</p>
               <a href="mailto:nsf.pjrecovering0524@gmail.com" class="text-xs font-bold text-blue-600 hover:underline block break-all">
@@ -155,14 +223,16 @@ import Layout from "../layouts/Layout.astro";
             <div class="border-t border-slate-100 pt-2 space-y-1">
               <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Official Instagram</p>
               <a href="https://www.instagram.com/nsf_pjrecovering/" target="_blank" class="text-xs font-bold text-slate-600 hover:text-blue-600 transition block">
-                @nsf_pjrecovering（活動記録・DM受付）
+                @nsf_pjrecovering ({currentLang === 'en' ? 'Activity Log / DMs' : '活動記録・DM受付'})
               </a>
             </div>
           </div>
           <div class="flex items-center space-x-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
             <img src="/IMG_1413.jpg" alt="えぬくま" class="w-10 h-10 object-contain">
             <p class="text-[11px] text-slate-500 font-medium leading-relaxed">
-              公式インスタでも特化して発信中！DMからのご質問もOKです。
+              {currentLang === 'en' 
+                ? 'Updates also posted on our dedicated Instagram! Questions via DM are welcome.' 
+                : '公式インスタでも特化して発信中！DMからのご質問もOKです。'}
             </p>
           </div>
         </div>
