@@ -19,17 +19,44 @@ const url = new URL(Astro.request.url);
 const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
 const t = translations[currentLang];
 
-// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（絵馬掲示板を追加）
+// src/pages 直下の各プロジェクトファイルに対応したメニュー項目（英語/日本語切り替え）
 const projectItems = [
-  { label: currentLang === 'en' ? 'All Projects' : 'すべてのプロジェクト', href: '/projects' },
-  { label: currentLang === 'en' ? 'Support Ema Board' : '応援絵馬掲示板', href: '/ema' },
-  { label: 'mamoneruプロジェクト', href: '/mamoneru' },
-  { label: 'まもみずプロジェクト', href: '/mamomizu' },
-  { label: 'Bifrost', href: '/bifrost' },
-  { label: '果てなき復興プロジェクト', href: '/hatenaki' },
-  { label: 'survival academy', href: '/survival' },
-  { label: '能登うまいもん再発見プロジェクト', href: '/umaimon' },
-  { label: '熊本うまかもんプロジェクト', href: '/kumamotoumakamon' },
+  { 
+    label: currentLang === 'en' ? 'All Projects' : 'すべてのプロジェクト', 
+    href: '/projects' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Support Ema Board' : '応援絵馬掲示板', 
+    href: '/ema' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Mamoneru Project' : 'mamoneruプロジェクト', 
+    href: '/mamoneru' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Mamomizu Project' : 'まもみずプロジェクト', 
+    href: '/mamomizu' 
+  },
+  { 
+    label: 'NSF Bifröst', 
+    href: '/bifrost' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Endless Reconstruction Project' : '果てなき復興プロジェクト', 
+    href: '/hatenaki' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Survival Academy' : 'survival academy', 
+    href: '/survival' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Noto Umaimon Rediscovery Project' : '能登うまいもん再発見プロジェクト', 
+    href: '/umaimon' 
+  },
+  { 
+    label: currentLang === 'en' ? 'Kumamoto Umakamon Project' : '熊本うまかもんプロジェクト', 
+    href: '/kumamotoumakamon' 
+  },
 ];
 
 // メニュー定義
@@ -159,7 +186,7 @@ const navItems = [
     </style>
   )}
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen overflow-x-hidden">
 
   {showSplash && (
     <div id="splash-screen">
@@ -176,10 +203,10 @@ const navItems = [
 
   <!-- ヘッダーエリア -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between w-full">
+      <a href="/" class="flex items-center gap-2 shrink-0">
         <img src="/logo.jpg" alt="NSF ロゴ" class="h-8 w-auto" />
-        <span class="font-black text-slate-900 text-lg tracking-tight">NSF PROJECTs</span>
+        <span class="font-black text-slate-900 text-base sm:text-lg tracking-tight">NSF PROJECTs</span>
       </a>
 
       <!-- デスクトップナビゲーション ＆ 言語切り替えボタン -->
@@ -232,10 +259,10 @@ const navItems = [
       </div>
 
       <!-- モバイル用コントロール（言語ボタン ＋ ハンバーガー） -->
-      <div class="flex items-center gap-2 md:hidden">
+      <div class="flex items-center gap-1.5 md:hidden shrink-0">
         <LanguageSwitcher />
 
-        <button id="menu-btn" class="p-2 text-slate-800 hover:text-slate-900" aria-label="メニューを開く">
+        <button id="menu-btn" class="p-1.5 text-slate-800 hover:text-slate-900 focus:outline-none" aria-label="メニューを開く">
           <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
