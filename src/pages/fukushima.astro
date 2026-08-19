@@ -1,21 +1,45 @@
 ---
 // src/pages/fukushima.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから現在の言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="FUKUSHIMA 2026｜果てなき復興プロジェクト" activeKey="projects">
+<Layout 
+  title={currentLang === 'en' ? "FUKUSHIMA 2026 | Endless Reconstruction Project" : "FUKUSHIMA 2026｜果てなき復興プロジェクト"} 
+  activeKey="projects"
+>
   <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+    <!-- 🌱 イントロダクション -->
     <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs reveal">
       <div class="space-y-4">
         <h2 class="text-xl md:text-2xl font-black text-slate-950 flex items-center space-x-2">
-          <span>🌱</span> <span>震災から15年、私たちが福島から学ぶこと</span>
+          <span>🌱</span> 
+          <span>
+            {currentLang === 'en' 
+              ? '15 Years Since the Earthquake: What We Learn from Fukushima' 
+              : '震災から15年、私たちが福島から学ぶこと'}
+          </span>
         </h2>
         <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
-          東日本大震災から長い年月が経ち、福島は一歩ずつ確実に復興の道を歩んしてきました。私たちは能登での活動を通じて、改めて福島の歩みに向き合う必要性を感じています。帰還困難区域の現状や風評被害などを知ることは、これからの社会を考える上で重要な視点となります。
+          {currentLang === 'en' ? (
+            <>
+              Many years have passed since the Great East Japan Earthquake, and Fukushima has been steadily walking the path of recovery step by step. Through our activities in Noto, we felt the need to face Fukushima's journey once again. Understanding the current situation of difficult-to-return zones and rumors is an essential perspective for thinking about future society.
+            </>
+          ) : (
+            <>
+              東日本大震災から長い年月が経ち、福島は一歩ずつ確実に復興の道を歩んしてきました。私たちは能登での活動を通じて、改めて福島の歩みに向き合う必要性を感じています。帰還困難区域の現状や風評被害などを知ることは、これからの社会を考える上で重要な視点となります。
+            </>
+          )}
         </p>
       </div>
     </section>
 
+    <!-- PROJECT CONCEPT -->
     <section class="space-y-8 reveal">
       <div class="text-center">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT CONCEPT</span>
@@ -25,28 +49,41 @@ import Layout from "../layouts/Layout.astro";
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
           <div class="text-3xl">🎨</div>
-          <h3 class="text-lg font-black text-slate-950">理想の福島を描く</h3>
+          <h3 class="text-lg font-black text-slate-950">
+            {currentLang === 'en' ? 'Envisioning Ideal Fukushima' : '理想の福島を描く'}
+          </h3>
           <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-            若者の視点で「復興後の福島」を構想し、新しい価値 and 可能性を創出する。
+            {currentLang === 'en' 
+              ? 'Envisioning "post-recovery Fukushima" from youth perspectives, creating new values and possibilities.' 
+              : '若者の視点で「復興後の福島」を構想し、新しい価値 and 可能性を創出する。'}
           </p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
           <div class="text-3xl">🧠</div>
-          <h3 class="text-lg font-black text-slate-950">学びを未来へ</h3>
+          <h3 class="text-lg font-black text-slate-950">
+            {currentLang === 'en' ? 'Passing Lessons to the Future' : '学びを未来へ'}
+          </h3>
           <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-            過去の震災の教訓を整理し、次世代へ繋げる知識として再構築。
+            {currentLang === 'en' 
+              ? 'Organizing past earthquake lessons and restructuring them as knowledge for future generations.' 
+              : '過去の震災の教訓を整理し、次世代へ繋げる知識として再構築。'}
           </p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
           <div class="text-3xl">🤝</div>
-          <h3 class="text-lg font-black text-slate-950">次の復興へ繋ぐ</h3>
+          <h3 class="text-lg font-black text-slate-950">
+            {currentLang === 'en' ? 'Connecting to Next Recovery' : '次の復興へ繋ぐ'}
+          </h3>
           <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-            能登から福島へと繋がる経験をもとに、新たな復興のあり方を模索する。
+            {currentLang === 'en' 
+              ? 'Exploring new models of reconstruction based on experiences connecting Noto to Fukushima.' 
+              : '能登から福島へと繋がる経験をもとに、新たな復興のあり方を模索する。'}
           </p>
         </div>
       </div>
     </section>
 
+    <!-- PROJECT STATUS (タイムライン) -->
     <section class="max-w-3xl mx-auto space-y-8 reveal">
       <div class="text-center">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT STATUS</span>
@@ -59,9 +96,13 @@ import Layout from "../layouts/Layout.astro";
           <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
           <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.06.21</span>
-            <h3 class="text-lg font-black text-slate-950">特別イベントを開催いたしました！</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Special Event Successfully Held!' : '特別イベントを開催いたしました！'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              昨日、FUKUSHIMA 2026プロジェクトの特別イベントを開催いたしました。多くの方にご参加いただき、誠にありがとうございました。これからの福島の未来に向けた、私たちの挑戦の大きな第一歩となりました。
+              {currentLang === 'en' 
+                ? 'Yesterday, we held a special event for the FUKUSHIMA 2026 Project. Thank you very much to everyone who participated. It was a major first step in our challenge toward the future of Fukushima.' 
+                : '昨日、FUKUSHIMA 2026プロジェクトの特別イベントを開催いたしました。多くの方にご参加いただき、誠にありがとうございました。これからの福島の未来に向けた、私たちの挑戦の大きな第一歩となりました。'}
             </p>
           </div>
         </div>
@@ -70,9 +111,13 @@ import Layout from "../layouts/Layout.astro";
           <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
           <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.10</span>
-            <h3 class="text-lg font-black text-slate-950">災害復興学生団体連合の設立</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Establishment of Disaster Recovery Student Federation' : '災害復興学生団体連合の設立'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-              災害や防災を目的に掲げ活動している団体内での情報共有やお互いの団体の企画の広報協力などをお願いなどを流せる場として果てなき復興プロジェクトを主に設立しました。
+              {currentLang === 'en' 
+                ? 'Established mainly by the Endless Reconstruction Project as a platform for sharing information and cooperating on public relations among student organizations active in disaster recovery and prevention.' 
+                : '災害や防災を目的に掲げ活動している団体内での情報共有やお互いの団体の企画の広報協力などをお願いなどを流せる場として果てなき復興プロジェクトを主に設立しました。'}
             </p>
           </div>
         </div>
@@ -81,13 +126,17 @@ import Layout from "../layouts/Layout.astro";
           <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
           <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 timeline-card">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.06</span>
-            <h3 class="text-lg font-black text-slate-950">応募受付開始</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Application Process Started' : '応募受付開始'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-              FUKUSHIMA 2026プロジェクトの応募受付を開始しました。福島の未来を考え、共に学び、行動する仲間を募集しています。
+              {currentLang === 'en' 
+                ? 'Applications for the FUKUSHIMA 2026 Project are now open. We are recruiting peers to think, learn, and act together for the future of Fukushima.' 
+                : 'FUKUSHIMA 2026プロジェクトの応募受付を開始しました。福島の未来を考え、共に学び、行動する仲間を募集しています。'}
             </p>
             <div class="pt-1">
               <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition duration-150 tracking-wider timeline-btn">
-                <span>応募フォームへ ➔</span>
+                <span>{currentLang === 'en' ? 'Application Form ➔' : '応募フォームへ ➔'}</span>
               </a>
             </div>
           </div>
@@ -97,9 +146,13 @@ import Layout from "../layouts/Layout.astro";
           <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
           <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.03.26</span>
-            <h3 class="text-lg font-black text-slate-950">プロジェクト始動</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Project Launch' : 'プロジェクト始動'}
+            </h3>
             <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-              福島編スタート。これまでの震災と復興の歩みを整理し、次世代としてどのような関わり方ができるかを構想しています。
+              {currentLang === 'en' 
+                ? 'Fukushima Chapter launched. Organizing the journey of past disasters and recovery, envisioning how the next generation can contribute.' 
+                : '福島編スタート。これまでの震災と復興の歩みを整理し、次世代としてどのような関わり方ができるかを構想しています。'}
             </p>
           </div>
         </div>
@@ -107,111 +160,143 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </section>
 
+    <!-- メッセージ -->
     <section class="max-w-3xl mx-auto text-center bg-slate-900 text-slate-100 p-8 rounded-3xl shadow-sm reveal">
       <p class="text-sm md:text-base leading-relaxed font-medium italic tracking-wide">
-        能登から福島へ。そして全国へ。<br>
-        私たちは「果てなき復興」という視点で、災害の記憶を未来へ繋ぎ続けます。
+        {currentLang === 'en' ? (
+          <>
+            From Noto to Fukushima. And to the whole nation.<br>
+            We continue to pass the memory of disasters to the future through the perspective of "endless recovery."
+          </>
+        ) : (
+          <>
+            能登から福島へ。そして全国へ。<br>
+            私たちは「果てなき復興」という視点で、災害の記憶を未来へ繋ぎ続けます。
+          </>
+        )}
       </p>
     </section>
 
+    <!-- JOIN THE PROJECT -->
     <section class="max-w-3xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 md:p-12 rounded-3xl text-center shadow-md space-y-4 reveal">
       <h2 class="text-2xl md:text-3xl font-black tracking-wide">JOIN THE PROJECT</h2>
-      <p class="text-xs md:text-sm text-blue-100 font-medium">福島の未来を一緒に考える参加者を募集しています</p>
+      <p class="text-xs md:text-sm text-blue-100 font-medium">
+        {currentLang === 'en' 
+          ? 'Seeking participants to think about the future of Fukushima together' 
+          : '福島の未来を一緒に考える参加者を募集しています'}
+      </p>
       <div class="pt-4">
         <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-blue-600 font-black text-sm px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition duration-150">
-          <span>応募フォームへ</span>
+          <span>{currentLang === 'en' ? 'Application Form' : '応募フォームへ'}</span>
         </a>
       </div>
     </section>
   </div>
 </Layout>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // ===== reveal animation =====
-      const revealItems = document.querySelectorAll(".reveal");
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      }, {
-        threshold: 0.12
+<script data-lang={currentLang}>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ===== reveal animation =====
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
       });
-
-      revealItems.forEach(item => revealObserver.observe(item));
-
-      // ===== ステータス文字の定期切り替え処理 =====
-      const statusText = document.querySelector(".hero-status-text");
-      const statusSub = document.querySelector(".hero-status-sub");
-
-      if (statusText && statusSub) {
-        const phases = [
-          {
-            main: "NOW RECRUITING",
-            sub: "現在、参加者応募受付中です"
-          },
-          {
-            main: "JOIN FUKUSHIMA 2026",
-            sub: "福島の未来を考え、共に学び、行動する仲間を募集中です"
-          },
-          {
-            main: "NEXT STORY — WITH YOU",
-            sub: "次世代の視点で、新たな復興の物語を一緒に作りましょう"
-          }
-        ];
-
-        let index = 0;
-        setInterval(() => {
-          index = (index + 1) % phases.length;
-          statusText.textContent = phases[index].main;
-          statusSub.textContent = phases[index].sub;
-        }, 3200);
-      }
+    }, {
+      threshold: 0.12
     });
-  </script>
 
-  <style is:global>
-    :root {
-      --main: #0D2454;
-      --accent: #00448d;
-      --gold: #F3E195;
-      --bg: #ffffff;
-      --text: #14213d;
-      --sub: #5b6475;
-      --line: #d9e2f0;
-      --soft: #f4f8fc;
-      --card: #ffffff;
-    }
+    revealItems.forEach(item => revealObserver.observe(item));
 
-    html {
-      scroll-behavior: smooth;
-    }
+    // ===== ステータス文字の定期切り替え処理 =====
+    const statusText = document.querySelector(".hero-status-text");
+    const statusSub = document.querySelector(".hero-status-sub");
 
-    /* ===== タイムライン固有のライン装飾（Tailwindクラスへの補足） ===== */
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 22px;
-      width: 3px;
-      background: linear-gradient(180deg, var(--main), var(--accent));
-      border-radius: 999px;
-    }
-    @media (max-width: 768px) {
-      .timeline::before { left: 18px; }
-    }
+    // JS経由での言語切り替え定義
+    const scriptEl = document.querySelector("script[data-lang]");
+    const isEn = scriptEl?.getAttribute("data-lang") === "en";
 
-    /* ===== スクロール表示用（reveal）アニメーションスタイル ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .7s ease, transform .7s ease;
+    if (statusText && statusSub) {
+      const phases = isEn ? [
+        {
+          main: "NOW RECRUITING",
+          sub: "Currently accepting participant applications"
+        },
+        {
+          main: "JOIN FUKUSHIMA 2026",
+          sub: "Seeking members to think, learn, and act together for Fukushima's future"
+        },
+        {
+          main: "NEXT STORY — WITH YOU",
+          sub: "Let's create a new recovery story together from youth perspectives"
+        }
+      ] : [
+        {
+          main: "NOW RECRUITING",
+          sub: "現在、参加者応募受付中です"
+        },
+        {
+          main: "JOIN FUKUSHIMA 2026",
+          sub: "福島の未来を考え、共に学び、行動する仲間を募集中です"
+        },
+        {
+          main: "NEXT STORY — WITH YOU",
+          sub: "次世代の視点で、新たな復興の物語を一緒に作りましょう"
+        }
+      ];
+
+      let index = 0;
+      setInterval(() => {
+        index = (index + 1) % phases.length;
+        statusText.textContent = phases[index].main;
+        statusSub.textContent = phases[index].sub;
+      }, 3200);
     }
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  });
+</script>
+
+<style is:global>
+  :root {
+    --main: #0D2454;
+    --accent: #00448d;
+    --gold: #F3E195;
+    --bg: #ffffff;
+    --text: #14213d;
+    --sub: #5b6475;
+    --line: #d9e2f0;
+    --soft: #f4f8fc;
+    --card: #ffffff;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ===== タイムライン固有のライン装飾 ===== */
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 22px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--main), var(--accent));
+    border-radius: 999px;
+  }
+  @media (max-width: 768px) {
+    .timeline::before { left: 18px; }
+  }
+
+  /* ===== スクロール表示用（reveal）アニメーションスタイル ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
