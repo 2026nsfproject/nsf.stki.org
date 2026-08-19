@@ -13,19 +13,19 @@ const t = translations[currentLang];
   title={currentLang === 'en' ? "FUKUSHIMA 2026 | Endless Reconstruction Project" : "FUKUSHIMA 2026｜果てなき復興プロジェクト"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
     <!-- 🌱 イントロダクション -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs reveal">
-      <div class="space-y-4">
-        <h2 class="text-xl md:text-2xl font-black text-slate-950 flex items-center space-x-2">
-          <span>🌱</span> 
+    <section class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-xs reveal w-full box-border overflow-hidden">
+      <div class="space-y-4 w-full">
+        <h2 class="text-xl md:text-2xl font-black text-slate-950 flex items-center space-x-2 break-words">
+          <span class="shrink-0">🌱</span> 
           <span>
             {currentLang === 'en' 
               ? '15 Years Since the Earthquake: What We Learn from Fukushima' 
               : '震災から15年、私たちが福島から学ぶこと'}
           </span>
         </h2>
-        <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
+        <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium break-words">
           {currentLang === 'en' ? (
             <>
               Many years have passed since the Great East Japan Earthquake, and Fukushima has been steadily walking the path of recovery step by step. Through our activities in Noto, we felt the need to face Fukushima's journey once again. Understanding the current situation of difficult-to-return zones and rumors is an essential perspective for thinking about future society.
@@ -40,41 +40,41 @@ const t = translations[currentLang];
     </section>
 
     <!-- PROJECT CONCEPT -->
-    <section class="space-y-8 reveal">
+    <section class="space-y-8 reveal w-full box-border">
       <div class="text-center">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT CONCEPT</span>
         <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full"></div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full box-border">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 box-border overflow-hidden">
           <div class="text-3xl">🎨</div>
-          <h3 class="text-lg font-black text-slate-950">
+          <h3 class="text-lg font-black text-slate-950 break-words">
             {currentLang === 'en' ? 'Envisioning Ideal Fukushima' : '理想の福島を描く'}
           </h3>
-          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Envisioning "post-recovery Fukushima" from youth perspectives, creating new values and possibilities.' 
               : '若者の視点で「復興後の福島」を構想し、新しい価値 and 可能性を創出する。'}
           </p>
         </div>
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 box-border overflow-hidden">
           <div class="text-3xl">🧠</div>
-          <h3 class="text-lg font-black text-slate-950">
+          <h3 class="text-lg font-black text-slate-950 break-words">
             {currentLang === 'en' ? 'Passing Lessons to the Future' : '学びを未来へ'}
           </h3>
-          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Organizing past earthquake lessons and restructuring them as knowledge for future generations.' 
               : '過去の震災の教訓を整理し、次世代へ繋げる知識として再構築。'}
           </p>
         </div>
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 box-border overflow-hidden">
           <div class="text-3xl">🤝</div>
-          <h3 class="text-lg font-black text-slate-950">
+          <h3 class="text-lg font-black text-slate-950 break-words">
             {currentLang === 'en' ? 'Connecting to Next Recovery' : '次の復興へ繋ぐ'}
           </h3>
-          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Exploring new models of reconstruction based on experiences connecting Noto to Fukushima.' 
               : '能登から福島へと繋がる経験をもとに、新たな復興のあり方を模索する。'}
@@ -84,22 +84,22 @@ const t = translations[currentLang];
     </section>
 
     <!-- PROJECT STATUS (タイムライン) -->
-    <section class="max-w-3xl mx-auto space-y-8 reveal">
+    <section class="max-w-3xl mx-auto space-y-8 reveal w-full box-border">
       <div class="text-center">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT STATUS</span>
         <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full"></div>
       </div>
 
-      <div class="relative border-l-2 border-slate-200 ml-4 md:ml-32 space-y-12 pb-4 timeline">
+      <div class="relative border-l-2 border-slate-200 ml-2 md:ml-32 space-y-12 pb-4 timeline w-full box-border">
         
-        <div class="relative pl-6 md:pl-8 timeline-item">
-          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+        <div class="relative pl-5 md:pl-8 timeline-item box-border">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot shrink-0"></span>
+          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card box-border overflow-hidden">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.06.21</span>
-            <h3 class="text-lg font-black text-slate-950">
+            <h3 class="text-base md:text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Special Event Successfully Held!' : '特別イベントを開催いたしました！'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Yesterday, we held a special event for the FUKUSHIMA 2026 Project. Thank you very much to everyone who participated. It was a major first step in our challenge toward the future of Fukushima.' 
                 : '昨日、FUKUSHIMA 2026プロジェクトの特別イベントを開催いたしました。多くの方にご参加いただき、誠にありがとうございました。これからの福島の未来に向けた、私たちの挑戦の大きな第一歩となりました。'}
@@ -107,14 +107,14 @@ const t = translations[currentLang];
           </div>
         </div>
         
-        <div class="relative pl-6 md:pl-8 timeline-item">
-          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+        <div class="relative pl-5 md:pl-8 timeline-item box-border">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot shrink-0"></span>
+          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card box-border overflow-hidden">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.10</span>
-            <h3 class="text-lg font-black text-slate-950">
+            <h3 class="text-base md:text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Establishment of Disaster Recovery Student Federation' : '災害復興学生団体連合の設立'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Established mainly by the Endless Reconstruction Project as a platform for sharing information and cooperating on public relations among student organizations active in disaster recovery and prevention.' 
                 : '災害や防災を目的に掲げ活動している団体内での情報共有やお互いの団体の企画の広報協力などをお願いなどを流せる場として果てなき復興プロジェクトを主に設立しました。'}
@@ -122,34 +122,34 @@ const t = translations[currentLang];
           </div>
         </div>
 
-        <div class="relative pl-6 md:pl-8 timeline-item">
-          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 timeline-card">
+        <div class="relative pl-5 md:pl-8 timeline-item box-border">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot shrink-0"></span>
+          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 timeline-card box-border overflow-hidden">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.06</span>
-            <h3 class="text-lg font-black text-slate-950">
+            <h3 class="text-base md:text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Application Process Started' : '応募受付開始'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Applications for the FUKUSHIMA 2026 Project are now open. We are recruiting peers to think, learn, and act together for the future of Fukushima.' 
                 : 'FUKUSHIMA 2026プロジェクトの応募受付を開始しました。福島の未来を考え、共に学び、行動する仲間を募集しています。'}
             </p>
             <div class="pt-1">
-              <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition duration-150 tracking-wider timeline-btn">
+              <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition duration-150 tracking-wider timeline-btn text-center break-words">
                 <span>{currentLang === 'en' ? 'Application Form ➔' : '応募フォームへ ➔'}</span>
               </a>
             </div>
           </div>
         </div>
 
-        <div class="relative pl-6 md:pl-8 timeline-item">
-          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+        <div class="relative pl-5 md:pl-8 timeline-item box-border">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot shrink-0"></span>
+          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card box-border overflow-hidden">
             <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.03.26</span>
-            <h3 class="text-lg font-black text-slate-950">
+            <h3 class="text-base md:text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Project Launch' : 'プロジェクト始動'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Fukushima Chapter launched. Organizing the journey of past disasters and recovery, envisioning how the next generation can contribute.' 
                 : '福島編スタート。これまでの震災と復興の歩みを整理し、次世代としてどのような関わり方ができるかを構想しています。'}
@@ -161,8 +161,8 @@ const t = translations[currentLang];
     </section>
 
     <!-- メッセージ -->
-    <section class="max-w-3xl mx-auto text-center bg-slate-900 text-slate-100 p-8 rounded-3xl shadow-sm reveal">
-      <p class="text-sm md:text-base leading-relaxed font-medium italic tracking-wide">
+    <section class="max-w-3xl mx-auto text-center bg-slate-900 text-slate-100 p-6 md:p-8 rounded-3xl shadow-sm reveal w-full box-border overflow-hidden">
+      <p class="text-sm md:text-base leading-relaxed font-medium italic tracking-wide break-words">
         {currentLang === 'en' ? (
           <>
             From Noto to Fukushima. And to the whole nation.<br>
@@ -170,7 +170,7 @@ const t = translations[currentLang];
           </>
         ) : (
           <>
-            能登から福島へ。そして全国へ。<br>
+            能登から福島へ。公式NoteやSNSでも随時情報を発信中！<br>
             私たちは「果てなき復興」という視点で、災害の記憶を未来へ繋ぎ続けます。
           </>
         )}
@@ -178,15 +178,15 @@ const t = translations[currentLang];
     </section>
 
     <!-- JOIN THE PROJECT -->
-    <section class="max-w-3xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 md:p-12 rounded-3xl text-center shadow-md space-y-4 reveal">
-      <h2 class="text-2xl md:text-3xl font-black tracking-wide">JOIN THE PROJECT</h2>
-      <p class="text-xs md:text-sm text-blue-100 font-medium">
+    <section class="max-w-3xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-6 md:p-12 rounded-3xl text-center shadow-md space-y-4 reveal w-full box-border overflow-hidden">
+      <h2 class="text-2xl md:text-3xl font-black tracking-wide break-words">JOIN THE PROJECT</h2>
+      <p class="text-xs md:text-sm text-blue-100 font-medium break-words">
         {currentLang === 'en' 
           ? 'Seeking participants to think about the future of Fukushima together' 
           : '福島の未来を一緒に考える参加者を募集しています'}
       </p>
       <div class="pt-4">
-        <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-blue-600 font-black text-sm px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition duration-150">
+        <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-blue-600 font-black text-sm px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition duration-150 text-center break-words">
           <span>{currentLang === 'en' ? 'Application Form' : '応募フォームへ'}</span>
         </a>
       </div>
@@ -286,7 +286,7 @@ const t = translations[currentLang];
     border-radius: 999px;
   }
   @media (max-width: 768px) {
-    .timeline::before { left: 18px; }
+    .timeline::before { left: 10px; }
   }
 
   /* ===== スクロール表示用（reveal）アニメーションスタイル ===== */
