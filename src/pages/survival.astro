@@ -1,17 +1,37 @@
 ---
 // src/pages/survival.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="NSFサバイバルアカデミー" activeKey="projects">
+<Layout 
+  title={currentLang === 'en' ? "NSF Survival Academy | NSF PROJECTs" : "NSFサバイバルアカデミー"} 
+  activeKey="projects"
+>
   <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+    <!-- コンセプト -->
     <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
       <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-green-600 pl-4 py-1">
-        単なる防災講演や知識学習ではなく、「知る防災」から「動ける防災」へ、「教わる防災」から「鍛える防災」へ。<br class="hidden md:block">
-        中高生が実際に体験しながら災害対応力を身につけることを目的とした、「災害時に生き抜く力を、中高生が実際に体験しながら学ぶ学校外の防災スクール」です。
+        {currentLang === 'en' ? (
+          <>
+            Not just a disaster prevention lecture or learning knowledge, but moving "from knowing to acting" and "from being taught to training."<br class="hidden md:block">
+            An out-of-school disaster prevention school where middle and high school students learn life-saving skills for disaster situations through hands-on experience.
+          </>
+        ) : (
+          <>
+            単なる防災講演や知識学習ではなく、「知る防災」から「動ける防災」へ、「教わる防災」から「鍛える防災」へ。<br class="hidden md:block">
+            中高生が実際に体験しながら災害対応力を身につけることを目的とした、「災害時に生き抜く力を、中高生が実際に体験しながら学ぶ学校外の防災スクール」です。
+          </>
+        )}
       </p>
     </section>
 
+    <!-- プロジェクト概要 & コンセプト -->
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
       <div class="lg:col-span-1 space-y-6">
@@ -23,16 +43,28 @@ import Layout from "../layouts/Layout.astro";
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
           <div class="space-y-3">
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">プロジェクトリーダー</p>
-              <p class="text-sm font-black text-slate-100">高江洲 義心</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'Gishin Takaesu' : '高江洲 義心'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">開始時期</p>
-              <p class="text-sm font-black text-slate-100">2025年12月</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Start Date' : '開始時期'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'December 2025' : '2025年12月'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">対象メンバー</p>
-              <p class="text-sm font-black text-slate-100">中高生・大学生</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Target Members' : '対象メンバー'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'Middle, High School & College Students' : '中高生・大学生'}
+              </p>
             </div>
           </div>
         </div>
@@ -40,107 +72,202 @@ import Layout from "../layouts/Layout.astro";
         <div class="bg-gradient-to-br from-green-800 to-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
           <h4 class="font-black text-xs text-green-300 uppercase tracking-widest">Concept</h4>
           <p class="text-xs text-slate-200 leading-relaxed font-medium">
-            テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。
+            {currentLang === 'en' 
+              ? 'The themes are "Disaster Prevention, Survival, Outdoor." We aim to build knowledge, decision-making skills, and adaptability required during disasters through hands-on workshops, training, and field activities.' 
+              : 'テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。'}
           </p>
         </div>
       </div>
 
+      <!-- 具体的な活動内容 -->
       <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
         <div class="space-y-6">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
             <span class="w-2 h-6 bg-green-600 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">具体的な活動内容</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
+            </h3>
           </div>
           
           <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
-            防災を単なる知識として学ぶだけでなく、「実際に体験し、自ら判断し、行動する力」を養うため、体験型ワークショップ・訓練・フィールド活動を企画・実施しています。
+            {currentLang === 'en' 
+              ? 'Rather than just studying disaster prevention as knowledge, we plan and implement hands-on workshops, training, and field activities to foster the ability to "experience, judge, and act independently."' 
+              : '防災を単なる知識として学ぶだけでなく、「実際に体験し、自ら判断し、行動する力」を養うため、体験型ワークショップ・訓練・フィールド活動を企画・実施しています。'}
           </p>
 
           <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
             <div class="flex items-center space-x-2">
-              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2.5 py-0.5 rounded">実践訓練</span>
-              <h4 class="font-black text-slate-950 text-sm">災害対応スキルの体験</h4>
+              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2.5 py-0.5 rounded">
+                {currentLang === 'en' ? 'Practical Training' : '実践訓練'}
+              </span>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? 'Experiencing Disaster Response Skills' : '災害対応スキルの体験'}
+              </h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              災害派遣時の指揮シミュレーション、ロープワーク、レンジャー訓練の基礎体験、災害現場での判断訓練などを通じて、実践的な災害対応力を養います。
+              {currentLang === 'en' 
+                ? 'Developing practical disaster response skills through command simulations during disaster dispatch, ropework, ranger training basics, and decision-making drills at disaster sites.' 
+                : '災害派遣時の指揮シミュレーション、ロープワーク、レンジャー訓練の基礎体験、災害現場での判断訓練などを通じて、実践的な災害対応力を養います。'}
             </p>
           </div>
 
           <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
             <div class="flex items-center space-x-2">
-              <span class="bg-emerald-100 text-emerald-700 font-black text-[10px] px-2.5 py-0.5 rounded">将来構想</span>
-              <h4 class="font-black text-slate-950 text-sm">継続的な教育ブランドへ</h4>
+              <span class="bg-emerald-100 text-emerald-700 font-black text-[10px] px-2.5 py-0.5 rounded">
+                {currentLang === 'en' ? 'Future Vision' : '将来構想'}
+              </span>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? 'Toward a Continuous Educational Brand' : '継続的な教育ブランドへ'}
+              </h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。
+              {currentLang === 'en' 
+                ? 'We envision evolving from single events into an educational brand that continuously conducts camping, mountain climbing, field training, disaster drills, simulations, and collaboration with JSDF, fire departments, and local governments.' 
+                : '単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。'}
             </p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 開催実績 -->
     <section class="max-w-4xl mx-auto space-y-8">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">開催実績</h3>
+        <h3 class="text-xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Event History' : '開催実績'}
+        </h3>
         <div class="w-12 h-1 bg-green-500 mx-auto mt-3 rounded-full"></div>
       </div>
 
+      <!-- 第1回 -->
       <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第1回</span>
-          <span class="text-[11px] font-bold text-slate-400">2026年2月8日</span>
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+            {currentLang === 'en' ? '1st Event' : '第1回'}
+          </span>
+          <span class="text-[11px] font-bold text-slate-400">
+            {currentLang === 'en' ? 'February 8, 2026' : '2026年2月8日'}
+          </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">第1回 サバイバルアカデミー</h4>
+        <h4 class="font-black text-slate-950 text-base">
+          {currentLang === 'en' ? '1st Survival Academy' : '第1回 サバイバルアカデミー'}
+        </h4>
         <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
-          NSF PROJECTs・全国高校生未来会議のアフターイベントとして実施。共催は防衛省自衛隊東京地方協力本部、会場は渋谷募集案内所でした。
+          {currentLang === 'en' 
+            ? 'Held as an after-event of NSF PROJECTs and the National High School Future Conference. Co-hosted by JSDF Tokyo Provincial Cooperation Office, held at Shibuya Recruiting Information Center.' 
+            : 'NSF PROJECTs・全国高校生未来会議のアフターイベントとして実施。共催は防衛省自衛隊東京地方協力本部、会場は渋谷募集案内所でした。'}
         </p>
         <div class="flex flex-wrap gap-2 pt-1">
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">災害派遣時の指揮シミュレーション</span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">ロープワーク</span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">レンジャー訓練の基礎体験</span>
-          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">災害現場での判断訓練</span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+            {currentLang === 'en' ? 'Disaster Dispatch Command Simulation' : '災害派遣時の指揮シミュレーション'}
+          </span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+            {currentLang === 'en' ? 'Ropework' : 'ロープワーク'}
+          </span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+            {currentLang === 'en' ? 'Ranger Training Basics' : 'レンジャー訓練の基礎体験'}
+          </span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">
+            {currentLang === 'en' ? 'Disaster Site Decision Drill' : '災害現場での判断訓練'}
+          </span>
         </div>
       </div>
 
+      <!-- 第2回 -->
       <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第2回</span>
-          <span class="text-[11px] font-bold text-slate-400">2026年4月25日（土）〜26日（日）</span>
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+            {currentLang === 'en' ? '2nd Event' : '第2回'}
+          </span>
+          <span class="text-[11px] font-bold text-slate-400">
+            {currentLang === 'en' ? 'April 25 (Sat) – 26 (Sun), 2026' : '2026年4月25日（土）〜26日（日）'}
+          </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">NSFサバイバルアカデミー2026春<br class="sm:hidden"><span class="text-slate-500 text-sm font-bold"> 〜朝霞駐屯地で学ぶ、災害時に生き抜く力〜</span></h4>
-        <p class="text-[11px] font-bold text-slate-400">（NSFサバイバルアカデミー 第2回 段ボールベッドキャンプ）</p>
+        <h4 class="font-black text-slate-950 text-base">
+          {currentLang === 'en' ? 'NSF Survival Academy 2026 Spring' : 'NSFサバイバルアカデミー2026春'}
+          <br class="sm:hidden">
+          <span class="text-slate-500 text-sm font-bold">
+            {currentLang === 'en' ? ' ~ Survival Skills at Asaka Camp ~' : ' 〜朝霞駐屯地で学ぶ、災害時に生き抜く力〜'}
+          </span>
+        </h4>
+        <p class="text-[11px] font-bold text-slate-400">
+          {currentLang === 'en' ? '(2nd Cardboard Bed Camp)' : '（NSFサバイバルアカデミー 第2回 段ボールベッドキャンプ）'}
+        </p>
         <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
-          埼玉県の朝霞駐屯地周辺において、1泊2日の共同生活で防災・救命・サバイバル技術を学びました。「知る防災から、できる防災へ」をテーマに、講義ではなく実際の体験を通して災害時に必要な知識や技術を習得。全国から集まった中高生・大学生の交流の場にもなりました。
+          {currentLang === 'en' 
+            ? 'Learned disaster prevention, first aid, and survival techniques during a 2-day 1-night camp around JSDF Asaka Camp in Saitama. Under the theme "From knowing to doing," students acquired essential skills through experience. It also served as a venue for students nationwide to connect.' 
+            : '埼玉県の朝霞駐屯地周辺において、1泊2日の共同生活で防災・救命・サバイバル技術を学びました。「知る防災から、できる防災へ」をテーマに、講義ではなく実際の体験を通して災害時に必要な知識や技術を習得。全国から集まった中高生・大学生の交流の場にもなりました。'}
         </p>
         <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-3">
-          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">実施プログラム</p>
+          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">
+            {currentLang === 'en' ? 'PROGRAM DETAILS' : '実施プログラム'}
+          </p>
           <ol class="space-y-1.5 text-slate-600 text-xs md:text-sm font-medium list-decimal list-inside marker:text-green-600 marker:font-black">
-            <li>天幕設営体験</li>
-            <li>応急救護体験（AEDを用いた心肺蘇生法、戦傷模型を活用した止血法、毛布を使用した搬送訓練）</li>
-            <li>段ボールベッド宿泊体験</li>
-            <li>暗視眼鏡（NVG）体験</li>
-            <li>夜間サバイバルプログラム（ペットボトルランタン作成 ほか）</li>
-            <li>自衛隊喫食体験（隊員食堂での喫食・携行食の加温体験）</li>
-            <li>りっくんランド見学</li>
+            {currentLang === 'en' ? (
+              <>
+                <li>Tent pitching practice</li>
+                <li>Emergency first aid practice (CPR using AED, hemostasis training with trauma models, blanket transport training)</li>
+                <li>Cardboard bed overnight experience</li>
+                <li>Night Vision Goggles (NVG) experience</li>
+                <li>Night survival program (making plastic bottle lanterns, etc.)</li>
+                <li>JSDF meal experience (dining in mess hall and heated emergency ration experience)</li>
+                <li>Rikkun Land (JSDF Public Relations Center) tour</li>
+              </>
+            ) : (
+              <>
+                <li>天幕設営体験</li>
+                <li>応急救護体験（AEDを用いた心肺蘇生法、戦傷模型を活用した止血法、毛布を使用した搬送訓練）</li>
+                <li>段ボールベッド宿泊体験</li>
+                <li>暗視眼鏡（NVG）体験</li>
+                <li>夜間サバイバルプログラム（ペットボトルランタン作成 ほか）</li>
+                <li>自衛隊喫食体験（隊員食堂での喫食・携行食の加温体験）</li>
+                <li>りっくんランド見学</li>
+              </>
+            )}
           </ol>
         </div>
       </div>
 
+      <!-- 第3回 -->
       <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第3回</span>
-          <span class="text-[11px] font-bold text-slate-400">2026年6月14日（日）</span>
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">
+            {currentLang === 'en' ? '3rd Event' : '第3回'}
+          </span>
+          <span class="text-[11px] font-bold text-slate-400">
+            {currentLang === 'en' ? 'June 14, 2026 (Sun)' : '2026年6月14日（日）'}
+          </span>
         </div>
-        <h4 class="font-black text-slate-950 text-base">防災講話 × アイデアコンテスト<br class="sm:hidden"><span class="text-slate-500 text-sm font-bold"> 〜もしもこの町で災害が起きたら？あなたは動けるか。〜</span></h4>
+        <h4 class="font-black text-slate-950 text-base">
+          {currentLang === 'en' ? 'Disaster Prevention Lecture × Idea Contest' : '防災講話 × アイデアコンテスト'}
+          <br class="sm:hidden">
+          <span class="text-slate-500 text-sm font-bold">
+            {currentLang === 'en' ? ' ~ What if a disaster strikes this town? Can you act? ~' : ' 〜もしもこの町で災害が起きたら？あなたは動けるか。〜'}
+          </span>
+        </h4>
         <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
-          防衛省自衛隊渋谷募集案内所（オフライン）およびZoom（オンライン）にて開催。「災害支援や防災を通じて、自衛隊のことを知ってもらうには」をテーマとしたアイデアコンテストを実施しました。また防災講話では、第一空挺団や帯広地方協力本部本部長などの著名な役職を務められた現・防災推進担当課長の方に、実践的なお話を登壇いただきました。
+          {currentLang === 'en' 
+            ? 'Held at JSDF Shibuya Recruiting Information Center (offline) and Zoom (online). Hosted an idea contest under the theme "How to raise awareness of JSDF through disaster support and prevention." The lecture featured a disaster prevention manager who served in key positions such as the 1st Airborne Brigade.' 
+            : '防衛省自衛隊渋谷募集案内所（オフライン）およびZoom（オンライン）にて開催。「災害支援や防災を通じて、自衛隊のことを知ってもらうには」をテーマとしたアイデアコンテストを実施しました。また防災講話では、第一空挺団や帯広地方協力本部本部長などの著名な役職を務められた現・防災推進担当課長の方に、実践的なお話を登壇いただきました。'}
         </p>
         <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">主な内容・特徴</p>
+          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">
+            {currentLang === 'en' ? 'MAIN HIGHLIGHTS' : '主な内容・特徴'}
+          </p>
           <ul class="space-y-1 text-slate-600 text-xs md:text-sm font-medium list-inside list-disc marker:text-green-600">
-            <li>自衛隊の認知・理解を深めるためのアイデアコンテストの実施</li>
-            <li>元・第一空挺団等の経歴を持つ防災のプロフェッショナルによる防災講話</li>
-            <li>上位入賞者が東京地方協力本部本部長へアイデアを直接提言できる機会の創出（調整中）</li>
+            {currentLang === 'en' ? (
+              <>
+                <li>Idea contest to deepen awareness and understanding of the JSDF</li>
+                <li>Disaster prevention lecture by a professional with a background in the 1st Airborne Brigade</li>
+                <li>Opportunity for top winners to present ideas directly to the Tokyo Provincial Cooperation Office Director (under coordination)</li>
+              </>
+            ) : (
+              <>
+                <li>自衛隊の認知・理解を深めるためのアイデアコンテストの実施</li>
+                <li>元・第一空挺団等の経歴を持つ防災のプロフェッショナルによる防災講話</li>
+                <li>上位入賞者が東京地方協力本部本部長へアイデアを直接提言できる機会の創出（調整中）</li>
+              </>
+            )}
           </ul>
         </div>
       </div>
