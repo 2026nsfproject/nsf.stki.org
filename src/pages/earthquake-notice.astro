@@ -1,12 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから現在の言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="令和8年熊本地震 支援メンバー募集 | NSF PROJECTs" activeKey="news">
+<Layout 
+  title={currentLang === 'en' ? "Kumamoto Earthquake Support Members Wanted | NSF PROJECTs" : "令和8年熊本地震 支援メンバー募集 | NSF PROJECTs"} 
+  activeKey="news"
+>
   <main class="py-12 md:py-20 max-w-4xl mx-auto px-4">
     <div class="mb-8">
       <a href="/" class="inline-flex items-center text-xs md:text-sm text-slate-500 hover:text-blue-600 transition duration-150">
-        ➔ トップページに戻る
+        {currentLang === 'en' ? '➔ Back to Top Page' : '➔ トップページに戻る'}
       </a>
     </div>
 
@@ -14,68 +23,111 @@ import Layout from "../layouts/Layout.astro";
       <header class="border-b border-slate-100 pb-6 space-y-4">
         <div class="flex items-center gap-3 flex-wrap">
           <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-md tracking-wider">
-            緊急募集
+            {currentLang === 'en' ? 'URGENT RECRUITMENT' : '緊急募集'}
           </span>
           <time class="text-xs md:text-sm text-slate-500 font-bold">2026.07.28</time>
         </div>
         <h1 class="text-2xl md:text-4xl font-black text-slate-950 leading-tight">
-          【令和8年熊本地震 支援メンバー募集】
+          {currentLang === 'en' 
+            ? '[Kumamoto Earthquake 2026 Support Members Recruitment]' 
+            : '【令和8年熊本地震 支援メンバー募集】'}
         </h1>
       </header>
 
       <div class="space-y-6 text-slate-700 text-sm md:text-base leading-relaxed font-medium">
         <p class="bg-slate-50 p-4 rounded-xl text-slate-600 border-l-4 border-slate-400">
-          このたびの令和8年熊本地震により被災された皆様に、心よりお見舞い申し上げます。
+          {currentLang === 'en' 
+            ? 'We express our deepest sympathies to all those affected by the 2026 Kumamoto Earthquake.' 
+            : 'このたびの令和8年熊本地震により被災された皆様に、心よりお見舞い申し上げます。'}
         </p>
 
         <div class="my-6 max-w-[520px] mx-auto overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white">
           <img 
             src="/kumamoto_image.jpg" 
-            alt="令和8年熊本地震 支援活動" 
+            alt={currentLang === 'en' ? "2026 Kumamoto Earthquake Support Activities" : "令和8年熊本地震 支援活動"} 
             class="w-full h-auto object-contain block"
           />
         </div>
 
         <p>
-          NSF PROJECTsでは、能登半島地震で全国の学生とともに募金活動を行った経験を活かし、令和8年熊本地震においても、学生による支援募金プロジェクトの立ち上げを進めています。
+          {currentLang === 'en'
+            ? 'Building on our experience conducting fundraising activities with students across Japan during the Noto Peninsula Earthquake, NSF PROJECTs is launching a student-led fundraising support project for the 2026 Kumamoto Earthquake.'
+            : 'NSF PROJECTsでは、能登半島地震で全国の学生とともに募金活動を行った経験を活かし、令和8年熊本地震においても、学生による支援募金プロジェクトの立ち上げを進めています。'}
         </p>
 
         <p>
-          現在、全国で支援活動にご協力いただける<strong>中学生・高校生</strong>を募集しています。
+          {currentLang === 'en'
+            ? 'We are currently seeking middle and high school students across the country to cooperate in these support activities.'
+            : '現在、全国で支援活動にご協力いただける中学生・高校生を募集しています。'}
         </p>
 
+        <!-- 主な活動内容 -->
         <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-4">
           <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
-            <span class="text-blue-600">■</span> 主な活動内容
+            <span class="text-blue-600">■</span> 
+            {currentLang === 'en' ? 'Main Activities' : '主な活動内容'}
           </h2>
           <ul class="list-disc list-inside space-y-2 text-slate-700">
-            <li>学校・生徒会と連携した学校募金の企画・実施</li>
-            <li>各地域での街頭募金の企画・運営</li>
-            <li>街頭募金が難しい地域での設置型募金の検討</li>
-            <li>広報・SNS・デザイン</li>
-            <li>運営・地域調整 など</li>
+            {currentLang === 'en' ? (
+              <>
+                <li>Planning and implementing school fundraising in collaboration with schools and student councils</li>
+                <li>Planning and managing street fundraising activities in local areas</li>
+                <li>Considering stationary donation boxes in regions where street fundraising is difficult</li>
+                <li>Public relations, social media, and design tasks</li>
+                <li>Operations and regional coordination, etc.</li>
+              </>
+            ) : (
+              <>
+                <li>学校・生徒会と連携した学校募金の企画・実施</li>
+                <li>各地域での街頭募金の企画・運営</li>
+                <li>街頭募金が難しい地域での設置型募金の検討</li>
+                <li>広報・SNS・デザイン</li>
+                <li>運営・地域調整 など</li>
+              </>
+            )}
           </ul>
         </div>
 
         <p>
-          活動はオンラインでの打ち合わせを中心に進めるため、全国どこからでも参加できます。活動経験の有無は問いません。
+          {currentLang === 'en'
+            ? 'Since activities are primarily conducted through online meetings, anyone can participate from anywhere in Japan. Prior experience is not required.'
+            : '活動はオンラインでの打ち合わせを中心に進めるため、全国どこからでも参加できます。活動経験の有無は問いません。'}
         </p>
 
+        <!-- 対象・参加方法 -->
         <div class="bg-blue-50/60 rounded-2xl p-6 border border-blue-100 space-y-4">
           <h2 class="text-base md:text-lg font-bold text-slate-900 border-b border-blue-200/60 pb-2 flex items-center gap-2">
-            <span class="text-blue-600">■</span> 対象・参加方法
+            <span class="text-blue-600">■</span> 
+            {currentLang === 'en' ? 'Target & How to Participate' : '対象・参加方法'}
           </h2>
           
           <div>
-            <span class="font-bold text-slate-900 block mb-1">【対象】</span>
-            <p>中学生・高校生・大学生・専門学校生・大学院生</p>
+            <span class="font-bold text-slate-900 block mb-1">
+              {currentLang === 'en' ? '【Eligibility】' : '【対象】'}
+            </span>
+            <p>
+              {currentLang === 'en' 
+                ? 'Middle school, high school, vocational school, university, and graduate students' 
+                : '中学生・高校生・大学生・専門学校生・大学院生'}
+            </p>
           </div>
 
           <div>
-            <span class="font-bold text-slate-900 block mb-1">【参加方法】</span>
+            <span class="font-bold text-slate-900 block mb-1">
+              {currentLang === 'en' ? '【How to Join】' : '【参加方法】'}
+            </span>
             <p>
-              まずはDiscordコミュニティへご参加ください。<br />
-              最新の活動予定や説明会の日程をご案内します。
+              {currentLang === 'en' ? (
+                <>
+                  First, please join our Discord community.<br />
+                  We will provide information on upcoming schedule and orientation sessions.
+                </>
+              ) : (
+                <>
+                  まずはDiscordコミュニティへご参加ください。<br />
+                  最新の活動予定や説明会の日程をご案内します。
+                </>
+              )}
             </p>
           </div>
 
@@ -84,51 +136,89 @@ import Layout from "../layouts/Layout.astro";
               href="mailto:jyrac.pr@gmail.com" 
               class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition duration-150 shadow-xs gap-2"
             >
-              <span>メールで問い合わせ（jyrac.pr@gmail.com）</span>
+              <span>{currentLang === 'en' ? 'Inquire via Email (jyrac.pr@gmail.com)' : 'メールで問い合わせ（jyrac.pr@gmail.com）'}</span>
             </a>
           </div>
         </div>
 
         <p class="pt-2">
-          一人ではできないことも、全国の学生が力を合わせることで大きな支援につながります。
+          {currentLang === 'en'
+            ? 'What one person cannot do alone becomes a powerful support when students across the country join forces.'
+            : '一人ではできないことも、全国の学生が力を合わせることで大きな支援につながります。'}
         </p>
         <p>
-          ご関心のある方はぜひご参加ください。<br />
-          また、学校や生徒会、ご友人への周知・ご協力もよろしくお願いいたします。
+          {currentLang === 'en' ? (
+            <>
+              If you are interested, please consider participating.<br />
+              We also kindly ask for your cooperation in sharing this with your school, student council, and friends.
+            </>
+          ) : (
+            <>
+              ご関心のある方はぜひご参加ください。<br />
+              また、学校や生徒会、ご友人への周知・ご協力もよろしくお願いいたします。
+            </>
+          )}
         </p>
       </div>
 
+      <!-- STATEMENT セクション -->
       <section class="mt-12 pt-10 border-t-2 border-slate-100 space-y-6">
         <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 space-y-6">
           <header class="space-y-2 border-b border-slate-200 pb-4">
             <span class="text-xs font-bold text-blue-600 tracking-wider uppercase block">STATEMENT</span>
             <h2 class="text-lg md:text-2xl font-black text-slate-900 leading-snug">
-              令和8年熊本地震の発生を受けて
+              {currentLang === 'en' 
+                ? 'Statement Regarding the 2026 Kumamoto Earthquake' 
+                : '令和8年熊本地震の発生を受けて'}
             </h2>
           </header>
 
           <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal">
-            <p>
-              令和8年7月28日に発生した令和8年熊本地震により被災された皆様に対し、心よりお見舞い申し上げます。また、救助・救急・復旧活動に尽力されているすべての皆様に、深く敬意を表します。
-            </p>
-            <p>
-              NSF PROJECTsは、「まなぶ。つなぐ。そなえる。」を掲げ、全国の中高生・学生が防災や復興について学び、行動するプロジェクトです。私たちは、災害を被災地だけの出来事としてではなく、日本に暮らすすべての人が向き合うべき課題として捉えています。
-            </p>
-            <p>
-              今、私たちに求められているのは、憶測や未確認情報を拡散することなく、公的機関が発信する正確な情報に基づき、冷静に行動することです。また、この災害を契機として自身や家族の備えを見直し、防災意識を高めることは、将来の災害に備える上で重要な取組であると考えます。
-            </p>
-            <p>
-              NSF PROJECTsは被災地の状況を注視しつつ、学生だからこそできる情報発信や防災啓発、復興につながる活動を継続してまいります。さらに、必要に応じて、被災地への支援についても検討を進めてまいります。
-            </p>
-            <p>
-              被災された皆様の安全が確保され、一日も早い復旧・復興が実現することを心よりお祈り申し上げます。
-            </p>
+            {currentLang === 'en' ? (
+              <>
+                <p>
+                  We extend our deepest condolences to everyone affected by the Kumamoto Earthquake that occurred on July 28, 2026. We also express our profound respect to all personnel dedicated to rescue, medical, and recovery operations.
+                </p>
+                <p>
+                  Guided by our motto "Learn. Connect. Prepare.", NSF PROJECTs is a nationwide initiative where students learn and take action regarding disaster prevention and recovery. We perceive disasters not merely as events in affected areas, but as challenges that everyone living in Japan must face.
+                </p>
+                <p>
+                  What is required of us now is to act calmly based on accurate information provided by public institutions, without spreading speculation or unverified information. Furthermore, utilizing this disaster as an opportunity to review personal and family preparations and raise disaster awareness is a vital step toward preparing for future emergencies.
+                </p>
+                <p>
+                  NSF PROJECTs will continue to closely monitor the situation in affected areas while providing information, promoting disaster awareness, and continuing recovery-related activities that students are uniquely equipped to do. In addition, we will consider further support for the affected areas as needed.
+                </p>
+                <p>
+                  We sincerely pray for the safety of everyone affected and for the swift recovery and reconstruction of the region.
+                </p>
+              </>
+            ) : (
+              <>
+                <p>
+                  令和8年7月28日に発生した令和8年熊本地震により被災された皆様に対し、心よりお見舞い申し上げます。また、救助・救急・復旧活動に尽力されているすべての皆様に、深く敬意を表します。
+                </p>
+                <p>
+                  NSF PROJECTsは、「まなぶ。つなぐ。そなえる。」を掲げ、全国の中高生・学生が防災や復興について学び、行動するプロジェクトです。私たちは、災害を被災地だけの出来事としてではなく、日本に暮らすすべての人が向き合うべき課題として捉えています。
+                </p>
+                <p>
+                  今、私たちに求められているのは、憶測や未確認情報を拡散することなく、公的機関が発信する正確な情報に基づき、冷静に行動することです。また、この災害を契機として自身や家族の備えを見直し、防災意識を高めることは、将来の災害に備える上で重要な取組であると考えます。
+                </p>
+                <p>
+                  NSF PROJECTsは被災地の状況を注視しつつ、学生だからこそできる情報発信や防災啓発、復興につながる活動を継続してまいります。さらに、必要に応じて、被災地への支援についても検討を進めてまいります。
+                </p>
+                <p>
+                  被災された皆様の安全が確保され、一日も早い復旧・復興が実現することを心よりお祈り申し上げます。
+                </p>
+              </>
+            )}
           </div>
 
           <div class="pt-4 text-right border-t border-slate-200/60 text-sm md:text-base font-bold text-slate-800">
-            <p>令和8年7月29日</p>
+            <p>{currentLang === 'en' ? 'July 29, 2026' : '令和8年7月29日'}</p>
             <p class="mt-1 text-slate-900">NSF PROJECTs</p>
-            <p class="text-slate-900">代表 髙野 怜生</p>
+            <p class="text-slate-900">
+              {currentLang === 'en' ? 'Leader: Reo Takano' : '代表 髙野 怜生'}
+            </p>
           </div>
         </div>
       </section>
@@ -138,7 +228,7 @@ import Layout from "../layouts/Layout.astro";
           href="/" 
           class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-8 py-3 rounded-xl transition duration-150"
         >
-          トップページへ戻る
+          {currentLang === 'en' ? 'Back to Top Page' : 'トップページへ戻る'}
         </a>
       </footer>
     </article>
