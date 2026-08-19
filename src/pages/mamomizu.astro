@@ -13,10 +13,10 @@ const t = translations[currentLang];
   title={currentLang === 'en' ? "Mamomizu Project | NSF PROJECTs" : "Mamomizuプロジェクト"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
     <!-- コンセプト -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-sky-500 pl-4 py-1">
+    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 w-full box-border overflow-hidden">
+      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-sky-500 pl-4 py-1 break-words">
         {currentLang === 'en' ? (
           <>
             During disasters, the "72 hours of water" is said to determine life or death, making drinking, cooking, and hygiene urgent challenges.<br><br>
@@ -25,27 +25,27 @@ const t = translations[currentLang];
         ) : (
           <>
             災害時には「水の72時間」が生死を分けるとされ、飲料・調理・衛生の確保は喫緊の課題です。<br><br>
-            同時に、日本は食料や製品を通じて海外から大量の「仮想水（バーチャルウォーター）」を輸入しており、平常時から水環境に大きく依存しています。私たちMamomizuは、災害時の水環境改善と平常時の水問題への取り組みを「提言」と「行動」の両輪で進め、誰もが安心して水使える環境を目指します。
+            同時に、日本は食料や製品を通じて海外から大量の「仮想水（バーチャルウォーター）」を輸入しており、平常時から水環境に大きく依存しています。私達Mamomizuは、災害時の水環境改善と平常時の水問題への取り組みを「提言」と「行動」の両輪で進め、誰もが安心して水使える環境を目指します。
           </>
         )}
       </p>
     </section>
 
     <!-- 概要 & ミッション -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full box-border">
       
-      <div class="lg:col-span-1 space-y-6">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
+      <div class="lg:col-span-1 space-y-6 w-full box-border">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5 box-border overflow-hidden">
           <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
             <img src="/p_logo/Mamomizu.jpg" alt="Mamomizu ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
           </div>
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
-          <div class="space-y-3">
+          <div class="space-y-3 w-full">
             <div>
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? 'Junnosuke Kubo' : '久保 惇之介'}
               </p>
             </div>
@@ -53,7 +53,7 @@ const t = translations[currentLang];
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Start Date' : '開始時期'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? 'September 2025' : '2025年9月'}
               </p>
             </div>
@@ -61,16 +61,16 @@ const t = translations[currentLang];
               <p class="text-[10px] text-slate-500 font-bold uppercase">
                 {currentLang === 'en' ? 'Members' : '現在の参加人数'}
               </p>
-              <p class="text-sm font-black text-slate-100">
+              <p class="text-sm font-black text-slate-100 break-words">
                 {currentLang === 'en' ? '9 Members' : '計 9 名'}
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-sky-700 to-cyan-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
+        <div class="bg-gradient-to-br from-sky-700 to-cyan-950 text-white p-6 rounded-2xl shadow-sm space-y-4 box-border overflow-hidden">
           <h4 class="font-black text-xs text-sky-300 uppercase tracking-widest">Our Mission</h4>
-          <p class="text-xs text-slate-100 leading-relaxed font-medium">
+          <p class="text-xs text-slate-100 leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Through workshops like "What if the water stops?" and the "Youth Water Proposal 2025," high school students convey messages to society while spreading practical actions such as checking stockpiles, water conservation, and social media outreach at home and school.' 
               : '高校生が「もし断水したら？」というワークや「ユース水提言2025」を通じて社会に発信し、同時に家庭や学校での備蓄確認・節水行動・SNS発信といった実践を広げていきます。提言と行動を両輪とすることで、災害時も平常時も水の安心を守ります。'}
@@ -79,47 +79,47 @@ const t = translations[currentLang];
       </div>
 
       <!-- 具体的な活動内容 (フェーズ分け) -->
-      <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
-        <div class="space-y-6">
+      <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6 w-full box-border overflow-hidden">
+        <div class="space-y-6 w-full">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-sky-500 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">
+            <span class="w-2 h-6 bg-sky-500 rounded-full shrink-0"></span>
+            <h3 class="text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
             </h3>
           </div>
           
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'While incorporating mechanisms to realize the weight of water resources, our activities are divided into two phases: "Disaster Times" and "Ordinary Times."' 
               : '水資源の重みを実感できる仕組みを取り入れながら、活動を「災害時」と「平常時」の2つのフェーズに分けて展開しています。'}
           </p>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Phase 1' : 'フェーズ1'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Improving Water Environments in Disasters' : '災害時の水環境改善'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Conducting hands-on events assuming water outages. In addition, as an evolution of the Mamoneru project, we develop activities related to T (Toilet) and K (Kitchen) sanitation.' 
                 : '断水を想定した体験型イベントを実施します。また、Mamoneruプロジェクトの発展形として、T（トイレ）・K（キッチン）整備に関する活動を展開します。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Phase 2' : 'フェーズ2'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Tackling Water Issues in Ordinary Times' : '平常時からの水問題への取り組み'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Promoting awareness and inquiry projects on virtual water while studying recycled water and circular utilization systems, exploring implementation in daily life and local communities.' 
                 : 'バーチャルウォーターに関する啓発・探究プロジェクトを進めるとともに、再生水や循環型利用の仕組みを学び、生活や地域社会での実装を探ります。'}
@@ -130,35 +130,35 @@ const t = translations[currentLang];
     </section>
 
     <!-- 数字で実感する「水の重み」 -->
-    <section class="max-w-4xl mx-auto space-y-6">
+    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">
+        <h3 class="text-xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Realizing the "Weight of Water" in Numbers' : '数字で実感する「水の重み」'}
         </h3>
         <div class="w-12 h-1 bg-sky-500 mx-auto mt-3 rounded-full"></div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center">
-          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full box-border">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center box-border overflow-hidden">
+          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight break-words">
             72<span class="text-sm ml-1">{currentLang === 'en' ? 'Hours' : '時間'}</span>
           </p>
-          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed">
+          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed break-words">
             {currentLang === 'en' ? 'The "72 hours of water" crucial for survival in disasters' : '災害時、生死を分けるとされる「水の72時間」'}
           </p>
         </div>
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center">
-          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center box-border overflow-hidden">
+          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight break-words">
             ~20,000<span class="text-sm ml-1">L</span>
           </p>
-          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed">
+          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed break-words">
             {currentLang === 'en' ? 'Amount of virtual water required to produce 1kg of beef' : '牛肉1kgの生産に必要な仮想水の量'}
           </p>
         </div>
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center">
-          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm text-center box-border overflow-hidden">
+          <p class="text-2xl md:text-3xl font-black text-sky-400 leading-tight break-words">
             12<span class="text-sm ml-1">L</span>
           </p>
-          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed">
+          <p class="text-[11px] text-slate-300 font-bold mt-2 leading-relaxed break-words">
             {currentLang === 'en' ? 'Amount of water used in a 1-minute shower' : 'シャワー1分間に使う水の量'}
           </p>
         </div>
@@ -166,76 +166,76 @@ const t = translations[currentLang];
     </section>
 
     <!-- T・K整備の重点アクション -->
-    <section class="max-w-4xl mx-auto space-y-6">
+    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">
+        <h3 class="text-xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Phase 1 | Key Actions for T & K Sanitation' : 'フェーズ1 ｜ T・K整備の重点アクション'}
         </h3>
         <div class="w-12 h-1 bg-sky-500 mx-auto mt-3 rounded-full"></div>
-        <p class="text-slate-500 text-xs md:text-sm font-medium mt-3 max-w-2xl mx-auto leading-relaxed">
+        <p class="text-slate-500 text-xs md:text-sm font-medium mt-3 max-w-2xl mx-auto leading-relaxed break-words">
           {currentLang === 'en' 
             ? 'As an evolution of the Mamoneru project, we develop activities related to T (Toilet) and K (Kitchen) sanitation.' 
             : 'Mamoneruプロジェクトの発展形として、T（トイレ）・K（キッチン）整備に関する活動を展開します。'}
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full box-border">
         <!-- T（トイレ） -->
-        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6 box-border overflow-hidden">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-sky-500 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">
+            <span class="w-2 h-6 bg-sky-500 rounded-full shrink-0"></span>
+            <h3 class="text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'T (Toilet) Sanitation Activities' : 'T（トイレ）整備活動'}
             </h3>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Flush toilets cannot be used in evacuation centers during disasters, and deteriorating hygiene leads to secondary disasters. Therefore, we undertake the following actions:' 
               : '災害時の避難所では水洗トイレが使用できず、衛生環境の悪化が二次災害につながります。そのため、次のアクションを展開します。'}
           </p>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Stockpiling' : '普及・備蓄'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Promoting Portable Toilet Stockpiling' : '簡易トイレの普及・備蓄促進'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Collaborating with municipalities and schools to host exhibitions and workshops using cardboard and coagulant toilets. Calculating required amounts based on "5 uses per person/day for 3 days" to create stockpile plans.' 
                 : '自治体や学校と連携し、段ボールや凝固剤を用いた簡易トイレの実物展示・体験会を実施。「1人1日5回×3日」で必要数を計算し、家庭や学校単位での備蓄計画を作成します。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Hygiene' : '衛生管理'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Hygiene Management Awareness' : '衛生管理の啓発'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Creating "Toilet Hygiene Checklists" and verifying disinfection/handwashing routines. Disseminating proper disposal methods via posters and social media to prevent infectious disease spread.' 
                 : '消毒・手洗い方法の確認や「トイレ衛生チェックシート」を作成。感染症拡大防止のための正しい処理方法を、ポスターやSNSで発信します。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Proposal' : 'ユース提言'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Policy-Linked Proposals' : '政策に結びつく提言'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Considering policy proposals such as "Mandatory numerical targets for toilet stockpiling."' 
                 : '「トイレ備蓄の数値化義務づけ」など、政策に結びつく提言を検討します。'}
@@ -244,61 +244,61 @@ const t = translations[currentLang];
         </div>
 
         <!-- K（キッチン） -->
-        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6 box-border overflow-hidden">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-cyan-500 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">
+            <span class="w-2 h-6 bg-cyan-500 rounded-full shrink-0"></span>
+            <h3 class="text-lg font-black text-slate-950 break-words">
               {currentLang === 'en' ? 'K (Kitchen) Sanitation Activities' : 'K（キッチン）整備活動'}
             </h3>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
             {currentLang === 'en' 
               ? 'Cooking becomes difficult during power/water outages, raising nutritional deficits and hygiene risks. We tackle this under the theme of "Securing Food in Disasters."' 
               : '断水・停電下では調理が困難になり、栄養不足や衛生リスクが高まります。「災害時の食の確保」をテーマに取り組みます。'}
           </p>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-sky-100 text-sky-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Workshop' : '体験イベント'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Emergency Food Cooking Events' : '非常食活用イベント'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Hosting "warm meal experience" workshops using plastic bag cooking and portable stoves beyond alpha rice and hardtack. Conducting cooking workshops under the condition of "What if there is no power or water for 3 days?"' 
                 : 'アルファ米・乾パンだけでなく、ポリ袋調理やカセットコンロを使った「温かい食事体験」イベントを開催。「もし3日間電気も水もなかったら？」という条件での調理ワークショップを行います。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-cyan-100 text-cyan-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Stockpiling' : '備蓄推進'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Promoting Rolling Stock' : '備蓄とローリングストック推進'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Creating "Food Stockpile Checklists" for homes and schools. Youth propose nutritionally balanced rolling stock menus and share them on social media.' 
                 : '家庭や学校での「食料備蓄チェックリスト」を作成し、実際に確認する活動を実施。栄養バランスを考えたローリングストックメニューをユースが発案し、SNSで発信します。'}
             </p>
           </div>
 
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded">
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
                 {currentLang === 'en' ? 'Proposal' : 'ユース提言'}
               </span>
-              <h4 class="font-black text-slate-950 text-sm">
+              <h4 class="font-black text-slate-950 text-sm break-words">
                 {currentLang === 'en' ? 'Policy-Linked Proposals' : '政策に結びつく提言'}
               </h4>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
               {currentLang === 'en' 
                 ? 'Formulating policy proposals such as "Transforming school cafeterias into disaster bases" and "Introducing shared kitchens in evacuation centers."' 
                 : '「学校給食室の防災拠点化」「避難所への共同キッチン導入」などを、政策提言としてまとめます。'}
@@ -309,14 +309,14 @@ const t = translations[currentLang];
     </section>
 
     <!-- 今後の活動予定 -->
-    <section class="max-w-4xl mx-auto space-y-6">
+    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">
+        <h3 class="text-xl font-black text-slate-950 break-words">
           {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
         </h3>
         <div class="w-12 h-1 bg-sky-500 mx-auto mt-3 rounded-full"></div>
       </div>
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center">
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center box-border overflow-hidden">
         <p class="text-slate-600 text-xs md:text-sm font-bold leading-relaxed tracking-wider text-sky-600 mb-2">
           COMING SOON...
         </p>
