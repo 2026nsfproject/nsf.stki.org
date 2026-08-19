@@ -1,43 +1,63 @@
 ---
+// src/pages/materials.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="防災教材・ゲーム一覧" activeKey="materials">
+<Layout 
+  title={currentLang === 'en' ? "Disaster Prevention Educational Games | NSF PROJECTs" : "防災教材・ゲーム一覧"} 
+  activeKey="materials"
+>
   <section class="py-12 bg-slate-50">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-10">
-        <h1 class="text-3xl font-black text-slate-900 sm:text-4xl">防災WEBゲーム・教材</h1>
-        <p class="mt-3 text-slate-600">遊んで学べる体験型コンテンツです。挑戦したいゲームを選んでください！</p>
+        <h1 class="text-3xl font-black text-slate-900 sm:text-4xl">
+          {currentLang === 'en' ? 'Disaster Prevention WEB Games & Materials' : '防災WEBゲーム・教材'}
+        </h1>
+        <p class="mt-3 text-slate-600">
+          {currentLang === 'en' 
+            ? 'Interactive contents to learn while playing. Choose a game you want to challenge!' 
+            : '遊んで学べる体験型コンテンツです。挑戦したいゲームを選んでください！'}
+        </p>
       </div>
 
       <!-- ゲーム選択カード一覧 -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         <!-- ゲーム1：防災リュック -->
-        <a href="/materials/backpack" class="block group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-500 transition-all">
+        <a href={`/materials/backpack?lang=${currentLang}`} class="block group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-500 transition-all">
           <div class="text-4xl mb-3">🎒</div>
           <h2 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-            防災リュックパケット
+            {currentLang === 'en' ? 'Emergency Backpack Packer' : '防災リュックパケット'}
           </h2>
           <p class="text-sm text-slate-600 mt-2">
-            持ち出し制限10kg以内で命を守る最強の避難セットを作ろう！パズル感覚で準備のコツが学べます。
+            {currentLang === 'en' 
+              ? 'Create the ultimate evacuation kit within a 10kg limit to save lives! Learn preparation tips like a puzzle.' 
+              : '持ち出し制限10kg以内で命を守る最強の避難セットを作ろう！パズル感覚で準備のコツが学べます。'}
           </p>
           <div class="mt-4 inline-flex items-center text-sm font-bold text-blue-600">
-            ゲームをプレイする →
+            {currentLang === 'en' ? 'Play Game →' : 'ゲームをプレイする →'}
           </div>
         </a>
 
         <!-- ゲーム2：3秒決断 -->
-        <a href="/materials/3second-quiz" class="block group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-500 transition-all">
+        <a href={`/materials/3second-quiz?lang=${currentLang}`} class="block group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-500 transition-all">
           <div class="text-4xl mb-3">⚡</div>
           <h2 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-            「もしも今地震が来たら？」3秒決断ゲーム
+            {currentLang === 'en' ? '"What if an Earthquake Hits Right Now?" 3-Second Decision Game' : '「もしも今地震が来たら？」3秒決断ゲーム'}
           </h2>
           <p class="text-sm text-slate-600 mt-2">
-            突然の揺れ！3秒以内に正しい防災行動を選んで生存率を高めよう。直感と判断力が試されます。
+            {currentLang === 'en' 
+              ? 'Sudden shaking! Choose the correct safety action within 3 seconds to increase survival rates. Tests intuition and decision-making.' 
+              : '突然の揺れ！3秒以内に正しい防災行動を選んで生存率を高めよう。直感と判断力が試されます。'}
           </p>
           <div class="mt-4 inline-flex items-center text-sm font-bold text-blue-600">
-            ゲームをプレイする →
+            {currentLang === 'en' ? 'Play Game →' : 'ゲームをプレイする →'}
           </div>
         </a>
 
