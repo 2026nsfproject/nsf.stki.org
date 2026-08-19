@@ -1,62 +1,84 @@
 ---
 // src/pages/about.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
 
-// 幹部メンバーの定義
+// URLから言語パラメーターを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
+
+// 幹部メンバーの定義 (日英対応)
 const executives = [
   {
-    role: "副代表",
-    name: "陈 宥銘",
-    message: "僕は大抵インスタ用の投稿画像とかこのような広報資料を作成してる人です。ヨルシカとギターが好きです。",
+    role: currentLang === 'en' ? "Vice President" : "副代表",
+    name: currentLang === 'en' ? "Youming Chen" : "陈 宥銘",
+    message: currentLang === 'en' 
+      ? "I mainly create promotional materials like Instagram graphics. I love Yorushika and playing guitar." 
+      : "僕は大抵インスタ用の投稿画像とかこのような広報資料を作成してる人です。ヨルシカとギターが好きです。",
     img: "/p_logo/chin.jpg",
     style: "object-cover"
   },
   {
-    role: "副代表",
-    name: "神田 ふう",
-    message: "災害を自分事に。熊本地震が発生し、他の場所でも地震が起こっている今、防災の大切さを幅広い世代の方々に知っていただけるように頑張って活動します。少しでも防災に興味をもってもらえたら嬉しいです。",
+    role: currentLang === 'en' ? "Vice President" : "副代表",
+    name: currentLang === 'en' ? "Fuu Kanda" : "神田 ふう",
+    message: currentLang === 'en' 
+      ? "Making disaster preparedness personal. I work hard to raise awareness about disaster prevention across all generations." 
+      : "災害を自分事に。熊本地震が発生し、他の場所でも地震が起こっている今、防災の大切さを幅広い世代の方々に知っていただけるように頑張って活動します。少しでも防災に興味をもってもらえたら嬉しいです。",
     img: "/p_logo/kanda.jpg",
     style: "object-cover"
   },
   {
-    role: "副代表",
-    name: "神谷咲津生",
-    message: "組織の基盤を支え、メンバーが輝ける環境をつくります。",
+    role: currentLang === 'en' ? "Vice President" : "副代表",
+    name: currentLang === 'en' ? "Satsuki Kamiya" : "神谷咲津生",
+    message: currentLang === 'en' 
+      ? "I support the foundation of the organization and create an environment where members can shine." 
+      : "組織の基盤を支え、メンバーが輝ける環境をつくります。",
     img: "/p_logo/exec3.png",
     style: "object-cover"
   },
   {
-    role: "全体会議議長",
-    name: "高江洲 義心",
-    message: "皆さんのためになる学びの場や楽しめるイベントを外部から講師を招いたりして企画していきます。よろしくお願いします！",
+    role: currentLang === 'en' ? "General Meeting Chair" : "全体会議議長",
+    name: currentLang === 'en' ? "Gishin Takaesu" : "高江洲 義心",
+    message: currentLang === 'en' 
+      ? "I plan valuable learning opportunities and enjoyable events by inviting external speakers. Nice to meet you!" 
+      : "皆さんのためになる学びの場や楽しめるイベントを外部から講師を招いたりして企画していきます。よろしくお願いします！",
     img: "/p_logo/takaesu.JPG",
     style: "object-cover scale-[1.8] origin-[50%_35%]" 
   },
   {
-    role: "全体会議副議長",
-    name: "岩城遥音",
-    message: "議長を支え、会議体のスムーズな運営と対話を促進します。",
+    role: currentLang === 'en' ? "General Meeting Vice Chair" : "全体会議副議長",
+    name: currentLang === 'en' ? "Harune Iwaki" : "岩城遥音",
+    message: currentLang === 'en' 
+      ? "I support the chair to promote smooth meeting management and constructive dialogue." 
+      : "議長を支え、会議体のスムーズな運営と対話を促進します。",
     img: "/p_logo/exec5.png",
     style: "object-cover"
   },
   {
-    role: "PL会議議長",
-    name: "金田 大和",
-    message: "高校2年生です。私はメンバー全員が挑戦を続けられるように頑張ってます。話すことが好きなので話かけてください♪",
+    role: currentLang === 'en' ? "PL Meeting Chair" : "PL会議議長",
+    name: currentLang === 'en' ? "Yamato Kaneda" : "金田 大和",
+    message: currentLang === 'en' 
+      ? "I'm a 2nd-year high school student. I strive to help every member continue taking on new challenges. Feel free to talk to me!" 
+      : "高校2年生です。私はメンバー全員が挑戦を続けられるように頑張ってます。話すことが好きなので話かけてください♪",
     img: "/p_logo/kaneda.jpg",
     style: "object-cover"
   },
 ];
 ---
 
-<Layout title="ABOUT - わたしたちについて" activeKey="about">
+<Layout title={currentLang === 'en' ? "ABOUT - About Us" : "ABOUT - わたしたちについて"} activeKey="about">
   <div class="py-10 md:py-16 max-w-5xl mx-auto px-4 space-y-12 md:space-y-16">
     
     <section class="text-center space-y-4 md:space-y-6">
       <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">OUR GOAL</span>
-      <h2 class="text-2xl md:text-4xl font-black text-slate-950">震災前の当たり前を取り戻す。</h2>
+      <h2 class="text-2xl md:text-4xl font-black text-slate-950">
+        {currentLang === 'en' ? 'Restoring Pre-Disaster Normalcy.' : '震災前の当たり前を取り戻す。'}
+      </h2>
       <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
-        全国500名以上の中高生が手を取り合い、被災地と同じ目線に立った支援と防災アクションを展開しています。
+        {currentLang === 'en' 
+          ? 'Over 500 middle and high school students nationwide join hands to deliver support from the perspective of disaster-affected areas and promote disaster prevention actions.' 
+          : '全国500名以上の中高生が手を取り合い、被災地と同じ目線に立った支援と防災アクションを展開しています。'}
       </p>
     </section>
 
@@ -73,43 +95,67 @@ const executives = [
           <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
           </svg>
-          <span class="text-xs font-bold text-slate-400">NSF 6期代表 高野 怜生</span>
+          <span class="text-xs font-bold text-slate-400">NSF 6th Leader Reo Takano</span>
         </div>
       </div>
       
       <div class="flex flex-col justify-start space-y-6 w-full min-w-0">
         <div>
-          <h3 class="text-2xl md:text-4xl font-black text-slate-950">代表メッセージ</h3>
+          <h3 class="text-2xl md:text-4xl font-black text-slate-950">
+            {currentLang === 'en' ? 'Leader Message' : '代表メッセージ'}
+          </h3>
           <p class="text-xs font-bold text-slate-400 block tracking-wider uppercase mt-1">Message from the Leader</p>
         </div>
         
         <div class="border-l-4 border-red-700 pl-3 md:pl-4 py-0.5 w-full">
           <p class="font-black text-red-700 whitespace-nowrap text-one-line tracking-tight">
-            ― 中高生の発想で、防災の『あたりまえ』を塗り替える ―
+            {currentLang === 'en' 
+              ? '― Redefining Disaster Prevention Through Youth Ideas ―' 
+              : '― 中高生の発想で、防災の『あたりまえ』を塗り替える ―'}
           </p>
         </div>
         
         <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-3 font-medium tracking-wide">
-          <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
-          <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
-          <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
-          <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
+          {currentLang === 'en' ? (
+            <>
+              <p>NSF has faced the future of disaster prevention and recovery through the creativity and action of middle and high school students.</p>
+              <p>We refuse to let disasters remain a "distant event," striving instead to build a society where every individual thinks, prepares, and acts.</p>
+              <p>We believe that the accumulation of these small actions becomes the power to protect someone's life.</p>
+              <p>We will continue to drive NSF forward as a place where every member can take on new challenges.</p>
+            </>
+          ) : (
+            <>
+              <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
+              <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
+              <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
+              <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
+            </>
+          )}
         </div>
         
         <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-          <span class="text-xs md:text-sm font-bold text-slate-500">NSF PROJECTs 6期代表</span>
-          <span class="text-lg md:text-2xl font-black text-slate-900 tracking-wider">高野 怜生</span>
+          <span class="text-xs md:text-sm font-bold text-slate-500">
+            {currentLang === 'en' ? 'NSF PROJECTs 6th Term Leader' : 'NSF PROJECTs 6期代表'}
+          </span>
+          <span class="text-lg md:text-2xl font-black text-slate-900 tracking-wider">
+            {currentLang === 'en' ? 'Reo Takano' : '高野 怜生'}
+          </span>
         </div>
       </div>
     </section>
 
+    <!-- ▼ 幹部メンバー紹介 -->
     <section class="space-y-6 md:space-y-8">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div class="flex items-center space-x-3">
           <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
-          <h2 class="text-xl md:text-2xl font-black text-slate-950">幹部メンバー紹介</h2>
+          <h2 class="text-xl md:text-2xl font-black text-slate-950">
+            {currentLang === 'en' ? 'Executive Members' : '幹部メンバー紹介'}
+          </h2>
         </div>
-        <span class="text-xs font-bold text-slate-400">全国500名超のメンバーを牽引</span>
+        <span class="text-xs font-bold text-slate-400">
+          {currentLang === 'en' ? 'Leading 500+ Members Nationwide' : '全国500名超のメンバーを牽引'}
+        </span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -142,14 +188,17 @@ const executives = [
       </div>
     </section>
 
-    <!-- ▼ 応援メッセージ（アバター画像のサイズ感を適度に修正） -->
+    <!-- ▼ 応援メッセージ -->
     <section class="space-y-8 md:space-y-10">
       <div class="flex items-center space-x-3">
         <span class="w-8 md:w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
-        <h2 class="text-xl md:text-2xl font-black text-slate-950">応援メッセージ</h2>
+        <h2 class="text-xl md:text-2xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Support Messages' : '応援メッセージ'}
+        </h2>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <!-- 坂井学氏 -->
         <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
             <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
@@ -157,14 +206,21 @@ const executives = [
               <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
-              <h3 class="font-black text-slate-950 text-base md:text-lg">防災特命大臣<br class="sm:hidden"> 坂井学 氏</h3>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">
+                {currentLang === 'en' ? 'Minister of State for Disaster Management' : '防災特命大臣'}
+                <br class="sm:hidden"> 
+                {currentLang === 'en' ? 'Manabu Sakai' : '坂井学 氏'}
+              </h3>
             </div>
           </div>
           <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
-            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
+            {currentLang === 'en' 
+              ? 'I pay my respects to your dedication to learning, thinking, and discussing disaster prevention with an eye toward the future. Disaster preparedness is vital wisdom to protect lives and livelihoods. Cultivate your own leadership while looking one step ahead with wisdom and courage. I have high expectations for your endeavors.' 
+              : '未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。'}
           </p>
         </div>
 
+        <!-- 馳浩氏 -->
         <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
             <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-100 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden relative shadow-inner">
@@ -172,23 +228,36 @@ const executives = [
               <svg class="w-6 h-6 hidden absolute inset-0 m-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
-              <h3 class="font-black text-slate-950 text-base md:text-lg">石川県知事<br class="sm:hidden"> 馳浩 氏</h3>
+              <h3 class="font-black text-slate-950 text-base md:text-lg">
+                {currentLang === 'en' ? 'Governor of Ishikawa Prefecture' : '石川県知事'}
+                <br class="sm:hidden"> 
+                {currentLang === 'en' ? 'Hiroshi Hase' : '馳浩 氏'}
+              </h3>
             </div>
           </div>
           <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-3 md:pl-4 py-1 font-medium flex-grow">
-            能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
+            {currentLang === 'en'
+              ? 'Noto suffered significant damage from the Noto Peninsula Earthquake on New Year’s Day 2024, and we are currently working full force on recovery. I understand that you have engaged in fundraising and are now working to share Noto’s charm nationwide. Such efforts encourage the people of Noto and provide strong momentum for recovery. As Governor of Ishikawa Prefecture, I deeply appreciate your work.'
+              : '能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。'}
           </p>
         </div>
       </div>
-      <p class="text-slate-400 text-center font-bold italic text-[11px] md:text-xs">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
+      <p class="text-slate-400 text-center font-bold italic text-[11px] md:text-xs">
+        {currentLang === 'en' 
+          ? '* Titles are based on the position at the time the message was provided.' 
+          : '※各氏の肩書はメッセージ提供当時の役職に基づいています。'}
+      </p>
     </section>
 
+    <!-- ▼ 公式マスコットキャラ -->
     <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100">
       <img src="/IMG_1413.jpg" alt="えぬくま" class="w-20 h-20 md:w-24 md:h-24 object-contain">
       <div class="text-center sm:text-left">
         <h4 class="font-black text-blue-600 text-xs md:text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
         <p class="text-slate-600 text-xs md:text-sm leading-relaxed max-w-md font-medium">
-          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとり、全国500名以上の中高生メンバーと一緒に、能登の未来を毎日応援しています！
+          {currentLang === 'en' 
+            ? 'Meet "Enukuma", our official mascot! Dressed in a helmet and school uniform, Enukuma cheers for the future of Noto every day alongside over 500 middle and high school members nationwide!' 
+            : '公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとり、全国500名以上の中高生メンバーと一緒に、能登の未来を毎日応援しています！'}
         </p>
       </div>
     </section>
