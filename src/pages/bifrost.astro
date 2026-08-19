@@ -1,20 +1,38 @@
 ---
 // src/pages/bifrost.astro
 import Layout from "../layouts/Layout.astro";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメータを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
 ---
 
-<Layout title="NSF Bifröst" activeKey="projects">
+<Layout title={currentLang === 'en' ? "NSF Bifröst" : "NSF Bifröst"} activeKey="projects">
   <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+    <!-- コンセプト -->
     <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
       <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-purple-500 pl-4 py-1">
-        能登の記憶と文化をメタバースに架ける、若者たちの「虹の橋（Bifröst）」。<br class="hidden md:block">
-        写真や語り、風景の欠片が、デジタルの空に浮かびあがり、未来とつながる物語になる。<br class="hidden md:block">
-        それは、地域に息づく営みを次の時代の資源として活かし、世界へ届けるための試みである。
+        {currentLang === 'en' ? (
+          <>
+            A "rainbow bridge (Bifröst)" built by youth, connecting Noto’s memories and culture to the metaverse.<br class="hidden md:block">
+            Photos, narratives, and fragments of landscapes emerge in the digital sky, weaving a story for the future.<br class="hidden md:block">
+            This is an endeavor to pass on local traditions as resources for the next era and share them with the world.
+          </>
+        ) : (
+          <>
+            能登の記憶と文化をメタバースに架ける、若者たちの「虹の橋（Bifröst）」。<br class="hidden md:block">
+            写真や語り、風景の欠片が、デジタルの空に浮かびあがり、未来とつながる物語になる。<br class="hidden md:block">
+            それは、地域に息づく営みを次の時代の資源として活かし、世界へ届けるための試みである。
+          </>
+        )}
       </p>
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
+      <!-- サイドバー（概要・プラットフォーム） -->
       <div class="lg:col-span-1 space-y-6">
         <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
           
@@ -25,16 +43,28 @@ import Layout from "../layouts/Layout.astro";
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
           <div class="space-y-3">
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">プロジェクトリーダー</p>
-              <p class="text-sm font-black text-slate-100">久保 惇之介</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'Junnosuke Kubo' : '久保 惇之介'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">開始時期</p>
-              <p class="text-sm font-black text-slate-100">2025年3月</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Start Date' : '開始時期'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? 'March 2025' : '2025年3月'}
+              </p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">現在の参加人数</p>
-              <p class="text-sm font-black text-slate-100">計 5 名</p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">
+                {currentLang === 'en' ? 'Members' : '現在の参加人数'}
+              </p>
+              <p class="text-sm font-black text-slate-100">
+                {currentLang === 'en' ? '5 Members' : '計 5 名'}
+              </p>
             </div>
           </div>
         </div>
@@ -42,46 +72,67 @@ import Layout from "../layouts/Layout.astro";
         <div class="bg-gradient-to-br from-purple-900 to-indigo-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
           <h4 class="font-black text-xs text-purple-300 uppercase tracking-widest">Platform</h4>
           <p class="text-xs text-slate-200 leading-relaxed font-medium">
-            国内大手のメタバースプラットフォーム「cluster（クラスター）」上に特設空間を創造。スマホやPC、VR機器からいつでも世界中からアクセスが可能です。
+            {currentLang === 'en' 
+              ? 'Creating a dedicated virtual space on "cluster", one of Japan’s leading metaverse platforms. Accessible from smartphones, PCs, or VR devices anytime from anywhere in the world.' 
+              : '国内大手のメタバースプラットフォーム「cluster（クラスター）」上に特設空間を創造。スマホやPC、VR機器からいつでも世界中からアクセスが可能です。'}
           </p>
         </div>
       </div>
 
+      <!-- メインコンテンツ（活動内容） -->
       <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
         <div class="space-y-6">
           <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
             <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
-            <h3 class="text-lg font-black text-slate-950">具体的な活動内容</h3>
+            <h3 class="text-lg font-black text-slate-950">
+              {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
+            </h3>
           </div>
           
           <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
-            立教池袋高校数理研究部が最先端の技術を用いて作成した仮想空間（メタバース）上に、能登の魅力が五感で伝わるコンテンツを企画・提供しています。
+            {currentLang === 'en' 
+              ? 'We plan and offer content that conveys the charm of Noto through all five senses in a virtual space (metaverse) built using cutting-edge technology by the Rikkyo Ikebukuro High School Math & Science Club.' 
+              : '立教池袋高校数理研究部が最先端の技術を用いて作成した仮想空間（メタバース）上に、能登の魅力が五感で伝わるコンテンツを企画・提供しています。'}
           </p>
 
           <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
             <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-700 font-black text-[10px] px-2 py-0.5 rounded">第一弾企画</span>
-              <h4 class="font-black text-slate-950 text-sm">飯田高校 芸術部 写真ギャラリー</h4>
+              <span class="bg-purple-100 text-purple-700 font-black text-[10px] px-2 py-0.5 rounded">
+                {currentLang === 'en' ? '1st Project' : '第一弾企画'}
+              </span>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? 'Iida High School Art Club Photo Gallery' : '飯田高校 芸術部 写真ギャラリー'}
+              </h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              石川県立飯田高校（珠洲市）芸術部の生徒たちが、独自の感性で切り取った能登の「今」や風景の写真を展示する、メタバース特設ギャラリーを現在制作しています。
+              {currentLang === 'en' 
+                ? 'We are currently constructing a metaverse gallery displaying photos captured by art club students at Ishikawa Prefectural Iida High School (Suzu City), showcasing the "present" and landscapes of Noto through their unique perspectives.' 
+                : '石川県立飯田高校（珠洲市）芸術部の生徒たちが、独自の感性で切り取った能登の「今」や風景の写真を展示する、メタバース特設ギャラリーを現在制作しています。'}
             </p>
           </div>
 
           <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
             <div class="flex items-center space-x-2">
-              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded">空間拡張</span>
-              <h4 class="font-black text-slate-950 text-sm">デジタル「交流館」のオープン</h4>
+              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded">
+                {currentLang === 'en' ? 'Expansion' : '空間拡張'}
+              </span>
+              <h4 class="font-black text-slate-950 text-sm">
+                {currentLang === 'en' ? 'Digital Community Center Opening' : 'デジタル「交流館」のオープン'}
+              </h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              ただ展示を見るだけでなく、能登の人々と全国・世界の人々がアバターを介してリアルタイムで言葉を交わし、温もりで繋がれるオンラインコミュニティ拠点をオープン予定です。
+              {currentLang === 'en' 
+                ? 'Beyond just viewing exhibitions, we plan to open an online community hub where people from Noto and visitors globally can interact in real-time via avatars.' 
+                : 'ただ展示を見るだけでなく、能登の人々と全国・世界の人々がアバターを介してリアルタイムで言葉を交わし、温もりで繋がれるオンラインコミュニティ拠点をオープン予定です。'}
             </p>
           </div>
         </div>
 
         <div class="pt-4 border-t border-slate-100 mt-4">
           <a href="https://cluster.mu/w/7ada6fd6-acf7-4bc6-829b-859d612e0314" target="_blank" rel="noopener noreferrer" class="group relative w-full inline-flex items-center justify-center px-6 py-3.5 font-black text-sm md:text-base text-white transition-all duration-200 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg active:scale-98">
-            <span class="mr-2">Bifröst メタバース空間へ入場する (cluster)</span>
+            <span class="mr-2">
+              {currentLang === 'en' ? 'Enter Bifröst Metaverse (cluster)' : 'Bifröst メタバース空間へ入場する (cluster)'}
+            </span>
             <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
@@ -91,9 +142,12 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </section>
 
+    <!-- 今後のスケジュール -->
     <section class="max-w-4xl mx-auto space-y-6">
       <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950">今後の活動予定</h3>
+        <h3 class="text-xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
+        </h3>
         <div class="w-12 h-1 bg-purple-500 mx-auto mt-3 rounded-full"></div>
       </div>
       <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center">
