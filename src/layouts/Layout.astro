@@ -1,6 +1,7 @@
 ---
-// src/layouts/Layout.astro
 import "../global.css";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import { translations, type Lang } from "../lib/i18n";
 
 export type NavKey = 'home' | 'about' | 'apply' | 'materials' | 'projects' | 'contact';
 
@@ -13,10 +14,15 @@ interface Props {
 
 const { title, activeKey, showSplash = false } = Astro.props;
 
+// URLパラメータから言語を取得（デフォルトは ja）
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
+
 // src/pages 直下の各プロジェクトファイルに対応したメニュー項目（絵馬掲示板を追加）
 const projectItems = [
-  { label: 'すべてのプロジェクト', href: '/projects' },
-  { label: '応援絵馬掲示板', href: '/ema' },
+  { label: currentLang === 'en' ? 'All Projects' : 'すべてのプロジェクト', href: '/projects' },
+  { label: currentLang === 'en' ? 'Support Ema Board' : '応援絵馬掲示板', href: '/ema' },
   { label: 'mamoneruプロジェクト', href: '/mamoneru' },
   { label: 'まもみずプロジェクト', href: '/mamomizu' },
   { label: 'Bifrost', href: '/bifrost' },
@@ -38,12 +44,12 @@ const navItems = [
 ---
 
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang={currentLang} class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="U3N1SPErYZ6hcrPgWswh8WCyACwLkJXfE7c7QNofrBQ" />
-  <meta name="description" content="NSF PROJECTsは、能登半島地震の被災地支援と学生の防災意識向上を目指し、全国の中高生が募金や情報発信を行うプロジェクトです。" />
+  <meta name="description" content={currentLang === 'en' ? "NSF PROJECTs is a nationwide project where students engage in fundraising and disaster prevention awareness." : "NSF PROJECTsは、能登半島地震の被災地支援と学生の防災意識向上を目指し、全国の中高生が募金や情報発信を行うプロジェクトです。"} />
   <title>{title} | NSF PROJECTs</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,56 +182,65 @@ const navItems = [
         <span class="font-black text-slate-900 text-lg tracking-tight">NSF PROJECTs</span>
       </a>
 
-      <!-- デスクトップナビゲーション -->
-      <nav class="hidden md:flex items-center gap-6">
-        {navItems.map((item) => (
-          item.hasSubmenu ? (
-            <div class="relative group py-5">
+      <!-- デスクトップナビゲーション ＆ 言語切り替えボタン -->
+      <div class="hidden md:flex items-center gap-6">
+        <nav class="flex items-center gap-6">
+          {navItems.map((item) => (
+            item.hasSubmenu ? (
+              <div class="relative group py-5">
+                <a
+                  href={item.href}
+                  class:list={[
+                    "text-sm font-extrabold transition-colors hover:text-blue-600 flex items-center gap-1.5",
+                    activeKey === item.key ? "text-blue-600 border-b-2 border-blue-600 pb-4" : "text-slate-800"
+                  ]}
+                >
+                  {item.label}
+                  <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </a>
+
+                <!-- PROJECTS サブメニュー -->
+                <div class="absolute left-0 top-full hidden group-hover:block w-max min-w-[240px] max-w-xs bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
+                  {projectItems.map((sub) => (
+                    <a
+                      href={sub.href}
+                      class="block px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg mx-1 whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
+                      {sub.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
               <a
                 href={item.href}
                 class:list={[
-                  "text-sm font-extrabold transition-colors hover:text-blue-600 flex items-center gap-1.5",
-                  activeKey === item.key ? "text-blue-600 border-b-2 border-blue-600 pb-4" : "text-slate-800"
+                  "text-sm font-extrabold transition-colors hover:text-blue-600 py-5 border-b-2",
+                  activeKey === item.key ? "text-blue-600 border-blue-600" : "text-slate-800 border-transparent"
                 ]}
               >
                 {item.label}
-                <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
-                </svg>
               </a>
+            )
+          ))}
+        </nav>
 
-              <!-- PROJECTS サブメニュー -->
-              <div class="absolute left-0 top-full hidden group-hover:block w-max min-w-[240px] max-w-xs bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
-                {projectItems.map((sub) => (
-                  <a
-                    href={sub.href}
-                    class="block px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg mx-1 whitespace-nowrap overflow-hidden text-ellipsis"
-                  >
-                    {sub.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <a
-              href={item.href}
-              class:list={[
-                "text-sm font-extrabold transition-colors hover:text-blue-600 py-5 border-b-2",
-                activeKey === item.key ? "text-blue-600 border-blue-600" : "text-slate-800 border-transparent"
-              ]}
-            >
-              {item.label}
-            </a>
-          )
-        ))}
-      </nav>
+        <!-- 言語切り替えボタン (PC) -->
+        <LanguageSwitcher />
+      </div>
 
-      <!-- モバイル用ハンバーガーボタン -->
-      <button id="menu-btn" class="md:hidden p-2 text-slate-800 hover:text-slate-900" aria-label="メニューを開く">
-        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
+      <!-- モバイル用コントロール（言語ボタン ＋ ハンバーガー） -->
+      <div class="flex items-center gap-2 md:hidden">
+        <LanguageSwitcher />
+
+        <button id="menu-btn" class="p-2 text-slate-800 hover:text-slate-900" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- モバイル用ドロワーメニュー -->
@@ -271,16 +286,17 @@ const navItems = [
     <slot />
   </main>
 
-  <!-- フッターエリア（リンクなし・細字・正式名称） -->
+  <!-- フッターエリア -->
   <footer class="bg-slate-900 text-white py-8 mt-auto border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p class="font-normal text-sm text-slate-300 mb-2">
-        Noto Student Found PROJECTs
+        Noto Student Fund PROJECTs
       </p>
       <p class="text-xs text-slate-500 font-normal">© NSF PROJECTs. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- モバイルメニュー開閉スクリプト -->
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -293,6 +309,21 @@ const navItems = [
       } else {
         menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>';
       }
+    });
+
+    // ページ遷移時に現在の ?lang= 属性をリンクに自動付与するスクリプト
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get("lang");
+      if (!lang) return;
+
+      document.querySelectorAll("a").forEach((a) => {
+        const href = a.getAttribute("href");
+        if (href && href.startsWith("/") && !href.includes("lang=")) {
+          const separator = href.includes("?") ? "&" : "?";
+          a.setAttribute("href", `${href}${separator}lang=${lang}`);
+        }
+      });
     });
   </script>
 
@@ -317,7 +348,6 @@ const navItems = [
 </html>
 
 <style is:global>
-  /* 全体の基本フォント指定 */
   body { 
     font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
     font-weight: 700;
