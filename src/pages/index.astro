@@ -1,3 +1,327 @@
+---
+// src/pages/index.astro
+import Layout from "../layouts/Layout.astro";
+import NoteCard from "../components/NoteCard.astro";
+import { getLatestNoteArticles } from "../lib/notes";
+import { getNewsList, type NewsArticle } from "../lib/microcms";
+import { translations, type Lang } from "../lib/i18n";
+
+// URLから言語パラメーターを取得 (例: ?lang=en)
+const url = new URL(Astro.request.url);
+const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
+const t = translations[currentLang];
+
+// 1. Note記事の取得
+let articles = [];
+try {
+  articles = await getLatestNoteArticles(3);
+} catch (e) {
+  console.error("Noteの取得に失敗しました:", e);
+}
+
+// 2. microCMSからお知らせ・活動データの取得
+let newsList: NewsArticle[] = [];
+try {
+  const response = await getNewsList({
+    limit: 10,
+    orders: "-publishedAt",
+  });
+  newsList = response.contents;
+} catch (error) {
+  console.error("microCMSからのデータ取得に失敗しました:", error);
+}
+
+// 緊急お知らせ（isUrgent: true）と通常記事に分割
+const urgentNews = newsList.find((item) => item.isUrgent);
+const regularNews = newsList.filter((item) => !item.isUrgent);
+
+// カテゴリ文字列の正規化（文字列・オブジェクト・配列に対応）
+function normalizeCategory(rawCategory: any): string {
+  if (!rawCategory) return "news";
+  if (Array.isArray(rawCategory)) {
+    if (rawCategory.length === 0) return "news";
+    const first = rawCategory[0];
+    return typeof first === "object" && first !== null ? String(first.id || first.name || "news").toLowerCase() : String(first).toLowerCase();
+  }
+  if (typeof rawCategory === "object" && rawCategory !== null) {
+    return String(rawCategory.id || rawCategory.name || "news").toLowerCase();
+  }
+  return String(rawCategory).toLowerCase();
+}
+
+// 日本語カテゴリにも対応したバッジ色判定
+function getCategoryBadge(rawCategory: any) {
+  const category = normalizeCategory(rawCategory);
+  
+  if (["activity", "活動note", "活動", "note"].includes(category)) {
+    return { class: "bg-blue-100 text-blue-700", defaultText: "Note", normalized: "activity" };
+  } else if (["event", "イベント"].includes(category)) {
+    return { class: "bg-purple-100 text-purple-700", defaultText: "イベント", normalized: "event" };
+  } else if (["press", "リリース", "プレスリリース"].includes(category)) {
+    return { class: "bg-emerald-100 text-emerald-700", defaultText: "リリース", normalized: "press" };
+  } else if (["recruit", "募集", "採用"].includes(category)) {
+    return { class: "bg-rose-100 text-rose-700", defaultText: "募集", normalized: "recruit" };
+  } else {
+    return { class: "bg-orange-100 text-orange-700", defaultText: "お知らせ", normalized: "news" };
+  }
+}
+---
+
+<Layout title={t.home} activeKey="home" showSplash>
+
+  <section class="relative min-h-[85vh] flex flex-col justify-between bg-slate-950 text-white overflow-hidden pt-6 pb-12 w-full max-w-full">
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-slate-900/60 to-blue-950/40"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-4 w-full mb-6 box-border">
+      <div class="emergency-banner-compact w-full box-border">
+        <div class="flex items-center gap-2 mb-1 flex-wrap">
+          <span class="bg-red-600 text-white text-[11px] font-extrabold px-2 py-0.5 rounded shrink-0">
+            {currentLang === 'en' ? 'URGENT' : '緊急'}
+          </span>
+          <span class="text-xs text-slate-700 font-mono font-bold">2026.07.28</span>
+        </div>
+        <a href="/earthquake-notice" class="group block w-full">
+          <h3 class="emergency-title-text break-words">
+            {currentLang === 'en' 
+              ? '[Notice] Policy and Response Regarding Today’s Earthquake ➔' 
+              : '【臨時】本日発生した地震への当団体の対応および活動方針について ➔'}
+          </h3>
+        </a>
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center my-auto w-full box-border">
+      <div class="flex justify-center space-x-3 md:space-x-8 text-base md:text-2xl font-black tracking-widest text-orange-400 mb-4 drop-shadow-md flex-wrap">
+        <span class="break-words">{t.heroCatch}</span>
+      </div>
+
+      <h1 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg break-words">
+        <span>{t.heroTitleLine1}</span><br class="hidden sm:inline">
+        <span>{t.heroTitleLine2}</span>
+      </h1>
+
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90 mb-8 break-words">
+        {t.heroSub}
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="/about" class="btn-hover-effect w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200 text-center box-border">
+          {t.about}
+        </a>
+        <a href="/ema" class="btn-hover-effect w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition duration-200 text-center box-border">
+          {t.emaSubmit}
+        </a>
+        <a href="/projects" class="btn-hover-effect w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm px-6 py-3 rounded-xl backdrop-blur-sm transition duration-200 text-center box-border">
+          {t.projects} ➔
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white border-b border-slate-200 w-full" id="news">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">UPDATES</span>
+          <h2 class="text-base font-black text-slate-900">{t.news}</h2>
+        </div>
+
+        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full sm:w-auto justify-center">
+          <button class="tab-btn active text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all bg-white text-slate-900 shadow-xs cursor-pointer" data-tab="all">
+            {currentLang === 'en' ? 'All' : 'すべて'}
+          </button>
+          <button class="tab-btn text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-900 cursor-pointer" data-tab="news">
+            {currentLang === 'en' ? 'News' : 'お知らせ'}
+          </button>
+          <button class="tab-btn text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-900 cursor-pointer" data-tab="activity">
+            {currentLang === 'en' ? 'Activity' : '活動Note'}
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+
+        {urgentNews && (
+          <div class="p-3.5 bg-red-50/70 hover:bg-red-50 rounded-2xl border-2 border-red-200 shadow-xs transition flex flex-col sm:flex-row sm:items-center justify-between gap-2" data-pinned="true">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xs font-mono font-bold text-red-500 shrink-0">
+                {urgentNews.publishedAt.slice(0, 10).replace(/-/g, ".")}
+              </span>
+              <span class="text-[11px] font-black px-2 py-0.5 rounded bg-red-600 text-white shrink-0">
+                {urgentNews.badgeText || "緊急"}
+              </span>
+              <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs sm:text-sm font-bold text-red-700 hover:underline break-words min-w-0">
+                {urgentNews.title} ➔
+              </a>
+            </div>
+            <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest hidden sm:inline-block shrink-0">Important</span>
+          </div>
+        )}
+
+        <div class="space-y-3" id="filterableList">
+          {regularNews.length > 0 ? (
+            regularNews.map((item) => {
+              const badge = getCategoryBadge(item.category);
+              return (
+                <div 
+                  class="news-item flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/80 transition" 
+                  data-category={badge.normalized}
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
+                      {item.publishedAt.slice(0, 10).replace(/-/g, ".")}
+                    </span>
+                    <span class={`text-[11px] font-bold px-2 py-0.5 rounded shrink-0 ${badge.class}`}>
+                      {item.badgeText || badge.defaultText}
+                    </span>
+                    <a 
+                      href={item.link || `/news/${item.id}`} 
+                      target={item.link?.startsWith('http') ? '_blank' : '_self'}
+                      class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 transition break-words truncate"
+                    >
+                      {item.title} {item.link && '➔'}
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <p class="text-xs text-slate-400 py-4 text-center">現在掲載中のお知らせはありません。</p>
+          )}
+        </div>
+
+      </div>
+
+      <div class="text-center pt-2">
+        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 hover:underline inline-flex items-center gap-1">
+          <span>公式Noteですべての記事を見る</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 max-w-4xl mx-auto px-4 text-center">
+    <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">WHAT WE DO</span>
+    <h2 class="text-xl md:text-3xl font-black text-slate-950 mb-6 leading-snug break-words">
+      {currentLang === 'en' ? (
+        <>Moving Beyond Our Name:<br />Our Challenge for the Future</>
+      ) : (
+        <>名称の由来を超えて<br />私たちが目指す未来への挑戦</>
+      )}
+    </h2>
+    <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium break-words">
+      {currentLang === 'en' 
+        ? "NSF PROJECTs is more than just 'Noto Student Fund.' While our roots stem from disaster relief for the Noto Peninsula Earthquake, we have evolved into a project-driven organization where students nationwide actively tackle various social issues."
+        : "NSF PROJECTsは「Noto Student Fund」という名称の時点に留まる組織ではありません。能登半島地震をきっかけに始まった活動をすべての原点としつつ、現在は全国の学生が社会課題に対して主体的に挑戦するプロジェクト型組織へと発展を遂げています。"}
+    </p>
+  </section>
+
+  <section class="pb-16 max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
+        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+      </div>
+      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
+        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-slate-100 border-t border-b border-slate-200 w-full overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 space-y-10">
+      <div class="text-center">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">VISION</span>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950 break-words">
+          {currentLang === 'en' ? 'The Value We Create' : '私たちが生み出す価値'}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
+              <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="text-xl font-black text-slate-950 mb-2 break-words">
+              {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
+            </h3>
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium break-words">
+              {currentLang === 'en'
+                ? "In addition to supporting recovery in Noto, we leverage the unique flexibility and mobility of students to solve diverse societal challenges."
+                : "原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。"}
+            </p>
+          </div>
+          <div class="mt-6">
+            <a href="/projects" class="btn-hover-effect block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
+              {t.projects} ➔
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
+              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="text-xl font-black text-slate-950 mb-2 break-words">
+              {currentLang === 'en' ? 'Action by Students Nationwide' : '全国の学生による挑戦'}
+            </h3>
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium break-words">
+              {currentLang === 'en'
+                ? "Over 500 members gathered from across Japan. Unbound by existing frameworks, we continuously improve and take steps to open up the future."
+                : "全国から500人を超えるメンバーが集結。存在意義の否定や既存の枠組みにとらわれず、絶えず改善を重ねながら未来を切り拓くアクションを起こします。"}
+            </p>
+          </div>
+          <div class="mt-6">
+            <a href="/about" class="btn-hover-effect block text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">
+              {t.about} ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="note" class="py-16 border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-1 uppercase">NOTE</span>
+        <h2 class="text-2xl font-black text-slate-950">
+          {currentLang === 'en' ? 'Official Note Articles' : '公式Note・活動記事'}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {articles.map((article) => (
+          <NoteCard article={article} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="instagram" class="py-16 bg-slate-100 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="text-lg font-bold text-slate-950">
+          {currentLang === 'en' ? 'Latest Instagram Updates' : '最新のInstagram活動報告'}
+        </h2>
+      </div>
+      <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
+      <script>
+        (() => {
+          const d = document, s = d.createElement("script");
+          s.type = "module";
+          s.src = "https://w.behold.so/widget.js";
+          d.head.append(s);
+        })();
+      </script>
+    </div>
+  </section>
+</Layout>
+
 <script>
   function setupNewsTabs() {
     const tabButtons = document.querySelectorAll('.tab-btn');
@@ -6,7 +330,7 @@
     if (!tabButtons.length || !newsItems.length) return;
 
     tabButtons.forEach(button => {
-      // 重複登録防止のためのクローン
+      // 既存リスナーの二重バインド防止
       const newButton = button.cloneNode(true) as HTMLElement;
       button.parentNode?.replaceChild(newButton, button);
 
@@ -14,7 +338,7 @@
         const allButtons = document.querySelectorAll('.tab-btn');
         const allItems = document.querySelectorAll('.news-item');
 
-        // タブボタンのスタイル切り替え
+        // タブボタンのアクティブスタイル変更
         allButtons.forEach(btn => {
           btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
           btn.classList.add('text-slate-500');
@@ -25,22 +349,22 @@
         const selectedTab = newButton.getAttribute('data-tab');
 
         allItems.forEach(item => {
-          const itemCategory = (item.getAttribute('data-category') || '').trim();
+          const itemCategory = (item.getAttribute('data-category') || 'news').toLowerCase().trim();
           const el = item as HTMLElement;
 
           if (selectedTab === 'all') {
-            // 「すべて」タブ
+            // 「すべて」
             el.style.display = 'flex';
           } else if (selectedTab === 'activity') {
-            // 「活動Note」タブ（英語/日本語の両方に対応）
-            if (['activity', '活動note', '活動', 'note'].includes(itemCategory.toLowerCase())) {
+            // 「活動Note」
+            if (['activity', '活動note', '活動', 'note'].includes(itemCategory)) {
               el.style.display = 'flex';
             } else {
               el.style.display = 'none';
             }
           } else if (selectedTab === 'news') {
-            // 「お知らせ」タブ（活動Note以外のすべてを表示）
-            if (!['activity', '活動note', '活動', 'note'].includes(itemCategory.toLowerCase())) {
+            // 「お知らせ」（活動Note以外のお知らせ系コンテンツすべて）
+            if (!['activity', '活動note', '活動', 'note'].includes(itemCategory)) {
               el.style.display = 'flex';
             } else {
               el.style.display = 'none';
@@ -51,6 +375,7 @@
     });
   }
 
+  // DOM構築時およびAstro View Transitionsのページ切り替えに対応
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupNewsTabs);
   } else {
@@ -58,3 +383,47 @@
   }
   document.addEventListener('astro:page-load', setupNewsTabs);
 </script>
+
+<style>
+  .emergency-banner-compact {
+    background-color: #fff1f2;
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    padding: 12px 16px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .emergency-title-text {
+    font-size: 14px;
+    font-weight: 900;
+    color: #7f1d1d;
+    margin: 4px 0 0 0;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .emergency-banner-compact a:hover .emergency-title-text {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .emergency-title-text {
+      font-size: 16px;
+    }
+  }
+
+  .btn-hover-effect {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-hover-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  .btn-hover-effect:active {
+    transform: translateY(0px);
+  }
+</style>
