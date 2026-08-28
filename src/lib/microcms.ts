@@ -1,4 +1,11 @@
 // src/lib/microcms.ts
+import { createClient, type MicroCMSQueries } from "microcms-js-sdk";
+
+export const client = createClient({
+  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
+  apiKey: import.meta.env.MICROCMS_API_KEY,
+});
+
 export type NewsArticle = {
   id: string;
   createdAt: string;
@@ -6,10 +13,29 @@ export type NewsArticle = {
   publishedAt: string;
   revisedAt: string;
   title: string;
-  // ここに追加した値（例: "event" | "press" | "recruit"）を追記
   category: "news" | "activity" | "event" | "press" | "recruit";
   badgeText?: string;
   isUrgent?: boolean;
   link?: string;
   content?: string;
+};
+
+// 一覧取得
+export const getNewsList = async (queries?: MicroCMSQueries) => {
+  return await client.getList<NewsArticle>({
+    endpoint: "news",
+    queries,
+  });
+};
+
+// 詳細取得（[id].astro で使用）
+export const getNewsDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  return await client.getListDetail<NewsArticle>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
 };
