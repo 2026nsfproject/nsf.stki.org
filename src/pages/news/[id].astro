@@ -37,13 +37,13 @@ const badge = getCategoryBadge(article.category);
 ---
 
 <Layout title={`${article.title} | NSF PROJECTs`} activeKey="news">
-  <!-- スマホ・タブレット・PCで上部と底部の余白を可変 -->
+  <!-- 上下の余白（ヘッダー重なり防止） -->
   <main class="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 bg-slate-50 min-h-screen">
     
-    <!-- 全体コンテナ（PC: max-w-4xl、左右パディング: px-4 sm:px-6） -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <!-- 全体コンテナ幅を max-w-5xl に拡張（タイトルが1行に収まりやすくなります） -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
       
-      <!-- パンくずリスト（レスポンシブ省略・折り返し） -->
+      <!-- パンくずリスト -->
       <nav class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-slate-500 mb-4 sm:mb-6 flex-wrap">
         <a href="/" class="hover:text-slate-900 transition shrink-0">ホーム</a>
         <span class="text-slate-300 shrink-0">/</span>
@@ -67,7 +67,8 @@ const badge = getCategoryBadge(article.category);
               {article.badgeText || badge.defaultText}
             </span>
           </div>
-          <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug sm:leading-tight">
+          <!-- タイトル（PCで1行に収まりやすい文字サイズ＆引き締まった文字間） -->
+          <h1 class="text-xl sm:text-2xl md:text-[25px] lg:text-[28px] font-black text-slate-900 leading-snug tracking-tight">
             {article.title}
           </h1>
         </header>
@@ -175,7 +176,7 @@ const badge = getCategoryBadge(article.category);
     color: #475569;
   }
 
-  /* 画像（完全レスポンシブ・アスペクト比維持） */
+  /* 画像（レスポンシブ・アスペクト比維持） */
   .news-content img {
     border-radius: 6px;
     margin: 1.75rem auto 0.5rem auto;
