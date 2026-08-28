@@ -38,27 +38,30 @@ const badge = getCategoryBadge(article.category);
 ---
 
 <Layout title={`${article.title} | NSF PROJECTs`} activeKey="news">
-  <main class="py-12 md:py-20 bg-slate-50 min-h-screen">
+  <main class="pt-24 md:pt-32 pb-16 md:pb-24 bg-slate-50 min-h-screen">
     <div class="max-w-3xl mx-auto px-4">
       
-      <!-- パンくずリスト -->
-      <nav class="flex items-center gap-2 text-xs font-bold text-slate-400 mb-6">
-        <a href="/" class="hover:text-slate-700 transition">ホーム</a>
-        <span>/</span>
-        <a href="/#news" class="hover:text-slate-700 transition">お知らせ一覧</a>
-        <span>/</span>
-        <span class="text-slate-600 truncate max-w-[200px]">{article.title}</span>
+      <!-- パンくずリスト（PCでは省略せず折り返して全文表示） -->
+      <nav class="flex items-center gap-2 text-xs font-bold text-slate-500 mb-6 flex-wrap">
+        <a href="/" class="hover:text-slate-900 transition shrink-0">ホーム</a>
+        <span class="text-slate-300 shrink-0">/</span>
+        <a href="/#news" class="hover:text-slate-900 transition shrink-0">お知らせ一覧</a>
+        <span class="text-slate-300 shrink-0">/</span>
+        <span class="text-slate-700 truncate max-w-[150px] sm:max-w-xs md:max-w-none md:overflow-visible md:whitespace-normal">
+          {article.title}
+        </span>
       </nav>
 
-      <article class="bg-white p-6 sm:p-10 md:p-12 rounded-2xl border border-slate-200/80 shadow-xs">
+      <!-- 記事カード -->
+      <article class="bg-white p-6 sm:p-10 md:p-12 rounded-2xl border border-slate-200/80 shadow-sm">
         <!-- 記事ヘッダー -->
         <header class="border-b border-slate-100 pb-6 mb-8">
-          <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
             <span class="text-xs font-mono font-bold text-slate-400">
               {article.publishedAt.slice(0, 10).replace(/-/g, ".")}
             </span>
             <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded ${badge.class}`}>
-              {article.badgeText || badge.defaultText}
+              {badge.defaultText}
             </span>
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug">
@@ -66,7 +69,7 @@ const badge = getCategoryBadge(article.category);
           </h1>
         </header>
 
-        <!-- 記事本文（microCMSのリッチエディタまたはテキストを表示） -->
+        <!-- 記事本文 -->
         <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap">
           {article.content ? (
             <div set:html={article.content} />
@@ -79,7 +82,7 @@ const badge = getCategoryBadge(article.category);
         <footer class="mt-12 pt-6 border-t border-slate-100 flex justify-center">
           <a 
             href="/#news" 
-            class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-6 py-3 rounded-xl transition shadow-xs"
+            class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-6 py-3 rounded-xl transition shadow-sm"
           >
             ← お知らせ一覧に戻る
           </a>
