@@ -34,6 +34,23 @@ try {
 // 緊急お知らせ（isUrgent: true）と通常記事に分割
 const urgentNews = newsList.find((item) => item.isUrgent);
 const regularNews = newsList.filter((item) => !item.isUrgent);
+
+// カテゴリに応じたバッジ色とデフォルトテキストの判定
+function getCategoryBadge(category: string) {
+  switch (category) {
+    case "activity":
+      return { class: "bg-blue-100 text-blue-700", defaultText: "Note" };
+    case "event":
+      return { class: "bg-purple-100 text-purple-700", defaultText: "イベント" };
+    case "press":
+      return { class: "bg-emerald-100 text-emerald-700", defaultText: "リリース" };
+    case "recruit":
+      return { class: "bg-rose-100 text-rose-700", defaultText: "募集" };
+    case "news":
+    default:
+      return { class: "bg-orange-100 text-orange-700", defaultText: "お知らせ" };
+  }
+}
 ---
 
 <Layout title={t.home} activeKey="home" showSplash>
@@ -140,30 +157,32 @@ const regularNews = newsList.filter((item) => !item.isUrgent);
         <!-- 【タブ連動】通常記事一覧 -->
         <div class="space-y-3" id="filterableList">
           {regularNews.length > 0 ? (
-            regularNews.map((item) => (
-              <div 
-                class="news-item flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/80 transition" 
-                data-category={item.category}
-              >
-                <div class="flex items-center gap-3">
-                  <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
-                    {item.publishedAt.slice(0, 10).replace(/-/g, ".")}
-                  </span>
-                  <span class={`text-[11px] font-bold px-2 py-0.5 rounded shrink-0 ${
-                    item.category === 'activity' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
-                  }`}>
-                    {item.badgeText || (item.category === 'activity' ? 'Note' : 'お知らせ')}
-                  </span>
-                  <a 
-                    href={item.link || `/news/${item.id}`} 
-                    target={item.link?.startsWith('http') ? '_blank' : '_self'}
-                    class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 transition break-words"
-                  >
-                    {item.title} {item.link && '➔'}
-                  </a>
+            regularNews.map((item) => {
+              const badge = getCategoryBadge(item.category);
+              return (
+                <div 
+                  class="news-item flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/80 transition" 
+                  data-category={item.category}
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
+                      {item.publishedAt.slice(0, 10).replace(/-/g, ".")}
+                    </span>
+                    <!-- カテゴリ別の色とバッジテキスト -->
+                    <span class={`text-[11px] font-bold px-2 py-0.5 rounded shrink-0 ${badge.class}`}>
+                      {item.badgeText || badge.defaultText}
+                    </span>
+                    <a 
+                      href={item.link || `/news/${item.id}`} 
+                      target={item.link?.startsWith('http') ? '_blank' : '_self'}
+                      class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 transition break-words"
+                    >
+                      {item.title} {item.link && '➔'}
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <p class="text-xs text-slate-400 py-4 text-center">現在掲載中のお知らせはありません。</p>
           )}
