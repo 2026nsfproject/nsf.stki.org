@@ -1,7 +1,9 @@
 ---
+// src/pages/index.astro
 import Layout from "../layouts/Layout.astro";
 import NoteCard from "../components/NoteCard.astro";
 import { getLatestNoteArticles } from "../lib/notes";
+import { getNewsList, type NewsArticle } from "../lib/microcms";
 import { translations, type Lang } from "../lib/i18n";
 
 // URLから言語パラメーターを取得 (例: ?lang=en)
@@ -9,6 +11,7 @@ const url = new URL(Astro.request.url);
 const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
 const t = translations[currentLang];
 
+// 1. Note記事の取得
 let articles = [];
 try {
   articles = await getLatestNoteArticles(3);
@@ -16,54 +19,31 @@ try {
   console.error("Noteの取得に失敗しました:", e);
 }
 
-// 言語に応じたNEWSデータ
-const newsList = [
-  {
-    id: 0,
-    date: "2026.08.01",
-    category: currentLang === 'en' ? 'Event' : '企画',
-    categoryColor: "bg-orange-100 text-orange-700 font-bold",
-    title: currentLang === 'en' 
-      ? '[YouTube Collaboration] Support messages (Ema) wanted from across Japan!' 
-      : '【YouTube連動】全国からの応援メッセージ（絵馬）を募集中！',
-    link: "/ema",
-  },
-  {
-    id: 1,
-    date: "2026.07.30",
-    category: currentLang === 'en' ? 'News' : '実績',
-    categoryColor: "bg-orange-100 text-orange-700 font-bold",
-    title: currentLang === 'en' ? 'Reached 500 Members!!' : 'メンバー500人達成!!',
-  },
-  {
-    id: 2,
-    date: "2026.03.23",
-    category: currentLang === 'en' ? 'Event' : 'イベント',
-    categoryColor: "bg-blue-100 text-blue-700",
-    title: currentLang === 'en' 
-      ? 'Hosted "National Student Council Disaster Prevention Summit" co-sponsored by Cabinet Office' 
-      : '内閣府共催「全国生徒会防災サミット」を開催（衆議院会館／東京都）',
-  },
-  {
-    id: 3,
-    date: "2025.12.23",
-    category: currentLang === 'en' ? 'Event' : 'イベント',
-    categoryColor: "bg-blue-100 text-blue-700",
-    title: currentLang === 'en' 
-      ? 'Hosted "National High School Future Conference" co-sponsored by Cabinet Office' 
-      : '内閣府共催「全国高校生未来会議」を開催',
-  },
-];
+// 2. microCMSからお知らせ・活動データの取得
+let newsList: NewsArticle[] = [];
+try {
+  const response = await getNewsList({
+    limit: 10,
+    orders: "-publishedAt",
+  });
+  newsList = response.contents;
+} catch (error) {
+  console.error("microCMSからのデータ取得に失敗しました:", error);
+}
+
+// 緊急お知らせ（isUrgent: true）と通常記事に分割
+const urgentNews = newsList.find((item) => item.isUrgent);
+const regularNews = newsList.filter((item) => !item.isUrgent);
 ---
 
 <Layout title={t.home} activeKey="home" showSplash>
 
   <!-- ▼ ファーストビュー -->
   <section class="relative min-h-[85vh] flex flex-col justify-between bg-slate-950 text-white overflow-hidden pt-6 pb-12 w-full max-w-full">
-    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-40" />
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-slate-900/60 to-blue-950/40"></div>
 
-    <!-- 緊急バナー（はみ出し防止対応） -->
+    <!-- 緊急バナー（トップピン留め） -->
     <div class="relative z-10 max-w-3xl mx-auto px-4 w-full mb-6 box-border">
       <div class="emergency-banner-compact w-full box-border">
         <div class="flex items-center gap-2 mb-1 flex-wrap">
@@ -82,7 +62,7 @@ const newsList = [
       </div>
     </div>
 
-    <!-- メインメッセージ & アクション誘導（折り返し対応） -->
+    <!-- メインメッセージ & アクション誘導 -->
     <div class="relative z-10 max-w-4xl mx-auto px-4 text-center my-auto w-full box-border">
       <div class="flex justify-center space-x-3 md:space-x-8 text-base md:text-2xl font-black tracking-widest text-orange-400 mb-4 drop-shadow-md flex-wrap">
         <span class="break-words">{t.heroCatch}</span>
@@ -111,27 +91,93 @@ const newsList = [
     </div>
   </section>
 
-  <!-- ▼ NEWS -->
-  <section class="py-6 bg-slate-50 border-b border-slate-200 w-full overflow-hidden">
-    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3 w-full sm:w-auto shrink-0">
-        <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-100 px-2.5 py-1 rounded-md">NEWS</span>
-        <h2 class="text-xs font-bold text-slate-500">{t.news}</h2>
+  <!-- ▼ NEWS & UPDATES（microCMS連動・緊急固定・タブ切り替え） -->
+  <section class="py-12 bg-white border-b border-slate-200 w-full" id="news">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      
+      <!-- ヘッダー & タブ切り替えボタン -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <span class="text-xs font-black tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">UPDATES</span>
+          <h2 class="text-base font-black text-slate-900">{t.news}</h2>
+        </div>
+
+        <!-- タブボタン -->
+        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full sm:w-auto justify-center">
+          <button class="tab-btn active text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all bg-white text-slate-900 shadow-xs" data-tab="all">
+            {currentLang === 'en' ? 'All' : 'すべて'}
+          </button>
+          <button class="tab-btn text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-900" data-tab="news">
+            {currentLang === 'en' ? 'News' : 'お知らせ'}
+          </button>
+          <button class="tab-btn text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-900" data-tab="activity">
+            {currentLang === 'en' ? 'Activity' : '活動Note'}
+          </button>
+        </div>
       </div>
-      <div class="w-full sm:w-auto flex-grow max-w-xl">
-        {newsList.slice(0, 2).map((item) => (
-          <div class="text-xs md:text-sm font-bold text-slate-800 truncate py-1">
-            <span class="text-slate-400 font-mono mr-2">{item.date}</span>
-            {item.link ? (
-              <a href={item.link} class="hover:text-orange-600 hover:underline transition">
-                {item.title} ➔
+
+      <!-- 記事一覧コンテナ -->
+      <div class="space-y-3">
+        
+        <!-- 【常時固定】緊急・重要なお知らせ（microCMSで isUrgent: true がある場合に最上部表示） -->
+        {urgentNews && (
+          <div class="p-3.5 bg-red-50/70 hover:bg-red-50 rounded-2xl border-2 border-red-200 shadow-xs transition flex flex-col sm:flex-row sm:items-center justify-between gap-2" data-pinned="true">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xs font-mono font-bold text-red-500 shrink-0">
+                {urgentNews.publishedAt.slice(0, 10).replace(/-/g, ".")}
+              </span>
+              <span class="text-[11px] font-black px-2 py-0.5 rounded bg-red-600 text-white shrink-0">
+                {urgentNews.badgeText || "緊急"}
+              </span>
+              <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs sm:text-sm font-bold text-red-700 hover:underline break-words min-w-0">
+                {urgentNews.title} ➔
               </a>
-            ) : (
-              <span>{item.title}</span>
-            )}
+            </div>
+            <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest hidden sm:inline-block shrink-0">Important</span>
           </div>
-        ))}
+        )}
+
+        <!-- 【タブ連動】通常記事一覧 -->
+        <div class="space-y-3" id="filterableList">
+          {regularNews.length > 0 ? (
+            regularNews.map((item) => (
+              <div 
+                class="news-item flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/80 transition" 
+                data-category={item.category}
+              >
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
+                    {item.publishedAt.slice(0, 10).replace(/-/g, ".")}
+                  </span>
+                  <span class={`text-[11px] font-bold px-2 py-0.5 rounded shrink-0 ${
+                    item.category === 'activity' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
+                  }`}>
+                    {item.badgeText || (item.category === 'activity' ? 'Note' : 'お知らせ')}
+                  </span>
+                  <a 
+                    href={item.link || `/news/${item.id}`} 
+                    target={item.link?.startsWith('http') ? '_blank' : '_self'}
+                    class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 transition break-words"
+                  >
+                    {item.title} {item.link && '➔'}
+                  </a>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p class="text-xs text-slate-400 py-4 text-center">現在掲載中のお知らせはありません。</p>
+          )}
+        </div>
+
       </div>
+
+      <div class="text-center pt-2">
+        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 hover:underline inline-flex items-center gap-1">
+          <span>公式Noteですべての記事を見る</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -156,10 +202,10 @@ const newsList = [
   <section class="pb-16 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
-        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
       </div>
       <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm aspect-video">
-        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
       </div>
     </div>
   </section>
@@ -178,7 +224,7 @@ const newsList = [
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
-              <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
+              <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover" />
             </div>
             <h3 class="text-xl font-black text-slate-950 mb-2 break-words">
               {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
@@ -199,7 +245,7 @@ const newsList = [
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
             <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
-              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
+              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover" />
             </div>
             <h3 class="text-xl font-black text-slate-950 mb-2 break-words">
               {currentLang === 'en' ? 'Action by Students Nationwide' : '全国の学生による挑戦'}
@@ -258,6 +304,39 @@ const newsList = [
   </section>
 </Layout>
 
+<script>
+  function setupNewsTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const newsItems = document.querySelectorAll('.news-item');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // ボタンのアクティブ切り替え
+        tabButtons.forEach(btn => {
+          btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
+          btn.classList.add('text-slate-500');
+        });
+        button.classList.add('bg-white', 'text-slate-900', 'shadow-xs');
+        button.classList.remove('text-slate-500');
+
+        // カテゴリのフィルタリング
+        const tab = button.getAttribute('data-tab');
+        newsItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (tab === 'all' || category === tab) {
+            (item as HTMLElement).style.display = 'flex';
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupNewsTabs);
+  document.addEventListener('astro:page-load', setupNewsTabs);
+</script>
+
 <style>
   .emergency-banner-compact {
     background-color: #fff1f2;
@@ -276,7 +355,6 @@ const newsList = [
     color: #7f1d1d;
     margin: 4px 0 0 0;
     line-height: 1.4;
-    /* 英文での長いテキストはみ出しを防ぐプロパティ */
     overflow-wrap: break-word;
     word-break: break-word;
   }
