@@ -17,7 +17,6 @@ try {
   return Astro.redirect("/404");
 }
 
-// カテゴリに応じたバッジスタイルの判定
 function getCategoryBadge(category: string) {
   switch (category) {
     case "activity":
@@ -38,39 +37,43 @@ const badge = getCategoryBadge(article.category);
 ---
 
 <Layout title={`${article.title} | NSF PROJECTs`} activeKey="news">
-  <main class="pt-24 md:pt-32 pb-16 md:pb-24 bg-slate-50 min-h-screen">
-    <div class="max-w-3xl mx-auto px-4">
+  <!-- スマホ・タブレット・PCで上部と底部の余白を可変 -->
+  <main class="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 bg-slate-50 min-h-screen">
+    
+    <!-- 全体コンテナ（PC: max-w-4xl、左右パディング: px-4 sm:px-6） -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
       
-      <!-- パンくずリスト（PCでは省略せず折り返して全文表示） -->
-      <nav class="flex items-center gap-2 text-xs font-bold text-slate-500 mb-6 flex-wrap">
+      <!-- パンくずリスト（レスポンシブ省略・折り返し） -->
+      <nav class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-slate-500 mb-4 sm:mb-6 flex-wrap">
         <a href="/" class="hover:text-slate-900 transition shrink-0">ホーム</a>
         <span class="text-slate-300 shrink-0">/</span>
         <a href="/#news" class="hover:text-slate-900 transition shrink-0">お知らせ一覧</a>
         <span class="text-slate-300 shrink-0">/</span>
-        <span class="text-slate-700 truncate max-w-[150px] sm:max-w-xs md:max-w-none md:overflow-visible md:whitespace-normal">
+        <span class="text-slate-700 truncate max-w-[120px] sm:max-w-xs md:max-w-none md:overflow-visible md:whitespace-normal">
           {article.title}
         </span>
       </nav>
 
       <!-- 記事カード -->
-      <article class="bg-white p-6 sm:p-10 md:p-12 rounded-2xl border border-slate-200/80 shadow-sm">
+      <article class="bg-white p-5 sm:p-8 md:p-12 lg:p-14 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
+        
         <!-- 記事ヘッダー -->
-        <header class="border-b border-slate-100 pb-6 mb-8">
-          <div class="flex items-center gap-3 mb-4 flex-wrap">
+        <header class="border-b border-slate-100 pb-5 sm:pb-7 mb-6 sm:mb-8">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
             <span class="text-xs font-mono font-bold text-slate-400">
               {article.publishedAt.slice(0, 10).replace(/-/g, ".")}
             </span>
-            <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded ${badge.class}`}>
-              {badge.defaultText}
+            <span class={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded ${badge.class}`}>
+              {article.badgeText || badge.defaultText}
             </span>
           </div>
-          <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug">
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug sm:leading-tight">
             {article.title}
           </h1>
         </header>
 
         <!-- 記事本文 -->
-        <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap">
+        <div class="news-content text-slate-800">
           {article.content ? (
             <div set:html={article.content} />
           ) : (
@@ -79,16 +82,128 @@ const badge = getCategoryBadge(article.category);
         </div>
 
         <!-- 記事下部フッター -->
-        <footer class="mt-12 pt-6 border-t border-slate-100 flex justify-center">
+        <footer class="mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-slate-100 flex justify-center">
           <a 
             href="/#news" 
-            class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-6 py-3 rounded-xl transition shadow-sm"
+            class="w-full sm:w-auto text-center bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-8 py-3.5 rounded-xl transition shadow-xs"
           >
             ← お知らせ一覧に戻る
           </a>
         </footer>
+
       </article>
 
     </div>
   </main>
 </Layout>
+
+<style is:global>
+  /* -------------------------------------------
+     ▼ レスポンシブ対応 タイポグラフィ & Note風スタイル
+     ------------------------------------------- */
+  .news-content {
+    font-size: 15px;
+    line-height: 1.85;
+    letter-spacing: 0.015em;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  @media (min-width: 640px) {
+    .news-content {
+      font-size: 16.5px;
+      line-height: 1.95;
+    }
+  }
+
+  .news-content p {
+    margin-bottom: 1.35rem;
+  }
+  @media (min-width: 640px) {
+    .news-content p {
+      margin-bottom: 1.65rem;
+    }
+  }
+
+  /* 見出し */
+  .news-content h2,
+  .news-content h3 {
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .news-content h2 {
+    font-size: 1.2rem;
+  }
+  .news-content h3 {
+    font-size: 1.1rem;
+  }
+  @media (min-width: 640px) {
+    .news-content h2 {
+      font-size: 1.35rem;
+      margin-top: 2.75rem;
+      margin-bottom: 1rem;
+    }
+    .news-content h3 {
+      font-size: 1.2rem;
+      margin-top: 2.25rem;
+      margin-bottom: 0.85rem;
+    }
+  }
+
+  /* リスト */
+  .news-content ul {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 1.35rem;
+  }
+  .news-content ol {
+    list-style-type: decimal;
+    padding-left: 1.25rem;
+    margin-bottom: 1.35rem;
+  }
+  .news-content li {
+    margin-bottom: 0.35rem;
+  }
+
+  /* 引用 */
+  .news-content blockquote {
+    border-left: 3px solid #cbd5e1;
+    padding-left: 0.85rem;
+    margin: 1.5rem 0;
+    color: #475569;
+  }
+
+  /* 画像（完全レスポンシブ・アスペクト比維持） */
+  .news-content img {
+    border-radius: 6px;
+    margin: 1.75rem auto 0.5rem auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .news-content img {
+      margin: 2.25rem auto 0.5rem auto;
+    }
+  }
+
+  /* キャプション（画像直下のテキスト） */
+  .news-content p:has(img) + p,
+  .news-content figcaption {
+    font-size: 0.75rem;
+    color: #737373;
+    text-align: center;
+    margin-top: -0.25rem;
+    margin-bottom: 1.75rem;
+    line-height: 1.5;
+  }
+  @media (min-width: 640px) {
+    .news-content p:has(img) + p,
+    .news-content figcaption {
+      font-size: 0.8rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>
