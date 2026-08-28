@@ -49,11 +49,12 @@ function normalizeCategory(rawCategory: any): string {
   return String(rawCategory).toLowerCase();
 }
 
-// 日本語カテゴリにも対応したバッジ色判定
+// カテゴリに応じたバッジ色と内部属性（normalized）の正確な判定
 function getCategoryBadge(rawCategory: any) {
   const category = normalizeCategory(rawCategory);
   
-  if (["activity", "活動note", "活動", "note"].includes(category)) {
+  // 活動Note・活動報告の判定
+  if (["activity", "活動note", "活動", "note", "活動報告"].includes(category)) {
     return { class: "bg-blue-100 text-blue-700", defaultText: "Note", normalized: "activity" };
   } else if (["event", "イベント"].includes(category)) {
     return { class: "bg-purple-100 text-purple-700", defaultText: "イベント", normalized: "event" };
@@ -330,7 +331,7 @@ function getCategoryBadge(rawCategory: any) {
     if (!tabButtons.length || !newsItems.length) return;
 
     tabButtons.forEach(button => {
-      // 既存リスナーの二重バインド防止
+      // 重複登録を防止するための要素クローン
       const newButton = button.cloneNode(true) as HTMLElement;
       button.parentNode?.replaceChild(newButton, button);
 
@@ -353,18 +354,18 @@ function getCategoryBadge(rawCategory: any) {
           const el = item as HTMLElement;
 
           if (selectedTab === 'all') {
-            // 「すべて」
+            // 「すべて」タブ
             el.style.display = 'flex';
           } else if (selectedTab === 'activity') {
-            // 「活動Note」
-            if (['activity', '活動note', '活動', 'note'].includes(itemCategory)) {
+            // 「活動Note」タブ：activity（または活動Note等）のみ表示
+            if (itemCategory === 'activity') {
               el.style.display = 'flex';
             } else {
               el.style.display = 'none';
             }
           } else if (selectedTab === 'news') {
-            // 「お知らせ」（活動Note以外のお知らせ系コンテンツすべて）
-            if (!['activity', '活動note', '活動', 'note'].includes(itemCategory)) {
+            // 「お知らせ」タブ：activity（活動Note）以外のすべて（news, event, press, recruit等）を表示
+            if (itemCategory !== 'activity') {
               el.style.display = 'flex';
             } else {
               el.style.display = 'none';
