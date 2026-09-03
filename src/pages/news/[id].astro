@@ -1,7 +1,7 @@
 ---
 // src/pages/news/[id].astro
 import Layout from "../../layouts/Layout.astro";
-import { getNewsDetail } from "../../lib/microcms";
+import { getNewsDetail } from "../../lib/directus";
 
 const { id } = Astro.params;
 
@@ -12,6 +12,10 @@ if (!id) {
 let article = null;
 try {
   article = await getNewsDetail(id);
+  // 下書き・アーカイブ済みは一覧同様に非公開扱いにする
+  if (article.status !== "published") {
+    return Astro.redirect("/404");
+  }
 } catch (e) {
   console.error("記事の取得に失敗しました:", e);
   return Astro.redirect("/404");
@@ -61,10 +65,10 @@ const badge = getCategoryBadge(article.category);
         <header class="border-b border-slate-100 pb-5 sm:pb-7 mb-6 sm:mb-8">
           <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
             <span class="text-xs font-mono font-bold text-slate-400">
-              {article.publishedAt.slice(0, 10).replace(/-/g, ".")}
+              {(article.published_at ?? article.date_created).slice(0, 10).replace(/-/g, ".")}
             </span>
             <span class={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded ${badge.class}`}>
-              {article.badgeText || badge.defaultText}
+              {article.badge_text || badge.defaultText}
             </span>
           </div>
           <!-- タイトル（PCで1行に収まりやすい文字サイズ＆引き締まった文字間） -->
