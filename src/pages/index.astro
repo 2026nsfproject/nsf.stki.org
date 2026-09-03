@@ -3,7 +3,7 @@
 import Layout from "../layouts/Layout.astro";
 import NoteCard from "../components/NoteCard.astro";
 import { getLatestNoteArticles } from "../lib/notes";
-import { getNewsList, type NewsArticle } from "../lib/microcms";
+import { getNewsList, type NewsArticle } from "../lib/directus";
 import { translations, type Lang } from "../lib/i18n";
 
 // URLから言語パラメーターを取得 (例: ?lang=en)
@@ -19,21 +19,18 @@ try {
   console.error("Noteの取得に失敗しました:", e);
 }
 
-// 2. microCMSからお知らせ・活動データの取得
+// 2. Directusからお知らせ・活動データの取得
 let newsList: NewsArticle[] = [];
 try {
-  const response = await getNewsList({
-    limit: 10,
-    orders: "-publishedAt",
-  });
+  const response = await getNewsList({ limit: 10 });
   newsList = response.contents;
 } catch (error) {
-  console.error("microCMSからのデータ取得に失敗しました:", error);
+  console.error("Directusからのデータ取得に失敗しました:", error);
 }
 
-// 緊急お知らせ（isUrgent: true）と通常記事に分割
-const urgentNews = newsList.find((item) => item.isUrgent);
-const regularNews = newsList.filter((item) => !item.isUrgent);
+// 緊急お知らせ（is_urgent: true）と通常記事に分割
+const urgentNews = newsList.find((item) => item.is_urgent);
+const regularNews = newsList.filter((item) => !item.is_urgent);
 
 // カテゴリ文字列の正規化（文字列・オブジェクト・配列に対応）
 function normalizeCategory(rawCategory: any): string {
@@ -148,10 +145,10 @@ function getCategoryBadge(rawCategory: any) {
           <div class="p-3.5 bg-red-50/70 hover:bg-red-50 rounded-2xl border-2 border-red-200 shadow-xs transition flex flex-col sm:flex-row sm:items-center justify-between gap-2" data-pinned="true">
             <div class="flex items-center gap-3 min-w-0">
               <span class="text-xs font-mono font-bold text-red-500 shrink-0">
-                {urgentNews.publishedAt.slice(0, 10).replace(/-/g, ".")}
+                {(urgentNews.published_at ?? urgentNews.date_created).slice(0, 10).replace(/-/g, ".")}
               </span>
               <span class="text-[11px] font-black px-2 py-0.5 rounded bg-red-600 text-white shrink-0">
-                {urgentNews.badgeText || "緊急"}
+                {urgentNews.badge_text || "緊急"}
               </span>
               <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs sm:text-sm font-bold text-red-700 hover:underline break-words min-w-0">
                 {urgentNews.title} ➔
@@ -172,10 +169,10 @@ function getCategoryBadge(rawCategory: any) {
                 >
                   <div class="flex items-center gap-3 min-w-0">
                     <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
-                      {item.publishedAt.slice(0, 10).replace(/-/g, ".")}
+                      {(item.published_at ?? item.date_created).slice(0, 10).replace(/-/g, ".")}
                     </span>
                     <span class={`text-[11px] font-bold px-2 py-0.5 rounded shrink-0 ${badge.class}`}>
-                      {item.badgeText || badge.defaultText}
+                      {item.badge_text || badge.defaultText}
                     </span>
                     <a 
                       href={item.link || `/news/${item.id}`} 
